@@ -1,0 +1,20 @@
+{
+    "tasticType": "b2b/dashboard",
+    "name": "Business Unit dashboard",
+    "icon": "list",
+    "category": "Business unit",
+    "schema": [
+      {
+        "name": "Configuration",
+        "fields": [
+          {
+            "label": "Organization",
+            "field": "data",
+            "type": "dataSource",
+            "dataSourceType": "b2b/organization",
+            "required": true
+          }
+        ]
+      }
+    ]
+  }

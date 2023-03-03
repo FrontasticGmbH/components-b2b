@@ -1,0 +1,15 @@
+.popover {
+  &::after {
+    content: "";
+    @apply border-y-neutral-400 border-x-transparent;
+    position: absolute;
+    border-style: solid;
+    border-width: 0px 10px 10px;
+    display: block;
+    width: 0;
+    z-index: 1;
+    transform: translateX(-50%);
+    left: 50%;
+    top: -10px;
+  }
+}

@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "baseUrl": ".",
+        "paths": {
+            "@Types/*": [
+                "../types/types/*"
+            ],
+        },
+        "incremental": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./node_modules/@headlessui/react/dist/index.d.ts"
+        ],
+    },
+    "include": [
+        "."
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

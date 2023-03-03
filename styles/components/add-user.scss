@@ -1,0 +1,10 @@
+.add-user {
+    &__multiselect {
+        & .dropdown-container {
+            height: 48px;
+            & .dropdown-heading {
+                height: 48px;
+            }
+        }
+    }
+}

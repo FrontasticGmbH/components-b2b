@@ -1,0 +1,14 @@
+.ellipsis {
+  text-overflow: ellipsis;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.removed td {
+    text-decoration: line-through;
+}
+
+.added td {
+    @apply text-green-400;
+}

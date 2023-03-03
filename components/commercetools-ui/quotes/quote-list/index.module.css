@@ -1,0 +1,10 @@
+.trim {
+  text-overflow: ellipsis;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.row td {
+  @apply px-2 text-sm;
+}

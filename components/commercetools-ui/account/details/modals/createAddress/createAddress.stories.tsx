@@ -1,0 +1,23 @@
+import React from 'react';
+import { Story, Meta } from '@storybook/react';
+import CreateAddress, { CreateAddressProps } from './index';
+
+export default {
+  title: 'Frontastic/CreateAddress',
+  component: CreateAddress,
+  argTypes: {},
+} as Meta;
+
+const Template: Story<CreateAddressProps> = (args) => (
+  <CreateAddress
+    addAddress={() => true}
+    addressId="adrs-1"
+    onClose={() => console.log('Closed')}
+    open={true}
+    {...args}
+  />
+);
+
+export const Primary = Template.bind({});
+
+Primary.args = {};

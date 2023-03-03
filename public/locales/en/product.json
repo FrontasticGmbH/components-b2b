@@ -1,0 +1,22 @@
+{
+  "color": "Color",
+  "size": "Size",
+  "quantity": "Quantity",
+  "product.info": "Product information",
+  "product.desc": "Product description",
+  "bag.add": "Add to bag",
+  "details.additional": "Additional details",
+  "products": "Products",
+  "outOfStock": "Out of stock",
+  "price": "Price",
+  "sortAndFilter": "Sort & Filter",
+  "clear": "Clear",
+  "applyFilters": "Apply",
+  "sortBy": "Sort by",
+  "priceAsc": "Price (ascending)",
+  "priceDesc": "Price (descending)",
+  "noProductsFound": "No products found.",
+  "items": "Items out of ",
+  "product": "Product",
+  "product.view": "View product"
+}
