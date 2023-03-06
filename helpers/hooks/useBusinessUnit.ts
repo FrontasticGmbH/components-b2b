@@ -5,7 +5,7 @@ import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { ChannelResourceIdentifier } from '@Types/channel/channel';
 import { useAccount, useCart } from 'frontastic';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
-import { UseBusinessUnit } from 'frontastic/provider/frontastic/UseBusinessUnit';
+import { UseBusinessUnit } from 'frontastic/provider/Frontastic/UseBusinessUnit';
 import { createStore } from '../../frontastic/actions/stores';
 import { Order } from '@Types/cart/Order';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';

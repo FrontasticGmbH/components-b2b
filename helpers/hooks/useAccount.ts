@@ -5,7 +5,7 @@ import { REMEMBER_ME } from 'helpers/constants/localStorage';
 import useSWR, { mutate } from 'swr';
 import { revalidateOptions, useCart } from 'frontastic';
 import { fetchApiHub, ResponseError } from 'frontastic/lib/fetch-api-hub';
-import { UseAccount } from 'frontastic/provider/frontastic/UseAccount';
+import { UseAccount } from 'frontastic/provider/Frontastic/UseAccount';
 import { createStore } from '../../frontastic/actions/stores';
 
 export enum BusinessTypes {
