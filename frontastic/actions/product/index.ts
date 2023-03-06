@@ -1,7 +1,7 @@
 import { Category } from '@Types/product/Category';
 import { revalidateOptions } from 'frontastic';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
-import { ProductQueryResponse } from 'frontastic/provider/Frontastic/UseProducts';
+import { ProductQueryResponse } from 'frontastic/provider/frontastic/UseProducts';
 import useSWR, { mutate } from 'swr';
 
 export const query = async (search: string): Promise<ProductQueryResponse> => {
