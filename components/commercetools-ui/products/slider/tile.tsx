@@ -2,7 +2,7 @@
 import React from 'react';
 import NextLink from 'next/link';
 // eslint-disable-next-line import/no-unresolved
-import { Product } from '@Types/product/Product';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
 // eslint-disable-next-line import/no-unresolved
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 // eslint-disable-next-line import/no-unresolved

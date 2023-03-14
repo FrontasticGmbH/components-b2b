@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { ShippingMethod } from '@Types/cart/ShippingMethod';
+import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
 import toast from 'react-hot-toast';
 import Address from 'components/commercetools-ui/adyen-one-step-checkout/panels/address';
 import Checkout from 'components/commercetools-ui/adyen-one-step-checkout/panels/checkout';
@@ -33,7 +33,6 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
   const router = useRouter();
   const { formatMessage: formatCheckoutMessage } = useFormat({ name: 'checkout' });
   const containerRef = useRef();
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [disableSubmitButton, setDisableSubmitButton] = useState<boolean>(true);
   const [billingIsSameAsShipping, setBillingIsSameAsShipping] = useState<boolean>(true);
   const [currentShippingMethod, setCurrentShippingMethod] = useState<ShippingMethod>();
@@ -55,11 +54,7 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
     billingCountry: '',
   });
 
-  const changeStep = (stepIndex: number) => {
-    if (currentStepIndex > stepIndex) {
-      setCurrentStepIndex(stepIndex);
-    }
-  };
+  const [payment, setPayment] = useState<any>({});
 
   const toggleBillingAddressOption = () => {
     setBillingIsSameAsShipping(!billingIsSameAsShipping);
@@ -67,7 +62,7 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
 
   const handleOrder = async () => {
     setIsLoading(true);
-    await orderCart();
+    await orderCart(payment);
     setIsLoading(false);
     router.replace(
       {
@@ -80,37 +75,16 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
     );
   };
 
-  const generateStepTag = (index: number) => (
-    <div
-      className={`mx-auto flex h-10 w-10 items-center rounded-full text-lg  text-white ${
-        index == currentStepIndex ? `bg-green-500` : 'border-2 border-gray-200 bg-white'
-      }`}
-    >
-      <span className={`w-full text-center ${index == currentStepIndex ? `text-white` : 'text-gray-600'}`}>
-        {index + 1}
-      </span>
-    </div>
-  );
-
-  const goToTopOfPage = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const gotToNextStep = () => {
-    if (currentStepIndex == 0) {
-      updateCartData();
-    }
-
-    if (currentStepIndex == 2) {
-      handleOrder();
+  const submitCheckout = () => {
+    if (!payment?.poNumber) {
+      toast.error(
+        formatCheckoutMessage({
+          id: 'noPoNumber',
+          defaultMessage: 'Please enter a valid Purchase Order',
+        }),
+      );
       return;
     }
-
-    setCurrentStepIndex(currentStepIndex + 1);
-    goToTopOfPage();
-  };
-
-  const submitCheckout = () => {
     handleOrder();
     return;
   };
@@ -150,33 +124,6 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
     formatMessage({ id: 'ContinueAndPay', defaultMessage: 'Continue and pay' }),
   ];
 
-  const steps = [
-    {
-      name: formatMessage({ id: 'address', defaultMessage: 'Address' }),
-      component: (
-        <Address
-          data={data}
-          updateData={updateData}
-          billingIsSameAsShipping={billingIsSameAsShipping}
-          toggleBillingAddressOption={toggleBillingAddressOption}
-        />
-      ),
-    },
-    {
-      name: formatMessage({ id: 'shipping', defaultMessage: 'Shipping' }),
-      component: (
-        <Overview
-          shippingMethods={cartList?.availableShippingMethods}
-          currentShippingMethod={currentShippingMethod}
-          onSelectShippingMethod={updatecurrentShippingMethod}
-        />
-      ),
-    },
-    {
-      name: formatMessage({ id: 'payment', defaultMessage: 'Payment' }),
-      component: <Checkout />,
-    },
-  ];
   useEffect(() => {
     if (cartList?.origin === 'Quote') {
       setIsQuoteRequest(true);
@@ -237,11 +184,15 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
         />
       </div>
       <div className="sm:col-span-8 sm:p-6 lg:col-span-12 lg:mt-0 lg:p-8">
+        <h2>3. Payment</h2>
+        <Checkout onPaymentUpdate={setPayment} />
+      </div>
+      <div className="sm:col-span-8 sm:p-6 lg:col-span-12 lg:mt-0 lg:p-8">
         <OrderSummary
           cart={cartList}
           submitButtonLabel={submitButtonLabel[2]}
           disableSubmitButton={disableSubmitButton || isLoading}
-          showDiscountsForm={!isQuoteRequest && currentStepIndex < 2}
+          showDiscountsForm={!isQuoteRequest}
           showSubmitButton={true}
           submitLoading={isLoading}
           onSubmit={submitCheckout}

@@ -44,6 +44,18 @@
           "required": true
         }
       ]
-    }
+    },
+    {
+        "name": "Configuration",
+        "fields": [
+          {
+            "label": "Organization",
+            "field": "data",
+            "type": "dataSource",
+            "dataSourceType": "b2b/organization",
+            "required": true
+          }
+        ]
+      }
   ]
 }

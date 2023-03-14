@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
+import { Money } from '@commercetools/frontend-domain-types/product/Money';
 import { Disclosure } from '@headlessui/react';
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline';
-import { Category } from '@Types/product/Category';
-import { Money } from '@Types/product/Money';
-import { Product } from '@Types/product/Product';
-import { Variant } from '@Types/product/Variant';
+import { Category } from 'cofe-ct-b2b-ecommerce/types/product/Category';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
+import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
 import { StringHelpers } from 'helpers/stringHelpers';
 import { ImageGallery } from './image-gallery';
 import ProductDetailsBreadcrumbs from './product-details-breadcrumbs';

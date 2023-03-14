@@ -1,4 +1,4 @@
-import { Address } from '@Types/account/Address';
+import { Address } from '@commercetools/frontend-domain-types/account/Address';
 
 export const mapAddressToString = (address: Address): string => {
   const addressPieces = [

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { Facet } from '@commercetools/frontend-domain-types/result/Facet';
 import { Disclosure } from '@headlessui/react';
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid';
-import { Product } from '@Types/product/Product';
-import { Facet } from '@Types/result/Facet';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
 import { GiThermometerCold } from 'react-icons/gi';
 import { URLParam } from 'helpers/utils/updateURLParams';
 import { useProducts } from 'frontastic';
@@ -11,7 +11,7 @@ import { useProducts } from 'frontastic';
 type CategoriesDisclosureProps = {
   updateCategories: (params: URLParam[]) => void;
   products: Product[];
-  facets: Facet[];
+  facets: (Facet & { terms?: any[] })[];
 };
 
 const CategoriesDisclosure: React.FC<CategoriesDisclosureProps> = ({ updateCategories, products, facets }) => {

@@ -19,6 +19,8 @@ import {
   splitLineItem,
   replicateCart,
   returnItems,
+  reassignCart,
+  transitionOrderState,
 } from '../../actions/cart';
 import { query, getAttributeGroup, getCategories } from '../../actions/product';
 import { getMyQuoteRequests, getBusinessUserQuoteRequests, updateQuoteState } from '../../actions/quotes';
@@ -80,6 +82,8 @@ export const getFrontasticState = (): FrontasticState => {
       replicateCart,
       splitLineItem,
       returnItems,
+      reassignCart,
+      transitionOrderState,
     },
     useWishlist: {
       getWishlist,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Organization } from '@Types/organization/organization';
+import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useCart } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';

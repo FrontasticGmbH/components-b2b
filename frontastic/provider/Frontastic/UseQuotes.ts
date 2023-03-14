@@ -1,5 +1,5 @@
-import { QuoteRequest } from '@Types/quotes/QuoteRequest';
-import { Quote } from '@Types/quotes/Quote';
+import { QuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
+import { Quote } from 'cofe-ct-b2b-ecommerce/types/quotes/Quote';
 
 export interface UseQuotes {
   getMyQuoteRequests: () => Promise<QuoteRequest[]>;

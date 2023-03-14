@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Account } from '@Types/account/Account';
-import { Address } from '@Types/account/Address';
-import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { ChannelResourceIdentifier } from '@Types/channel/channel';
+import { Account } from '@commercetools/frontend-domain-types/account/Account';
+import { Address } from '@commercetools/frontend-domain-types/account/Address';
+import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
+import { ChannelResourceIdentifier } from 'cofe-ct-b2b-ecommerce/types/channel/channel';
 import { useAccount, useCart } from 'frontastic';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 import { UseBusinessUnit } from 'frontastic/provider/Frontastic/UseBusinessUnit';
 import { createStore } from '../../frontastic/actions/stores';
 import { Order } from '@Types/cart/Order';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
+import { BUSINESS_UNIT_CUSTOM_FILEDS, BUSINESS_UNIT_CUSTOM_TYPE } from 'helpers/customTypes';
 
 export const useBusinessUnit = (): UseBusinessUnit => {
   const [businessUnit, setBusinessUnit] = useState(null);
@@ -46,6 +47,10 @@ export const useBusinessUnit = (): UseBusinessUnit => {
       { method: 'POST' },
       { account, customer, store: null, parentBusinessUnit },
     );
+  };
+
+  const getSuperUserBusinessUnits = async (email: string): Promise<BusinessUnit[]> => {
+    return fetchApiHub(`/action/business-unit/getSuperUserBusinessUnits?email=${email}`, { method: 'GET' });
   };
 
   const getMyBusinessUnit = async () => {
@@ -89,9 +94,28 @@ export const useBusinessUnit = (): UseBusinessUnit => {
         actions: [
           {
             action: 'setCustomType',
-            type: { typeId: 'type', key: 'bu-custom-type' },
+            type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
             fields: {
-              budget: CurrencyHelpers.formatToMoney(value),
+              [BUSINESS_UNIT_CUSTOM_FILEDS.BUDGET]: CurrencyHelpers.formatToMoney(value),
+            },
+          },
+        ],
+        key,
+      },
+    );
+  };
+
+  const updateWorkflow = async (key: string, value: any): Promise<any> => {
+    return fetchApiHub(
+      `/action/business-unit/update`,
+      { method: 'POST' },
+      {
+        actions: [
+          {
+            action: 'setCustomType',
+            type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
+            fields: {
+              [BUSINESS_UNIT_CUSTOM_FILEDS.WORKFLOWS]: value,
             },
           },
         ],
@@ -145,7 +169,7 @@ export const useBusinessUnit = (): UseBusinessUnit => {
   };
 
   const getUser = async (id: string): Promise<Account> => {
-    return fetchApiHub(`/action/customer/getById?id=${id}`, { method: 'GET' });
+    return fetchApiHub(`/action/account/getById?id=${id}`, { method: 'GET' });
   };
 
   const getBusinessUnitOrders = async (keys: string[]): Promise<Order[]> => {
@@ -207,10 +231,12 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     createBusinessUnit,
     createBusinessUnitAndStore,
     getMyOrganization,
+    getSuperUserBusinessUnits,
     setMyBusinessUnit,
     removeBusinessUnit,
     setMyStore,
     updateName,
+    updateWorkflow,
     updateContactEmail,
     getOrders,
     getAllOrders,

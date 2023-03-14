@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
-import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
+import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
 import { useBusinessUnit } from 'helpers/hooks/useBusinessUnit';
 import { useBusinessUnitDetailsStateContext } from '../../provider';
 import DeleteBusinessUnit from './modals/DeleteBusinessUnit';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CheckIcon } from '@heroicons/react/solid';
-import { Product } from '@Types/product/Product';
-import { Variant } from '@Types/product/Variant';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
+import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import WishlistButton from 'components/commercetools-ui/wishlist-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';

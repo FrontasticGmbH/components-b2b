@@ -1,5 +1,5 @@
+import { UseUIState } from '../../frontastic/provider/UiState/UseUIState';
 import { useState } from 'react';
-import { UseUIState } from '@Types/hooks/UseUIState';
 
 export const useUI = (): UseUIState => {
   const [isFlyingCartOpen, setIsFlyingCartOpen] = useState(false);

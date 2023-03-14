@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react';
+import { Account } from '@commercetools/frontend-domain-types/account/Account';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
-import { Account } from '@Types/account/Account';
-import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { Organization } from '@Types/organization/organization';
+import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
+import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
 import Typography from 'components/commercetools-ui/typography';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';

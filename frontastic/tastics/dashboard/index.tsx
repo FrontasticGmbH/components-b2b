@@ -1,4 +1,4 @@
-import { Organization } from '@Types/organization/organization';
+import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
 import Dashboard from 'components/commercetools-ui/dashboard';
 import React from 'react';
 

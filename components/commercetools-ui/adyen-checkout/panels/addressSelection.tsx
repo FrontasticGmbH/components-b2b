@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Address } from '@Types/account/Address';
+import { Address } from '@commercetools/frontend-domain-types/account/Address';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { mapAddressToString } from 'helpers/utils/addressUtil';
 import { useAccount } from 'frontastic';

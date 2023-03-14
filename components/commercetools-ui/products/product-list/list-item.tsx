@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/react/solid';
-import { Product } from '@Types/product/Product';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import WishlistButton from 'components/commercetools-ui/wishlist-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
@@ -34,15 +34,11 @@ const ListItem: React.FC<Props> = ({ product, isPreview, previewURL }) => {
   };
 
   return (
-    <div className="my-10">
+    <div className="mb-16">
       <NextLink href={isPreview ? `${previewURL}${product._url}` : product._url}>
         <a className="group">
-          <div className="bg-white-200 aspect-w-1 aspect-h-1 m-auto w-2/3 rounded-lg transition-shadow hover:shadow-xl xl:aspect-w-7 xl:aspect-h-8">
-            <Image
-              src={product.variants[0].images[0]}
-              alt={product.name}
-              className="rounded-lg object-scale-down object-center"
-            />
+          <div className="bg-white-200 aspect-w-1 aspect-h-1 m-auto w-2/3 rounded-lg transition-shadow hover:shadow-xl xl:aspect-w-7 xl:aspect-h-4">
+            <Image src={product.variants[0].images[0]} alt={product.name} className="object-scale-down object-center" />
           </div>
           <h2 className="mt-10 mb-4 overflow-hidden truncate text-xl font-bold text-gray-700 dark:text-light-100">
             {product.name}

@@ -1,5 +1,5 @@
 import { countryOptions } from 'helpers/countryOptions';
-import { ShippingMethod } from '@Types/cart/ShippingMethod';
+import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
 
 const findDuplicates = (arr) => {
   return arr.filter((item, index) => index !== arr.indexOf(item));

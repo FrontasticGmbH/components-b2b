@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/solid';
+import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
+import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';
 import Redirect from 'helpers/redirect';
 import { Reference, ReferenceLink } from 'helpers/reference';
 import { useAccount } from 'frontastic';
 import Image, { NextFrontasticImage } from 'frontastic/lib/image';
+import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 
 export interface LoginProps {
   logo?: NextFrontasticImage;
@@ -19,10 +22,11 @@ const Login: React.FC<LoginProps> = ({ logo, registerLink, accountLink }) => {
   const { formatMessage } = useFormat({ name: 'common' });
 
   //account actions
-  const { login, loggedIn, resendVerificationEmail, requestPasswordReset } = useAccount();
+  const { login, loggedIn, resendVerificationEmail, requestPasswordReset, isSuperUser } = useAccount();
+  const { getSuperUserBusinessUnits } = useBusinessUnitStateContext();
 
   //login data
-  const [data, setData] = useState({ email: '', password: '', rememberMe: false });
+  const [data, setData] = useState({ email: '', password: '', rememberMe: false, businessUnitKey: '' });
 
   //error
   const [error, setError] = useState('');
@@ -32,12 +36,15 @@ const Login: React.FC<LoginProps> = ({ logo, registerLink, accountLink }) => {
 
   //processing...
   const [loading, setLoading] = useState(false);
+  const [isLoadingSuperUserBusinessUnits, setIsLoadingSuperUserBusinessUnits] = useState(false);
 
   //attempting to resend verification email
   const [resendVerification, setResendVerification] = useState(false);
 
   //attempting to request a password reset
   const [resendPasswordReset, setResendPasswordReset] = useState(false);
+
+  const [superUserBusinessUnits, setSuperUserBusinessUnits] = useState([]);
 
   //not on default login modal
   const subModal = resendVerification || resendPasswordReset;
@@ -61,7 +68,7 @@ const Login: React.FC<LoginProps> = ({ logo, registerLink, accountLink }) => {
   };
 
   //handle text input change
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
@@ -73,12 +80,16 @@ const Login: React.FC<LoginProps> = ({ logo, registerLink, accountLink }) => {
   //login user
   const loginUser = async () => {
     try {
-      const response = await login(data.email, data.password, data.rememberMe);
+      const response = await login(data.email, data.password, data.rememberMe, data.businessUnitKey);
       if (!response.accountId) {
         setError(formatErrorMessage({ id: 'auth.wrong', defaultMessage: 'Wrong email address or password' }));
       }
     } catch (err) {
-      setError(err.message);
+      if (err.message !== 'superuser') {
+        setError(err.message);
+      } else {
+        setError('Please login as Super User into an organization');
+      }
     }
   };
 
@@ -124,10 +135,20 @@ const Login: React.FC<LoginProps> = ({ logo, registerLink, accountLink }) => {
     //if user is attempting tor equest a password reset
     else if (resendPasswordReset) resendPasswordResetForUser();
     //if user wants to login
-    else loginUser();
+    else await loginUser();
     //processing ends
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (isSuperUser) {
+      setIsLoadingSuperUserBusinessUnits(true);
+      getSuperUserBusinessUnits(data.email)
+        .then((businessUnits) => setSuperUserBusinessUnits(businessUnits))
+        .catch((error) => setError(error.message))
+        .finally(() => setIsLoadingSuperUserBusinessUnits(false));
+    }
+  }, [isSuperUser]);
 
   if (loggedIn) return <Redirect target={accountLink} />;
 
@@ -190,6 +211,33 @@ const Login: React.FC<LoginProps> = ({ logo, registerLink, accountLink }) => {
                 </div>
               )}
 
+              {isSuperUser && !isLoadingSuperUserBusinessUnits && !!superUserBusinessUnits.length && (
+                <div>
+                  <label
+                    htmlFor="businessUnitKey"
+                    className="block text-sm font-medium text-gray-700 dark:text-light-100"
+                  >
+                    Organization
+                  </label>
+                  <div className="mt-1">
+                    <select
+                      id="businessUnitKey"
+                      name="businessUnitKey"
+                      required
+                      className="input input-primary"
+                      onChange={handleChange}
+                    >
+                      <option value={null}></option>
+                      {superUserBusinessUnits.map((bu: BusinessUnit) => (
+                        <option key={bu.key} value={bu.key}>
+                          {bu.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              )}
+
               {subModal ? (
                 <div>
                   <ArrowLeftIcon
@@ -244,9 +292,14 @@ const Login: React.FC<LoginProps> = ({ logo, registerLink, accountLink }) => {
                   className="flex w-full justify-center rounded-md border border-transparent bg-accent-400 py-2 px-4 text-sm font-medium text-white shadow-sm transition-colors duration-200 ease-out hover:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 disabled:bg-gray-200"
                   disabled={loading}
                 >
-                  {resendVerification
-                    ? formatMessage({ id: 'submit', defaultMessage: 'Submit' })
-                    : formatAccountMessage({ id: 'sign.in', defaultMessage: 'Sign in' })}
+                  <div className="flex flex-row items-center">
+                    <span>
+                      {resendVerification
+                        ? formatMessage({ id: 'submit', defaultMessage: 'Submit' })
+                        : formatAccountMessage({ id: 'sign.in', defaultMessage: 'Sign in' })}
+                    </span>
+                    {loading && <LoadingIcon className="h-4 w-4 animate-spin" />}
+                  </div>
                 </button>
               </div>
             </form>

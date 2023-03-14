@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Category } from '@Types/product/Category';
+import { Category } from 'cofe-ct-b2b-ecommerce/types/product/Category';
 import Breadcrumb from 'components/commercetools-ui/breadcrumb';
 
 type Props = {

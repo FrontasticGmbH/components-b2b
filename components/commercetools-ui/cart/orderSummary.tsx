@@ -1,7 +1,8 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Cart } from '@Types/cart/Cart';
 import { LineItem } from '@Types/cart/LineItem';
+import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
 import { useTranslation, Trans } from 'react-i18next';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useFormat } from 'helpers/hooks/useFormat';
@@ -10,6 +11,7 @@ import { getBundledPrice } from 'helpers/utils/subscribedItems';
 import { useCart } from 'frontastic';
 import DiscountForm from '../discount-form';
 import { LoadingIcon } from '../icons/loading';
+import ReassignCartButton from './reassignCartButton';
 
 interface Props {
   readonly cart: Cart;
@@ -24,6 +26,7 @@ interface Props {
   cancellationLink?: Reference;
   privacyLink?: Reference;
   submitLoading?: boolean;
+  organization?: Organization;
 }
 
 const OrderSummary = ({
@@ -39,6 +42,7 @@ const OrderSummary = ({
   currentStep,
   isQuoteRequestDisabled,
   submitLoading,
+  organization,
 }: Props) => {
   //i18n messages
   const { formatMessage: formatCartMessage } = useFormat({ name: 'cart' });
@@ -232,6 +236,7 @@ const OrderSummary = ({
                 {submitButtonLabel || formatCartMessage({ id: 'checkout', defaultMessage: 'Checkout' })}
                 {submitLoading && <LoadingIcon className="ml-2 h-4 w-4 animate-spin" />}
               </button>
+              <ReassignCartButton organization={organization} className="mt-4" />
               {currentStep === 'cart' && !isQuoteRequestDisabled && (
                 <button className="mt-4" type="button" onClick={handleQuoteRequest}>
                   {formatCartMessage({ id: 'create-quote-question', defaultMessage: 'Request quote' })}

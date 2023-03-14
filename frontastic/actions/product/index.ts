@@ -1,4 +1,4 @@
-import { Category } from '@Types/product/Category';
+import { Category } from 'cofe-ct-b2b-ecommerce/types/product/Category';
 import { revalidateOptions } from 'frontastic';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 import { ProductQueryResponse } from 'frontastic/provider/Frontastic/UseProducts';

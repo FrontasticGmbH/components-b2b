@@ -48,6 +48,12 @@ export const WIDGETS = [
     layout: { i: 'OrderList', x: 0, y: 0, w: 12, h: 3 },
   },
   {
+    name: 'Orders waiting for review',
+    component: () => import(`./OrdersUnderReview`),
+    id: 'OrdersUnderReview',
+    layout: { i: 'OrdersUnderReview', x: 0, y: 0, w: 12, h: 2 },
+  },
+  {
     name: 'Company Purchases',
     component: () => import(`./CompanyPurchased`),
     id: 'CompanyPurchased',

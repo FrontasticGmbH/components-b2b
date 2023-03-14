@@ -1,4 +1,4 @@
-import { Wishlist, WishlistDraft } from '@Types/wishlist/Wishlist';
+import { Wishlist, WishlistDraft } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
 
 export interface UseWishlist {
   getStoreWishlists: () => Promise<Wishlist[]>;

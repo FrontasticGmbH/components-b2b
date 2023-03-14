@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CheckIcon } from '@heroicons/react/solid';
-import { Product } from '@Types/product/Product';
-import { Variant } from '@Types/product/Variant';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
+import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { StringHelpers } from 'helpers/stringHelpers';
@@ -142,13 +142,20 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
     }
   }, [added]);
 
+  // Hack - we have different attr names in different product types, so removing the 'text' prefix.
+  // TODO:  The proper fix is to use the attr's display name from the product type
+  const attrDisplayName = (name) => {
+    if (name.startsWith('text')) {
+      name = name.substring(4);
+    }
+    return StringHelpers.capitaliseFirstLetter(name);
+  };
+
   return (
     <div className={`rounded-md border-2 px-4 py-1 ${className}`}>
       <div className="mb-4 flex flex-row justify-between border-b-2 pb-4">
         <div className=" basis-2/3">
-          <span className="text-lg font-semibold text-black">{`${StringHelpers.capitaliseFirstLetter(
-            variantSelectors[0],
-          )}: `}</span>
+          <span className="text-lg font-semibold text-black">{`${attrDisplayName(variantSelectors[0])}: `}</span>
           <SingleVariantSelector
             variantSelector={variantSelectors[0]}
             product={product}
@@ -175,7 +182,7 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
               <div key={item.variant.sku} className="flex flex-row">
                 <div className="flex basis-1/2 flex-col">
                   <p className="text-lg font-semibold text-black">
-                    {`${StringHelpers.capitaliseFirstLetter(variantSelectors[1])}: ${getAttributeValue(
+                    {`${attrDisplayName(variantSelectors[1])}: ${getAttributeValue(
                       item.variant.attributes,
                       variantSelectors[1],
                     )}`}

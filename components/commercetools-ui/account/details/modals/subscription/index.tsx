@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { Account } from '@commercetools/frontend-domain-types/account/Account';
+import { Address as AddressType } from '@commercetools/frontend-domain-types/account/Address';
 import { Transition, Dialog } from '@headlessui/react';
-import { Account } from '@Types/account/Account';
-import { Address as AddressType } from '@Types/account/Address';
 import { Cart } from '@Types/cart/Cart';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { getSelectedSubscriptionLabel } from 'helpers/utils/subscribedItems';

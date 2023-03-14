@@ -1,9 +1,9 @@
-import { Account } from '@Types/account/Account';
-import { Address } from '@Types/account/Address';
+import { Account } from '@commercetools/frontend-domain-types/account/Account';
+import { Address } from '@commercetools/frontend-domain-types/account/Address';
 import { GetAccountResult, RegisterAccount, UpdateAccount } from 'helpers/hooks/useAccount';
 
 export interface UseAccount extends GetAccountResult {
-  login: (email: string, password: string, remember?: boolean) => Promise<Account>;
+  login: (email: string, password: string, remember?: boolean, businessUnitKet?: string) => Promise<Account>;
   logout: () => Promise<void>;
   register: (account: RegisterAccount) => Promise<Account>;
   create: (account: RegisterAccount) => Promise<Account>;

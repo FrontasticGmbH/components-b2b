@@ -58,7 +58,7 @@ const OrderDetailsModal: React.FC<Props> = ({ open, onClose, order }) => {
                         Order details
                       </h2>
                     </div>
-                    <OrderDetails order={order} />
+                    <OrderDetails order={order} onClose={onClose} />
                   </div>
                 </div>
               </div>

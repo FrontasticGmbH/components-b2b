@@ -2,13 +2,17 @@
 import React, { useState } from 'react';
 import { EyeIcon } from '@heroicons/react/outline';
 import { LineItem } from '@Types/cart/LineItem';
-import { QuoteRequest } from '@Types/quotes/QuoteRequest';
+import { QuoteRequest as B2BQuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import QuoteDetails from '../details';
 import styles from './index.module.css';
 
 interface Props {
   quoteRequestList: QuoteRequest[];
+}
+
+interface QuoteRequest extends B2BQuoteRequest {
+  highlight?: boolean;
 }
 
 const QuoteList: React.FC<Props> = ({ quoteRequestList }) => {
@@ -43,7 +47,7 @@ const QuoteList: React.FC<Props> = ({ quoteRequestList }) => {
           </tr>
         </thead>
         <tbody>
-          {quoteRequestList.map((quote) => (
+          {quoteRequestList.map((quote: QuoteRequest) => (
             <tr className={`${styles.row} ${quote.highlight && 'highlight'}`} key={quote.id}>
               <td>{new Date(quote.createdAt).toLocaleString()}</td>
               {/* @ts-ignore */}

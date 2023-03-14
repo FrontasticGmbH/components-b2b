@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Product } from '@Types/product/Product';
-import { Facet } from '@Types/result/Facet';
-import { RangeFacet } from '@Types/result/RangeFacet';
+import { Facet } from '@commercetools/frontend-domain-types/result/Facet';
+import { RangeFacet } from '@commercetools/frontend-domain-types/result/RangeFacet';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
 import { TwoThumbInputRange } from 'react-two-thumb-input-range';
 import { URLParam } from 'helpers/utils/updateURLParams';
 

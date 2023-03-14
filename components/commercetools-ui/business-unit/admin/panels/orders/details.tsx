@@ -6,16 +6,31 @@ import OrderReturns from 'components/commercetools-ui/account/details/sections/o
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import InvoiceButton from 'components/commercetools-ui/invoice-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
+import { useCart } from 'frontastic';
+import { useBusinessUnitDetailsStateContext } from '../../provider';
 import ReorderModal from './reorder-modal';
 import OrderReturnModal from './return-modal';
 
 interface Props {
   order: Order;
+  onClose?: () => void;
 }
 
-const OrderDetails: React.FC<Props> = ({ order }) => {
+const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
   const [isReturnModalOpen, setIsReturnModalOpen] = useState(false);
   const [isReorderModalOpen, setIsReorderModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { transitionOrderState } = useCart();
+  const { reloadTree } = useBusinessUnitDetailsStateContext();
+
+  const handleUpdateOrderState = async (state: string) => {
+    setIsLoading(true);
+    await transitionOrderState(order.orderId, state);
+    setIsLoading(false);
+    reloadTree();
+    onClose();
+  };
 
   if (!order) {
     return null;
@@ -36,7 +51,7 @@ const OrderDetails: React.FC<Props> = ({ order }) => {
             <dt className="font-medium text-gray-900">Total amount</dt>
             <dd className="mb-4 sm:mt-1">{CurrencyHelpers.formatForCurrency(order.sum.centAmount)}</dd>
             <dt className="font-medium text-gray-900">Order status</dt>
-            <dd className="mb-4 sm:mt-1">{order.orderState}</dd>
+            <dd className="mb-4 sm:mt-1">{order.state?.name || order.orderState}</dd>
           </div>
           <div className="flex pt-6 sm:block sm:pt-0">
             <dt className="font-medium text-gray-900">Order date</dt>
@@ -49,6 +64,18 @@ const OrderDetails: React.FC<Props> = ({ order }) => {
             <dd className="mb-4 sm:mt-1">{order.shippingInfo?.name || 'N/A'}</dd>
           </div>
           <div className="flex pt-6 sm:block sm:pt-0">
+            {order.origin === 'Merchant' && (
+              <>
+                <dt className="font-medium text-gray-900">Order initiated/placed by</dt>
+                <dd className="mb-4 sm:mt-1">Superuser</dd>
+              </>
+            )}
+            {order.purchaseOrderNumber && (
+              <>
+                <dt className="font-medium text-gray-900">Purchase order number</dt>
+                <dd className="mb-4 sm:mt-1">{order.purchaseOrderNumber}</dd>
+              </>
+            )}
             <div className="flex flex-row">
               <DuplicateIcon className="mr-2 mt-1 h-4 w-4" />
               <button
@@ -95,6 +122,24 @@ const OrderDetails: React.FC<Props> = ({ order }) => {
         <OrderReturns lineItems={order.lineItems} returnInfo={order.returnInfo} className="mt-4" />
       )}
       <OrderItems lineItems={order.lineItems}></OrderItems>
+      {order.state?.key === 'review' && (
+        <div className="mx-auto mt-20 max-w-[800px]">
+          <h3 className="text-center text-lg font-semibold">Do you approve this order?</h3>
+          <div className="flex flex-row justify-between px-32">
+            <button
+              className="button button-secondary flex flex-row"
+              onClick={() => handleUpdateOrderState('rejected')}
+            >
+              {!isLoading && <span>Reject</span>}
+              {isLoading && <LoadingIcon className="ml-4 h-6 w-6 animate-spin" />}
+            </button>
+            <button className="button button-primary flex flex-row" onClick={() => handleUpdateOrderState('finished')}>
+              {!isLoading && <span>Accept</span>}
+              {isLoading && <LoadingIcon className="ml-4 h-6 w-6 animate-spin" />}
+            </button>
+          </div>
+        </div>
+      )}
       {isReturnModalOpen && (
         <OrderReturnModal onClose={() => setIsReturnModalOpen(false)} open={isReturnModalOpen} order={order} />
       )}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
+import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
 import useHash from 'helpers/hooks/useHash';
 import { Reference } from 'helpers/reference';
 import PersonalLists from './personalLists';

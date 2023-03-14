@@ -1,5 +1,5 @@
 import React from 'react';
-import { Variant } from '@Types/product/Variant';
+import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
 import KeyValueSelector from './key-value-selector';
 import TextSelector from './text-selector';
 

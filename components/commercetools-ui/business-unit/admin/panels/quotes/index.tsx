@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { QuoteRequest } from '@Types/quotes/QuoteRequest';
+import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
+import { QuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import QuoteList from 'components/commercetools-ui/quotes/quote-list';
 import useFilters from 'helpers/hooks/useFilters';

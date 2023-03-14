@@ -1,11 +1,11 @@
-import { QuoteRequest } from '@Types/quotes/QuoteRequest';
-import { Address } from '@Types/account/Address';
+import { QuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
+import { Address } from '@commercetools/frontend-domain-types/account/Address';
 import { Cart } from '@Types/cart/Cart';
-import { Discount } from '@Types/cart/Discount';
-import { Variant } from '@Types/product/Variant';
+import { Discount } from '@commercetools/frontend-domain-types/cart/Discount';
+import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
 import useSWR, { mutate } from 'swr';
 import { fetchApiHub, revalidateOptions } from 'frontastic';
-import { LineItemReturnItemDraft } from '@Types/cart/LineItem';
+import { LineItemReturnItemDraft } from 'cofe-ct-b2b-ecommerce/types/cart/LineItem';
 import { Order } from '@Types/cart/Order';
 import { bundleItems } from 'helpers/utils/subscribedItems';
 
@@ -34,6 +34,15 @@ export const getCart = async () => {
   } catch {
     mutate('/action/cart/getCart', undefined);
   }
+};
+
+export const reassignCart = async (customerId: string) => {
+  try {
+    await fetchApiHub(`/action/cart/reassignCart?customerId=${customerId}`, { method: 'POST' });
+  } catch {
+    console.log('cannot reassign cart');
+  }
+  mutate('/action/cart/getCart', undefined);
 };
 
 export const addItem = async (variant: Variant, quantity: number, subscriptions?: Variant[]) => {
@@ -77,10 +86,14 @@ export const addItems = async (lineItems: any[], subscriptions?: { sku?: string;
   return res;
 };
 
-export const orderCart = async () => {
-  const res = await fetchApiHub('/action/cart/checkout', {
-    method: 'POST',
-  });
+export const orderCart = async (payload?: any) => {
+  const res = await fetchApiHub(
+    '/action/cart/checkout',
+    {
+      method: 'POST',
+    },
+    { payload },
+  );
   mutate('/action/cart/getCart', res);
 };
 
@@ -174,7 +187,7 @@ export const setShippingMethod = async (shippingMethodId: string) => {
   };
 
   const res = await fetchApiHub(
-    `/action/cart/setShippingMethod?shippingMethodId=${shippingMethodId}`,
+    `/action/cart/setShippingMethod`,
     {
       headers: {
         accept: 'application/json',
@@ -230,6 +243,15 @@ export const createQuoteRequestFromCurrentCart = async (comment: string): Promis
 export const returnItems = async (orderNumber: string, returnLineItems: LineItemReturnItemDraft[]): Promise<Order> => {
   try {
     const res = fetchApiHub('/action/cart/returnItems', { method: 'POST' }, { orderNumber, returnLineItems });
+    return res;
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const transitionOrderState = async (orderNumber: string, stateKey: string): Promise<Order> => {
+  try {
+    const res = fetchApiHub('/action/cart/transitionOrderState', { method: 'POST' }, { orderNumber, stateKey });
     return res;
   } catch (e) {
     throw e;

@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Product } from '@Types/product/Product';
-import { Facet } from '@Types/result/Facet';
+import { Facet } from '@commercetools/frontend-domain-types/result/Facet';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { updateURLParams, URLParam } from 'helpers/utils/updateURLParams';
 import AvailabilityFilterDisclosure from './AvailabilityFilterDisclosure';

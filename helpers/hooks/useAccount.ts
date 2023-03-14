@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Account } from '@Types/account/Account';
-import { Address } from '@Types/account/Address';
+import { Account } from '@commercetools/frontend-domain-types/account/Account';
+import { Address } from '@commercetools/frontend-domain-types/account/Address';
 import { REMEMBER_ME } from 'helpers/constants/localStorage';
 import useSWR, { mutate } from 'swr';
 import { revalidateOptions, useCart } from 'frontastic';
@@ -22,6 +22,7 @@ const BusinessTypeToCategoryMap = {
 
 export interface GetAccountResult {
   loggedIn: boolean;
+  isSuperUser?: boolean;
   account?: Account;
   error?: ResponseError;
 }
@@ -47,6 +48,7 @@ export interface RegisterAccount extends UpdateAccount {
 
 export const useAccount = (): UseAccount => {
   const [account, setAccount] = useState<Account>(null);
+  const [isSuperUser, setIsSuperUser] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   const { getShippingMethods } = useCart();
@@ -68,10 +70,16 @@ export const useAccount = (): UseAccount => {
     }
   }, [data]);
 
-  const login = async (email: string, password: string, remember?: boolean): Promise<Account> => {
+  const login = async (
+    email: string,
+    password: string,
+    remember?: boolean,
+    businessUnitKey?: string,
+  ): Promise<Account> => {
     const payload = {
       email,
       password,
+      businessUnitKey,
     };
     if (remember) window.localStorage.setItem(REMEMBER_ME, '1');
     try {
@@ -80,12 +88,16 @@ export const useAccount = (): UseAccount => {
       await getShippingMethods();
       return res;
     } catch (e) {
+      if (e.message === 'superuser') {
+        setIsSuperUser(true);
+      }
       throw e;
     }
   };
 
   const logout = async () => {
     window.localStorage.removeItem(REMEMBER_ME);
+    setIsSuperUser(false);
     const res = await fetchApiHub('/action/account/logout', { method: 'POST' });
     await mutate('/action/account/getAccount', res);
   };
@@ -137,7 +149,7 @@ export const useAccount = (): UseAccount => {
       password,
       host,
     };
-    const res = await fetchApiHub('/action/account/resendVerificationEmail', { method: 'POST' }, payload);
+    const res = await fetchApiHub('/action/account/requestConfirmationEmail', { method: 'POST' }, payload);
     return res;
   };
 
@@ -224,5 +236,6 @@ export const useAccount = (): UseAccount => {
     account,
     error,
     loggedIn,
+    isSuperUser,
   };
 };

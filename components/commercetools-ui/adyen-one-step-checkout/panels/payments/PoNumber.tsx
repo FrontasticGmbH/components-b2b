@@ -1,7 +1,10 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useFormat } from 'helpers/hooks/useFormat';
 
-const PoNumber: React.FC = () => {
+interface Props {
+  onPaymentUpdate: (payload: { poNumber: string }) => void;
+}
+const PoNumber: React.FC<Props> = ({ onPaymentUpdate }) => {
   const { formatMessage } = useFormat({ name: 'checkout' });
 
   const [data, setData] = useState({
@@ -17,8 +20,12 @@ const PoNumber: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    onPaymentUpdate({ poNumber: data.poNumber });
+  }, [data]);
+
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()}>
       <div className="mt-4">
         <p className="text-sm text-gray-500">
           {formatMessage({

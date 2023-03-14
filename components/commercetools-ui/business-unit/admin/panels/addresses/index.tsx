@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react';
+import { Address } from '@commercetools/frontend-domain-types/account/Address';
 import { PencilAltIcon, XIcon } from '@heroicons/react/solid';
-import { Address } from '@Types/account/Address';
 import CreateAddress from 'components/commercetools-ui/account/details/modals/createAddress';
 import UpdateAddress from 'components/commercetools-ui/account/details/modals/updateAddress';
 import { useFormat } from 'helpers/hooks/useFormat';
@@ -79,6 +80,7 @@ const AddressesPanel: React.FC = () => {
           <tbody>
             {!!businessUnit.addresses.length &&
               businessUnit.addresses.map((address) => (
+                // @ts-ignore
                 <tr key={address.id}>
                   <td>{`${address.firstName} ${address.lastName}`}</td>
                   <td>{`${address.streetNumber} ${address.streetName}`}</td>

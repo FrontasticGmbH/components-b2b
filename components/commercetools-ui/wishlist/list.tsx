@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Variant } from '@Types/product/Variant';
-import { LineItem } from '@Types/wishlist/LineItem';
+import { LineItem } from '@commercetools/frontend-domain-types/wishlist/LineItem';
+import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
 import { DateHelpers } from 'helpers/dateHelpers';
 import { useFormat } from 'helpers/hooks/useFormat';
 import useMediaQuery from 'helpers/hooks/useMediaQuery';

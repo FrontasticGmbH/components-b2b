@@ -1,4 +1,4 @@
-import { Money } from '@Types/product/Money';
+import { Money } from '@commercetools/frontend-domain-types/product/Money';
 import { Log } from './errorLogger';
 import { StringHelpers } from './stringHelpers';
 

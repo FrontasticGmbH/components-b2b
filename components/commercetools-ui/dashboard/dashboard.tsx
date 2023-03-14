@@ -1,6 +1,6 @@
 import React, { Suspense, useCallback, useMemo } from 'react';
-import { Organization } from '@Types/organization/organization';
 import { Widget, WidgetLayout } from '@Types/widget/Widget';
+import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
 import GridLayout from 'react-grid-layout';
 import { LoadingIcon } from '../icons/loading';
 import { useDashboardStateContext } from './provider';

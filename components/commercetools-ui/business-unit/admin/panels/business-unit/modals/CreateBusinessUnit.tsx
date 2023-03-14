@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
+import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useAccount } from 'helpers/hooks/useAccount';
 import { useBusinessUnit } from 'helpers/hooks/useBusinessUnit';

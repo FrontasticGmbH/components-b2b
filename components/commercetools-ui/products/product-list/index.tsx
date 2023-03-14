@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NextLink from 'next/link';
-import { Product } from '@Types/product/Product';
-import { Facet } from '@Types/result/Facet';
+import { Facet } from '@commercetools/frontend-domain-types/result/Facet';
+import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
 import Breadcrumb from 'components/commercetools-ui/breadcrumb';
 import Filters from 'components/commercetools-ui/filters';
 import FilterIcon from 'components/icons/filter';
@@ -60,44 +60,49 @@ export default function ProductList({
   }, [previousCursor, nextCursor]);
 
   return (
-    <div className="mt-10 px-1 sm:px-3 lg:px-6">
+    <div className="mt-4 px-1 sm:px-3 lg:px-6">
       {category && <Breadcrumb Separator="/">{category.split('/').filter((item) => !!item)}</Breadcrumb>}
       {isPreview && (
         <span className="mt-2 inline-block rounded-sm bg-orange-300 p-2 text-sm font-light text-white">
           Displaying products in preview/staging mode.
         </span>
       )}
-      <div className="mt-8 gap-16 lg:grid lg:grid-cols-3">
-        {isFiltering ? (
-          <button onClick={toggleFiltering} className="w-full py-2">
-            <div className="flex justify-between">
-              <h6 className="text-base font-bold text-neutral-700 dark:text-light-100">
-                {formatProductMessage({ id: 'sortAndFilter', defaultMessage: 'Sort & Filter' })}
-              </h6>
-              <CloseIcon className="h-6 w-5 fill-neutral-700 dark:fill-light-100" />
-            </div>
-          </button>
-        ) : (
-          <button onClick={toggleFiltering} className="flex w-full justify-between py-2">
-            <div className="flex gap-1">
-              <FilterIcon className="h-6 w-5 fill-neutral-700 dark:fill-light-100" />
-              <h6 className="text-base font-bold text-neutral-700 dark:text-light-100">
-                {formatProductMessage({ id: 'sortAndFilter', defaultMessage: 'Sort & Filter' })}
-              </h6>
-            </div>
-
-            <h6 className="col-span-3 block text-right dark:text-light-100 lg:hidden">
-              {`${products?.length} ${formatProductMessage({ id: 'items', defaultMessage: 'Items' })}`}
-            </h6>
-          </button>
-        )}
+      <div>
         <h6 className="col-span-3 hidden text-right dark:text-light-100 lg:block">
           {`${products?.length} ${formatProductMessage({ id: 'items', defaultMessage: 'Items' })} ${totalProducts}`}
         </h6>
       </div>
+      <div className="lg:grid lg:grid-cols-2">
+        {isFiltering ? (
+          <div>
+            <button onClick={toggleFiltering} className="py-2">
+              <div className="flex justify-center">
+                <h6 className="text-base font-bold text-neutral-700 dark:text-light-100">
+                  {formatProductMessage({ id: 'sortAndFilter', defaultMessage: 'Sort & Filter' })}
+                </h6>
+              </div>
+            </button>
+          </div>
+        ) : (
+          <div>
+            <button onClick={toggleFiltering} className="flex w-full justify-between py-2">
+              <div className="flex gap-1">
+                <FilterIcon className="h-6 w-5 fill-neutral-700 dark:fill-light-100" />
+                <h6 className="text-base font-bold text-neutral-700 dark:text-light-100">
+                  {formatProductMessage({ id: 'sortAndFilter', defaultMessage: 'Sort & Filter' })}
+                </h6>
+              </div>
+
+              <h6 className="col-span-3 block text-right dark:text-light-100 lg:hidden">
+                {`${products?.length} ${formatProductMessage({ id: 'items', defaultMessage: 'Items' })}`}
+              </h6>
+            </button>
+          </div>
+        )}
+      </div>
 
       {isFiltering ? (
-        <div className="mt-2 grid gap-16 lg:grid-cols-4">
+        <div className="mt-2 grid lg:grid-cols-4">
           <div className="">
             <Filters facets={facets} products={products} />
           </div>

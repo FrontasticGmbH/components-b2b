@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Variant } from '@Types/product/Variant';
-import { LineItem } from '@Types/wishlist/LineItem';
-import { Wishlist } from '@Types/wishlist/Wishlist';
+import { LineItem } from '@commercetools/frontend-domain-types/wishlist/LineItem';
+import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Wishlist } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
 import { useCart } from 'frontastic';
 const useLists = (getWishlists: () => Promise<Wishlist[]>) => {
   const { addItems } = useCart();

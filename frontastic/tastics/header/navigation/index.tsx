@@ -32,14 +32,14 @@ const NavigationTastic: React.FC<Props> = ({ data }) => {
           <div className="flex h-full items-end space-x-8">
             {navigation.categories.map((category, categoryIdx) => (
               <React.Fragment key={category.slug}>
-                {!category.children?.length && (
+                {!category.subCategories?.length && (
                   <NextLink href={category.slug}>
                     <a className={`${data.textColor} text-md px-2  py-2 font-semibold`}>
                       <Typography>{category.name}</Typography>
                     </a>
                   </NextLink>
                 )}
-                {!!category.children?.length && (
+                {!!category.subCategories?.length && (
                   <Popover className="flex">
                     {({ open }) => (
                       <>

@@ -1,7 +1,8 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/router';
+import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
 import { Cart as CartType } from '@Types/cart/Cart';
-import { ShippingMethod } from '@Types/cart/ShippingMethod';
+import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference } from 'helpers/reference';
 import { NextFrontasticImage } from 'frontastic/lib/image';
@@ -21,6 +22,7 @@ export interface Props {
   editItemQuantity: (lineItemId: string, newQuantity: number) => Promise<void>;
   removeItem: (lineItemId: string) => void;
   shippingMethods: ShippingMethod[];
+  organization?: Organization;
 }
 
 const Cart = ({
@@ -33,6 +35,7 @@ const Cart = ({
   emptyStateSubtitle,
   emptyStateCTALabel,
   emptyStateCTALink,
+  organization,
 }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [isQuoteRequestDisabled, setIsQuoteRequestDisabled] = useState(false);
@@ -102,6 +105,7 @@ const Cart = ({
             className="mb-8 lg:col-span-8"
           />
           <OrderSummary
+            organization={organization}
             cart={cart}
             submitButtonLabel={cart.isPreBuyCart && 'Pre order'}
             onSubmit={onCheckout}

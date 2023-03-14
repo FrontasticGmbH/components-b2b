@@ -11,11 +11,15 @@ const options = [
   },
 ];
 
-const Checkout: React.FC = () => {
+interface Props {
+  onPaymentUpdate: (payload: any) => void;
+}
+
+const Checkout: React.FC<Props> = ({ onPaymentUpdate }) => {
   const { formatMessage } = useFormat({ name: 'checkout' });
 
   const paymentMapToComponent = {
-    'po-number': <PoNumber />,
+    'po-number': <PoNumber onPaymentUpdate={onPaymentUpdate} />,
   };
 
   const [PaymentMethodComponent, setPaymentMethodComponent] = useState<React.FC>(

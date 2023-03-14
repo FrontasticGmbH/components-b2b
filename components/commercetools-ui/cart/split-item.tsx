@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { LineItem } from '@Types/cart/LineItem';
@@ -67,6 +68,7 @@ const SplitItemModal: React.FC<Props> = ({ open, lineItem, onClose }) => {
 
       setData(
         businessUnit.addresses.map((address) => {
+          // @ts-ignore
           const targetIndex = targets.findIndex((target) => target.addressKey === address.id);
           if (targetIndex === -1) {
             return {

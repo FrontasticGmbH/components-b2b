@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { LineItem } from '@Types/cart/LineItem';
-import { Variant } from '@Types/product/Variant';
+import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
 
 export const SUBSCRIPTION_ATTRIBUTE_NAME = 'subscriptions';
 

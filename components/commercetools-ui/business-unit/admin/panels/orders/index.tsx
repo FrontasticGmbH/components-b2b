@@ -36,6 +36,24 @@ const OrdersPanel = () => {
         value: false,
         predicate: (order: Order) => order.returnInfo?.length > 0,
       },
+      {
+        label: 'Initiated/Created by Super User',
+        key: 'superuser-orders',
+        value: false,
+        predicate: (order: Order) => order.origin === 'Merchant',
+      },
+      {
+        label: 'Under Review',
+        key: 'review-orders',
+        value: false,
+        predicate: (order: Order) => order.state?.key === 'review',
+      },
+      {
+        label: 'Rejected',
+        key: 'rejected-orders',
+        value: false,
+        predicate: (order: Order) => order.state?.key === 'rejected',
+      },
     ],
     orderList,
   );
@@ -96,9 +114,7 @@ const OrdersPanel = () => {
           <div>
             <div className="mb-4 border-y-2 py-2">
               <p className="mb-2">Filters</p>
-              <div className="flex flex-row flex-wrap">
-                <FiltersUI />
-              </div>
+              <FiltersUI className="flex flex-row flex-wrap" />
             </div>
             <OrderList orders={filteredItems} />
           </div>
