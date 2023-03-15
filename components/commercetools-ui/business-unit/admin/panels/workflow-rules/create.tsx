@@ -204,7 +204,7 @@ const NewWorkflowModal: React.FC<Props> = ({ onClose, onSave, open }) => {
               <div className="absolute inset-0" onClick={onClose}>
                 {/* eslint-disable */}
                 <div
-                  className="absolute top-1/2 left-1/2 max-h-[60vh] w-[40%] max-w-[1200px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-white py-8 px-4 dark:bg-primary-200 sm:px-6 lg:py-12 lg:px-8"
+                  className="absolute top-1/2 left-1/2 max-h-[60vh] w-[50%] max-w-[1400px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-white py-8 px-4 dark:bg-primary-200 sm:px-6 lg:py-12 lg:px-8"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="relative mx-auto">
