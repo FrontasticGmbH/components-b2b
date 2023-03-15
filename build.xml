@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Components nextjs B2B" basedir="./" default="test">
+<project name="Components nextjs" basedir="./" default="test">
 
-    <property name="frontastic_basedir" value="${basedir}/../../../.." />
+    <property name="frontastic_basedir" value="${basedir}/../../.." />
     <property name="integration_dir" value="${frontastic_basedir}/paas/integration" />
 
     <!--
@@ -20,7 +20,7 @@
     <!--
         Custom initialize, test and build
     -->
-    <target name="components nextjs B2B:bootstrap" extensionOf="-initialize:main~hook">
+    <target name="components nextjs:bootstrap" extensionOf="-initialize:main~hook">
         <tool-exists executable="yarn" />
 
         <exec executable="yarn" failonerror="true" dir="${basedir}">
@@ -39,7 +39,7 @@
         </exec>
     </target>
 
-    <!--<target name="components nextjs B2B:test" unless="${production}" extensionOf="-test-unit:main~hook">
+    <target name="components nextjs:test" unless="${production}" extensionOf="-test-unit:main~hook">
         <tool-exists executable="yarn" />
 
         <exec executable="yarn" dir="${basedir}">
@@ -51,9 +51,9 @@
             <arg value="test" />
             <env key="CI" value="true" />
         </exec>
-    </target>-->
+    </target>
 
-    <target name="components nextjs B2B:package" depends="initialize" extensionOf="-package:before~hook">
+    <target name="components nextjs:package" depends="initialize" extensionOf="-package:before~hook">
         <tool-exists executable="yarn" />
 
         <exec executable="yarn" dir="${basedir}" failonerror="true">
