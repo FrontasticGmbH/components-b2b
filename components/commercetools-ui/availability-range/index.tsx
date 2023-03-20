@@ -76,11 +76,7 @@ const AvailabilityRange: FC<AvailabilityRangeProps> = ({
       </div>
       {availability[0] !== null && (
         <TwoThumbInputRange
-          thumbStyle={{ borderRadius: '0', transform: 'rotate(45deg)' }}
           inputStyle={{ width: inputWidth }}
-          trackColor="#E91E63"
-          railColor="#C4C4C4"
-          thumbColor="#E91E63"
           showLabels={false}
           onChange={updateValues}
           values={values}
