@@ -8,14 +8,14 @@ export interface Link {
   reference: Reference;
 }
 
-export interface Column {
+export interface ColumnType {
   icon?: string;
   header: string;
   links: Link[];
 }
 
 export interface Props {
-  column: Column;
+  column: ColumnType;
 }
 
 const Column: React.FC<Props> = ({ column }) => {

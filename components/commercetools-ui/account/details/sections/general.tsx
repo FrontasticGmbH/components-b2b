@@ -71,7 +71,7 @@ const General = () => {
           }),
           fields: [
             {
-              label: 'language',
+              label: formatMessage({ id: 'language', defaultMessage: 'Language' }),
               value: mapLocaleToMeaningfulFormat(router.locale).name,
               type: 'select',
               options: router.locales.map((locale) => ({

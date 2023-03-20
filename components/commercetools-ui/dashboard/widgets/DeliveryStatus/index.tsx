@@ -4,8 +4,11 @@ import { TruckIcon } from '@heroicons/react/outline';
 import { Order } from '@Types/cart/Order';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
+import { useFormat } from 'helpers/hooks/useFormat';
 
 const DeliveryStatusWidget = () => {
+  const { formatMessage } = useFormat();
+
   const { businessUnit, getAllOrders } = useBusinessUnitStateContext();
   const [lastOrder, setLastOrder] = useState<Order>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +35,7 @@ const DeliveryStatusWidget = () => {
       )}
       {!isLoading && !lastOrder && (
         <div>
-          <p>No orders yet!</p>
+          <p>{formatMessage({ id: 'orders.empty', defaultMessage: 'You have no orders yet' })}</p>
         </div>
       )}
       {!isLoading && !!lastOrder && (
@@ -43,14 +46,14 @@ const DeliveryStatusWidget = () => {
               Last Order
             </p>
             <p className="text-sm">
-              <Link href={`/account#orders`}>View order</Link>
+              <Link href={`/account#orders`}>{formatMessage({ id: 'order.view', defaultMessage: 'View order' })}</Link>
             </p>
           </div>
           <div className="mt-2 flex flex-row">
             <div className="flex-1 border-r-2 text-sm font-bold">
-              <div className="py-1">Status</div>
-              <div className="py-1">Ordered at</div>
-              <div className="py-1">Items count</div>
+              <div className="py-1">{formatMessage({ id: 'order.status', defaultMessage: 'Status' })}</div>
+              <div className="py-1">{formatMessage({ id: 'order.at', defaultMessage: 'Ordered at' })}</div>
+              <div className="py-1">{formatMessage({ id: 'order.items.count', defaultMessage: 'Items count' })}</div>
             </div>
             <div className="flex-1 pl-2 text-sm">
               <div className="py-1">{lastOrder.orderState}</div>

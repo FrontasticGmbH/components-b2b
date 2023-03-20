@@ -76,12 +76,9 @@ const Header: React.FC<HeaderProps> = ({
           {!!account && (
             <div className="pt-2">
               <span>
-                {account?.firstName
-                  ? formatAccountMessage({ id: 'welcome', defaultMessage: 'Welcome, ' }) + account?.firstName
-                  : account?.lastName
-                  ? formatAccountMessage({ id: 'welcome', defaultMessage: 'Welcome, ' }) + account?.lastName
-                  : formatAccountMessage({ id: 'welcome', defaultMessage: 'Welcome, ' }) +
-                    formatAccountMessage({ id: 'user', defaultMessage: 'User ' })}
+                {formatAccountMessage({ id: 'welcome', defaultMessage: 'Welcome' }) +
+                  ', ' +
+                  (account?.firstName ?? account?.lastName ?? 'User')}
               </span>
               <BusinessUnitDropdownTree tree={organizationTree} />
               <BusinessUnitRole organization={organization} />

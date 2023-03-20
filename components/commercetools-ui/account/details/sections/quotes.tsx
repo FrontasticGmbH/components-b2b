@@ -18,31 +18,31 @@ const QuotesHistory: FC = () => {
   const { FiltersUI, filteredItems } = useFilters<QuoteRequest>(
     [
       {
-        label: 'Submitted',
+        label: formatAccountMessage({ id: 'submitted', defaultMessage: 'Submitted' }),
         key: 'submitted',
         value: false,
         predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'Submitted',
       },
       {
-        label: 'In Progress',
+        label: formatAccountMessage({ id: 'in.progress', defaultMessage: 'In progress' }),
         key: 'in-progress',
         value: false,
         predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'InProgress',
       },
       {
-        label: 'Sent',
+        label: formatAccountMessage({ id: 'sent', defaultMessage: 'Sent' }),
         key: 'sent',
         value: false,
         predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'Sent',
       },
       {
-        label: 'Accepted',
+        label: formatAccountMessage({ id: 'accepted', defaultMessage: 'Accepted' }),
         key: 'accepted',
         value: false,
         predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'Accepted',
       },
       {
-        label: 'Declined',
+        label: formatAccountMessage({ id: 'declined', defaultMessage: 'Declined' }),
         key: 'declined',
         value: false,
         predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'Declined',
@@ -80,7 +80,7 @@ const QuotesHistory: FC = () => {
     <div className="mt-10">
       <div className="space-y-1">
         <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-light-100">
-          {formatAccountMessage({ id: 'quotes.history', defaultMessage: 'My quotes' })}
+          {formatAccountMessage({ id: 'my.quotes', defaultMessage: 'My quotes' })}
         </h3>
         <p className="max-w-2xl text-sm text-gray-500">
           {formatAccountMessage({
@@ -92,11 +92,13 @@ const QuotesHistory: FC = () => {
       <div className="divide-y divide-gray-200"></div>
       <div className="flex items-stretch justify-center py-10">
         {isLoading && <LoadingIcon className="h-8 w-8 text-gray-500" />}
-        {!isLoading && !quoteList?.length && <div>No quotes yet!</div>}
+        {!isLoading && !quoteList?.length && (
+          <div>{formatAccountMessage({ id: 'no.quotes.yet', defaultMessage: 'You have no quotes yet' })}</div>
+        )}
         {!isLoading && !!quoteList?.length && (
           <div>
             <div className="mb-4 border-y-2 py-2">
-              <p className="mb-2">Filters</p>
+              <p className="mb-2">{formatAccountMessage({ id: 'filters', defaultMessage: 'Filters' })}</p>
               <div className="flex flex-row flex-wrap">
                 <FiltersUI />
               </div>

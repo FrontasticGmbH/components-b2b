@@ -6,6 +6,7 @@ import { QuoteRequest as B2BQuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quo
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import QuoteDetails from '../details';
 import styles from './index.module.css';
+import { useFormat } from 'helpers/hooks/useFormat';
 
 interface Props {
   quoteRequestList: QuoteRequest[];
@@ -16,6 +17,8 @@ interface QuoteRequest extends B2BQuoteRequest {
 }
 
 const QuoteList: React.FC<Props> = ({ quoteRequestList }) => {
+  const { formatMessage: formatAccountMessage } = useFormat({ name: 'account' });
+
   const [isQuoteRequestDetailsOpen, setIsQuoteRequestDetailsOpen] = useState(false);
   const [currentSelectedQuoteRequest, setCurrentSelectedQuoteRequest] = useState<QuoteRequest>(null);
   const openQuoteRequestDetails = (quoteRequest) => {
@@ -33,16 +36,18 @@ const QuoteList: React.FC<Props> = ({ quoteRequestList }) => {
       <table className="table-primary w-full table-fixed border">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Buyer</th>
-            <th style={{ width: '15%' }}>Company/Division</th>
-            <th>Account</th>
-            <th style={{ width: '5%' }}>Count</th>
-            <th style={{ width: '10%' }} className="text-ellipsis-150">
-              Comment
+            <th>{formatAccountMessage({ id: 'date', defaultMessage: 'Date' })}</th>
+            <th>{formatAccountMessage({ id: 'buyer', defaultMessage: 'Buyer' })}</th>
+            <th style={{ width: '15%' }}>
+              {formatAccountMessage({ id: 'company.or.division', defaultMessage: 'Company/Division' })}
             </th>
-            <th>Price</th>
-            <th>Status</th>
+            <th>{formatAccountMessage({ id: 'account', defaultMessage: 'Account' })}</th>
+            <th style={{ width: '7%' }}>{formatAccountMessage({ id: 'count', defaultMessage: 'Count' })}</th>
+            <th style={{ width: '15%' }} className="text-ellipsis-150">
+              {formatAccountMessage({ id: 'comment', defaultMessage: 'Comment' })}
+            </th>
+            <th>{formatAccountMessage({ id: 'price', defaultMessage: 'Price' })}</th>
+            <th>{formatAccountMessage({ id: 'status', defaultMessage: 'Status' })}</th>
             <th style={{ width: '5%' }}></th>
           </tr>
         </thead>

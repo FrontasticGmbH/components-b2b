@@ -1,0 +1,10 @@
+{
+  "dashboard.my": "My Dashboard",
+  "dashboard.desc": "Your personalized dashboard and widgets. Start by dragging widgets from + list",
+  "orders.empty": "You have no orders yet",
+  "order.last": "Last order",
+  "order.view": "View order",
+  "order.status": "Status",
+  "order.at": "Ordered at",
+  "order.items.count": "Items count"
+}
