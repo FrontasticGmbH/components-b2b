@@ -5,7 +5,6 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "postinstall": "cd ../types && yarn install",
     "dev": "concurrently -n NEXT,TSC -c magenta,cyan \"next dev\" \"yarn ts --watch\"",
     "prod": "concurrently -n NEXT,TSC -c magenta,cyan \"NODE_ENV=production next dev\" \"yarn ts --watch\"",
     "debug": "concurrently -n NEXT,TSC -c magenta,cyan \"NODE_OPTIONS='--inspect' next dev\" \"yarn ts --watch\"",
