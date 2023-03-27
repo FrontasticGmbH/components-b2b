@@ -141,10 +141,10 @@ const OrderSummary = ({
     setIsLoading(true);
     await updateCart({
       shipping: {
-        country: 'US',
+        country: 'GB',
       },
       billing: {
-        country: 'US',
+        country: 'GB',
       },
     });
     setIsLoading(false);

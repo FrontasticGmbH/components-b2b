@@ -139,12 +139,6 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
   }, [dataIsValid]);
 
   useEffect(() => {
-    if (data.shippingCountry !== '') {
-      updateCartData();
-    }
-  }, [data.shippingCountry, dataIsValid]);
-
-  useEffect(() => {
     const defaultData = mapToFormStructure(cartList);
     if (defaultData && requiredDataIsValid(defaultData, billingIsSameAsShipping)) {
       updateData(defaultData);

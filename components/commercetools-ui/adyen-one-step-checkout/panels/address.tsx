@@ -7,6 +7,7 @@ import { useFormat } from 'helpers/hooks/useFormat';
 import { getTaxedCountries } from 'helpers/utils/getTaxedCountries';
 import { useCart } from 'frontastic/provider';
 import { FormData } from '..';
+import { mapToCartStructure } from '../mapFormData';
 import AddressForm from './addressForm';
 import AddressSelection from './addressSelection';
 
@@ -22,7 +23,7 @@ const Address: React.FC<AddressProps> = ({ data, updateData, billingIsSameAsShip
   const [shippingMethodsData, setShippingMethodsData] = useState<ShippingMethod[]>(null);
   const [availableCountryOptions, setAvailableCountryOptions] = useState<CountryOption[]>(null);
   const [selectedAddress, setSelectedAddress] = useState<Address>(null);
-  const { getProjectSettings, getShippingMethods } = useCart();
+  const { getProjectSettings, getShippingMethods, updateCart } = useCart();
   const { formatMessage } = useFormat({ name: 'checkout' });
 
   useEffect(() => {
@@ -46,8 +47,6 @@ const Address: React.FC<AddressProps> = ({ data, updateData, billingIsSameAsShip
       };
       setAvailableCountryOptions([showMessageInDropdown]);
     } else {
-      console.log('here');
-
       const totalCountries = getTaxedCountries(shippingMethodsData, projectSettingsCountries?.countries);
 
       setAvailableCountryOptions(totalCountries);
@@ -57,6 +56,8 @@ const Address: React.FC<AddressProps> = ({ data, updateData, billingIsSameAsShip
   const updateSelection = (address: FormData) => {
     setSelectedAddress(address);
     updateData(address ? address : ({ shippingCountry: data.shippingCountry } as FormData));
+    const updatedData = mapToCartStructure(address, billingIsSameAsShipping);
+    updateCart(updatedData);
   };
 
   return (

@@ -3,19 +3,28 @@
   "name": "B2B quote request thank you",
   "icon": "done",
   "category": "Quote",
-  "schema": [{
-    "name": "Content",
-    "fields": [
-      {
-        "label": "Title",
-        "field": "title",
-        "type": "text"
-      },
-      {
-        "label": "Text",
-        "field": "content",
-        "type": "text"
-      }
-    ]
-  }]
+  "schema": [
+    {
+      "name": "Content",
+      "fields": [
+        {
+          "label": "Image",
+          "field": "image",
+          "type": "media",
+          "required": true,
+          "options": {}
+        },
+        {
+          "label": "Title",
+          "field": "title",
+          "type": "text"
+        },
+        {
+          "label": "Text",
+          "field": "content",
+          "type": "text"
+        }
+      ]
+    }
+  ]
 }
