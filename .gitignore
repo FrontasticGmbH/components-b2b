@@ -1,6 +1,5 @@
 .next
-.netlify
-
+g
 .env
 .env.build
 .env.local
