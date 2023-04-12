@@ -100,7 +100,7 @@ const QuotesHistory: FC = () => {
             <div className="mb-4 border-y-2 py-2">
               <p className="mb-2">{formatAccountMessage({ id: 'filters', defaultMessage: 'Filters' })}</p>
               <div className="flex flex-row flex-wrap">
-                <FiltersUI />
+                <FiltersUI className="flex flex-row flex-wrap gap-0.5" />
               </div>
             </div>
             <QuoteList quoteRequestList={filteredItems} />

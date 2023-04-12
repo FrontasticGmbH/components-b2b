@@ -2,6 +2,8 @@ import { createSession, adyenCheckout } from '../../actions/adyen';
 import {
   cartItems,
   getCart,
+  createCart,
+  getCartById,
   addItem,
   addItems,
   orderCart,
@@ -19,11 +21,19 @@ import {
   splitLineItem,
   replicateCart,
   returnItems,
+  cancelOrder,
   reassignCart,
   transitionOrderState,
+  allSuperUserCarts,
+  getAllSuperUserCarts,
 } from '../../actions/cart';
 import { query, getAttributeGroup, getCategories } from '../../actions/product';
-import { getMyQuoteRequests, getBusinessUserQuoteRequests, updateQuoteState } from '../../actions/quotes';
+import {
+  getMyQuoteRequests,
+  getBusinessUserQuoteRequests,
+  updateQuoteState,
+  updateQuoteRequestState,
+} from '../../actions/quotes';
 import { getStoresByKey } from '../../actions/stores';
 import { getAllSubscriptions } from '../../actions/subscriptions';
 import {
@@ -33,9 +43,12 @@ import {
   getWishlist,
   getAllWishlists,
   getSharedWishlists,
-  getStoreWishlists,
+  fetchStoreWishlists,
+  storeWishlists,
   share,
   addToNewWishlist,
+  deleteWishlist,
+  renameWishlist,
 } from '../../actions/wishlist';
 import { UseAdyen } from './UseAdyen';
 import { UseCart } from './UseCart';
@@ -65,6 +78,8 @@ export const getFrontasticState = (): FrontasticState => {
     useCart: {
       ...cartItems(),
       getCart,
+      createCart,
+      getCartById,
       addItem,
       addItems,
       updateCart,
@@ -82,19 +97,25 @@ export const getFrontasticState = (): FrontasticState => {
       replicateCart,
       splitLineItem,
       returnItems,
+      cancelOrder,
       reassignCart,
       transitionOrderState,
+      allSuperUserCarts: allSuperUserCarts(),
+      getAllSuperUserCarts,
     },
     useWishlist: {
       getWishlist,
       getAllWishlists,
       getSharedWishlists,
-      getStoreWishlists,
+      storeWishlists: storeWishlists(),
+      fetchStoreWishlists,
       addToNewWishlist,
       addToWishlist,
       share,
       removeLineItem,
       updateLineItem,
+      deleteWishlist,
+      renameWishlist,
     },
     useAdyen: {
       createSession,
@@ -104,6 +125,7 @@ export const getFrontasticState = (): FrontasticState => {
       getMyQuoteRequests,
       getBusinessUserQuoteRequests,
       updateQuoteState,
+      updateQuoteRequestState,
     },
     useStores: {
       getStoresByKey,

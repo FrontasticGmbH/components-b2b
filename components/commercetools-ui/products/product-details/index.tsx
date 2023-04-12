@@ -18,6 +18,7 @@ export interface Props {
   isPreview: boolean;
   product: UIProduct;
   subscriptions?: Product[];
+  configurableComponents?: Product[];
   productFeaturesAttributes: string[];
   variant: Variant;
   onChangeVariantIdx: (idx: number) => void;
@@ -50,6 +51,7 @@ interface UIDetail {
 export default function ProductDetail({
   product,
   subscriptions,
+  configurableComponents,
   variant,
   onChangeVariantIdx,
   productFeaturesAttributes,
@@ -112,6 +114,7 @@ export default function ProductDetail({
                 <VariantSelector
                   className="mt-4"
                   subscriptions={subscriptions}
+                  configurableComponents={configurableComponents}
                   product={product}
                   onChangeVariantIdx={onChangeVariantIdx}
                   variant={variant}

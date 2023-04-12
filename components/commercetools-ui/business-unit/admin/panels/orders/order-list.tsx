@@ -4,19 +4,20 @@ import { Order } from '@Types/cart/Order';
 import InvoiceButton from 'components/commercetools-ui/invoice-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { mapAddressToString } from 'helpers/utils/addressUtil';
-import { useBusinessUnitDetailsStateContext } from '../../provider';
-import OrderDetailsModal from './details-modal';
-import ReorderModal from './reorder-modal';
+import OrderDetailsModal from './modals/details-modal';
+import ReorderModal from './modals/reorder-modal';
 
+interface OrderWithHighlight extends Order {
+  highlight?: boolean;
+}
 interface Props {
-  orders: Order[];
+  orders: OrderWithHighlight[];
 }
 
 const OrderList: React.FC<Props> = ({ orders }) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isReorderModalOpen, setIsReorderModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const { reloadTree } = useBusinessUnitDetailsStateContext();
 
   const handleOpenDetailModal = (order) => {
     setSelectedOrder(order);
@@ -34,7 +35,6 @@ const OrderList: React.FC<Props> = ({ orders }) => {
   };
 
   const handleCloseReorderModal = () => {
-    reloadTree();
     setSelectedOrder(null);
     setIsReorderModalOpen(false);
   };
@@ -56,7 +56,7 @@ const OrderList: React.FC<Props> = ({ orders }) => {
         <tbody>
           {!!orders?.length &&
             orders.map((order) => (
-              <tr key={order.orderId}>
+              <tr key={order.orderId} className={order.highlight && 'highlight'}>
                 <td className="text-ellipsis-150" title={order.orderId}>
                   {order.orderId}
                 </td>

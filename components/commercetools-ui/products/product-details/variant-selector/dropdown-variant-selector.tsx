@@ -3,61 +3,48 @@ import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
 import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
-import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import WishlistButton from 'components/commercetools-ui/wishlist-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useFormat } from 'helpers/hooks/useFormat';
+import { useBundlesHook } from 'helpers/hooks/useSubscription';
 import { useCart } from 'frontastic';
 import { UIProduct } from '..';
+import AddToCartButton from '../add-to-cart-button';
+import ConfigurableComponents from '../configurable-components';
 import Subscriptions from '../subscriptions';
 
 type Props = {
   product: UIProduct;
   subscriptions?: Product[];
+  configurableComponents?: Product[];
   onChangeVariantIdx: (idx: number) => void;
+  hideAddTocartButton?: boolean;
+  hideWishlistButton?: boolean;
+  hideAvailability?: boolean;
   variant: Variant;
 };
 
 const DropdownVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
   product,
   subscriptions,
+  configurableComponents,
   variant,
   onChangeVariantIdx,
+  hideAddTocartButton,
+  hideWishlistButton,
+  hideAvailability,
   className,
 }) => {
-  const { addItem, data: cart } = useCart();
+  const { data: cart } = useCart();
   const { formatMessage: formatProductMessage } = useFormat({ name: 'product' });
+  const { handleBundleSelect: handleSubscriptionSelect, selectedBundles: selectedSubscriptions } =
+    useBundlesHook(subscriptions);
+  const { setSelectedBundles: setConfigurableComponents, selectedBundles: selectedConfiguirableComponent } =
+    useBundlesHook(configurableComponents);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [added, setAdded] = useState<boolean>(false);
+  const [isAddToCartDisabled, setIsAddToCartDisabled] = useState(false);
   const [selected, setSelected] = useState(variant.sku);
   const [query, setQuery] = useState('');
-  const [selectedSubscriptions, setSelectedSubscriptions] = useState<Variant[]>(
-    Array(subscriptions?.length).fill(null),
-  );
-
-  const handleAddToCart = async (variant: Variant, quantity: number) => {
-    setIsLoading(true);
-    await addItem(variant, quantity, selectedSubscriptions);
-    setIsLoading(false);
-    setAdded(true);
-  };
-
-  const handleSubscriptionSelect = (index: number, sku: string) => {
-    const selectedVariant = !sku ? null : subscriptions?.[index].variants.find((v) => v.sku === sku);
-    setSelectedSubscriptions(
-      selectedSubscriptions.map((_, i) => {
-        if (i === index) {
-          return selectedVariant;
-        }
-        return _;
-      }) as Variant[],
-    );
-  };
-
-  const onAddToCart = (variant: Variant, quantity: number): Promise<void> => {
-    return addItem(variant, 1);
-  };
 
   const filteredSKUs =
     query === ''
@@ -68,14 +55,6 @@ const DropdownVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElem
 
   const restockDate = new Date();
   restockDate.setDate(restockDate.getDate() + (variant?.availability?.restockableInDays || 0));
-
-  useEffect(() => {
-    if (added) {
-      setTimeout(() => {
-        setAdded(false);
-      }, 1000);
-    }
-  }, [added]);
 
   useEffect(() => {
     if (selected) {
@@ -151,10 +130,10 @@ const DropdownVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElem
           </Combobox>
         </div>
       )}
-      {!cart?.isPreBuyCart && variant.isOnStock && (
+      {!hideAvailability && !cart?.isPreBuyCart && variant.isOnStock && (
         <p className="text-sm text-gray-400">{`Available Qty: ${variant?.availability?.availableQuantity || 0}`}</p>
       )}
-      {!cart?.isPreBuyCart && !variant.isOnStock && (
+      {!hideAvailability && !cart?.isPreBuyCart && !variant.isOnStock && (
         <>
           <p className="text-sm text-gray-400">
             {formatProductMessage({ id: 'outOfStock', defaultMessage: 'Out of stock' })}
@@ -171,41 +150,28 @@ const DropdownVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElem
           selectedSubscriptions={selectedSubscriptions}
         />
       )}
-      {!cart?.isPreBuyCart && (
-        <button
-          type="button"
-          onClick={() => handleAddToCart(variant, 1)}
-          className="mt-8 flex w-full flex-1 items-center justify-center rounded-md border border-transparent bg-accent-400 py-3 px-8 text-base font-medium text-white hover:bg-accent-500 focus:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:bg-gray-400"
-          disabled={!variant.isOnStock || isLoading}
-        >
-          {!isLoading && !added && (
-            <>
-              {variant.isOnStock
-                ? formatProductMessage({ id: 'cart.add', defaultMessage: 'Add to Cart' })
-                : formatProductMessage({ id: 'outOfStock', defaultMessage: 'Out of stock' })}
-            </>
-          )}
-
-          {isLoading && <LoadingIcon className="h-6 w-6 animate-spin" />}
-          {!isLoading && added && <CheckIcon className="h-6 w-6" />}
-        </button>
+      {!!configurableComponents?.length && (
+        <ConfigurableComponents
+          className="py-4"
+          product={product}
+          configurableComponents={configurableComponents}
+          updateAddToCartButtonState={setIsAddToCartDisabled}
+          onConfigurationUpdate={setConfigurableComponents}
+        />
       )}
-      {cart?.isPreBuyCart && (
-        <button
-          type="button"
-          onClick={() => handleAddToCart(variant, 1)}
-          className="mt-8 flex w-full flex-1 items-center justify-center rounded-md border border-transparent bg-accent-400 py-3 px-8 text-base font-medium text-white hover:bg-accent-500 focus:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:bg-gray-400"
-          disabled={isLoading}
-        >
-          {!isLoading && !added && formatProductMessage({ id: 'cart.add', defaultMessage: 'Add to Cart' })}
-
-          {isLoading && <LoadingIcon className="h-6 w-6 animate-spin" />}
-          {!isLoading && added && <CheckIcon className="h-6 w-6" />}
-        </button>
+      {!hideAddTocartButton && (
+        <AddToCartButton
+          disabled={isAddToCartDisabled}
+          selectedSubscriptions={selectedSubscriptions}
+          selectedConfigurableComponents={selectedConfiguirableComponent}
+          variant={variant}
+        />
       )}
-      <div className="mt-2">
-        <WishlistButton variant={variant} isCompact />
-      </div>
+      {!hideWishlistButton && (
+        <div className="mt-2">
+          <WishlistButton variant={variant} isCompact />
+        </div>
+      )}
     </div>
   );
 };

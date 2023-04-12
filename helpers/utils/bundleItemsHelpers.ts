@@ -2,10 +2,15 @@
 import { LineItem } from '@Types/cart/LineItem';
 import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
 
-export const SUBSCRIPTION_ATTRIBUTE_NAME = 'subscriptions';
+export const BUNDLE_ATTRIBUTE_NAME = 'bundles';
 
 export const subscriptionSlugToAttributes: Record<string, Record<string, string>> = {
   'Subscribe & Relax': { subscription_interval_days: 'Every' },
+  Processor: { option: '' },
+  Memory: { option: '' },
+  'Operating System': { option: '' },
+  'Video Card': { option: '' },
+  'Hard Drive': { option: '' },
 };
 
 const getLable = (value: Record<string, string> | string | boolean) => {
@@ -21,14 +26,18 @@ const getLable = (value: Record<string, string> | string | boolean) => {
   return value;
 };
 
+export const hasBundle = (lineItem: LineItem): boolean => {
+  return !!(lineItem.variant?.attributes?.[BUNDLE_ATTRIBUTE_NAME] as LineItem[])?.length;
+};
+
 export const getBundledPrice = (lineItem: LineItem): number => {
-  return (lineItem.variant?.attributes?.[SUBSCRIPTION_ATTRIBUTE_NAME] as LineItem[]).reduce(
+  return (lineItem.variant?.attributes?.[BUNDLE_ATTRIBUTE_NAME] as LineItem[]).reduce(
     (prev, curr) => prev + (curr.price?.centAmount || 0),
     0,
   );
 };
 
-export const getSelectedSubscriptionLabel = (variant?: Variant, name?: string) => {
+export const getSelectedBundleLabel = (variant?: Variant, name?: string) => {
   const bundleItemAttributes = subscriptionSlugToAttributes[name || ''];
   if (bundleItemAttributes) {
     return Object.keys(bundleItemAttributes)
@@ -46,9 +55,9 @@ export const bundleItems = (lineItems?: LineItem[]): LineItem[] => {
     return items?.map((item) => {
       const itemBundles = bundles?.filter((bundle) => bundle.parentId === item.lineItemId);
       // @ts-ignore
-      item.variant?.attributes[SUBSCRIPTION_ATTRIBUTE_NAME] = [];
+      item.variant?.attributes[BUNDLE_ATTRIBUTE_NAME] = [];
       itemBundles?.forEach((bundle) => {
-        item.variant?.attributes[SUBSCRIPTION_ATTRIBUTE_NAME].push(bundle);
+        item.variant?.attributes[BUNDLE_ATTRIBUTE_NAME].push(bundle);
       });
       return item;
     });

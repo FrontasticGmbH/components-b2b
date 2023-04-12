@@ -1,5 +1,5 @@
 import React from 'react';
-import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
+import { Organization } from '@Types/organization/organization';
 import Cart from 'components/commercetools-ui/cart';
 import { useCart } from 'frontastic/provider';
 

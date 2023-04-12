@@ -6,7 +6,7 @@ import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 
 const RecentPurchaseWidget = () => {
-  const { getAllOrders, businessUnit } = useBusinessUnitStateContext();
+  const { getOrders, businessUnit } = useBusinessUnitStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
 
@@ -14,7 +14,7 @@ const RecentPurchaseWidget = () => {
     (async () => {
       if (businessUnit) {
         setIsLoading(true);
-        const orders = await getAllOrders(businessUnit);
+        const orders = await getOrders(businessUnit);
         if (orders.length) {
           setData(
             orders.map((order) => ({

@@ -1,7 +1,8 @@
 import { Wishlist, WishlistDraft } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
 
 export interface UseWishlist {
-  getStoreWishlists: () => Promise<Wishlist[]>;
+  storeWishlists: Wishlist[];
+  fetchStoreWishlists: () => Promise<void>;
   getAllWishlists: () => Promise<Wishlist[]>;
   getSharedWishlists: () => Promise<Wishlist[]>;
   getWishlist: (wishlistId: string) => Promise<Wishlist>;
@@ -10,4 +11,6 @@ export interface UseWishlist {
   share: (wishlistId: string, businessUnitKey: string) => Promise<Wishlist>;
   removeLineItem: (wishlistId: string, lineItemId: string) => Promise<void>;
   updateLineItem: (wishlistId: string, lineItemId: string, count?: number) => Promise<void>;
+  deleteWishlist: (wishlistId: string) => Promise<void>;
+  renameWishlist: (wishlistId: string, name: string) => Promise<void>;
 }

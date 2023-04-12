@@ -14,7 +14,7 @@ const WishlistButtonItem: React.FC<Props> = ({ wishlist, sku, onAddToWishlist })
 
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-  const isAlreadyAdded = wishlist.lineItems.some((lineitem) => lineitem.variant?.sku === sku);
+  const count = wishlist.lineItems.find((lineitem) => lineitem.variant?.sku === sku)?.count;
 
   const handleAddToWishlist = async () => {
     setIsLoading(true);
@@ -38,12 +38,17 @@ const WishlistButtonItem: React.FC<Props> = ({ wishlist, sku, onAddToWishlist })
           onClick={handleAddToWishlist}
           className="text-medium group flex w-full items-center rounded-md p-2"
         >
-          <p>
+          <p className="text-ellipsis-150" title={wishlist.name}>
             {wishlist.name}
             {!!wishlist.description && <span className="text-sm text-gray-600">({wishlist.description})</span>}
             {isLoading && <LoadingIcon className="ml-2 inline h-4 w-4 animate-spin" />}
-            {!isLoading && (isAdded || isAlreadyAdded) && <CheckIcon className="ml-2 inline h-4 w-4" />}
           </p>
+          {!isLoading && (isAdded || !!count) && (
+            <>
+              <CheckIcon className="ml-2 inline h-4 w-4" />
+              <span className="text-xs text-gray-400">{`(${count})`}</span>
+            </>
+          )}
         </button>
       </div>
     </div>

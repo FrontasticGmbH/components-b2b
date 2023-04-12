@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
 import { Order } from '@Types/cart/Order';
 import { useDarkMode } from 'frontastic';
-import OrderDetails from './details';
+import OrderDetails from '../details';
 
 interface Props {
   open: boolean;

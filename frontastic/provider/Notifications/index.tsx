@@ -11,9 +11,11 @@ const NotificationContext: Context<{
   isInitialized: boolean;
   messages: Message[];
   markMessgaeAsRead: (message: Message) => void;
+  deleteMessage: (message: Message) => Promise<void>;
 }> = createContext({
   setToken: () => null,
   markMessgaeAsRead: () => null,
+  deleteMessage: () => null,
   conversation: null,
   unreadMessageCount: 0,
   isInitialized: false,
@@ -30,11 +32,24 @@ export const NotificationProvider = ({ children }) => {
   const [messages, setMessages] = useState<Message[]>();
   const [unreadMessageCount, setUnreadMessageCount] = useState<number>(0);
 
+  const updateUnreadMessageCount = (count: number, messageList: Message[] = messages) => {
+    setUnreadMessageCount(count > (messageList?.length || 0) ? messageList?.length : count);
+  };
+
   const fetchMessages = async (conversation: Conversation): Promise<Message[]> => {
     try {
       const conversationMessages = await conversation.getMessages();
-      const messageList = conversationMessages.items?.filter((message) => !message.attributes['archived']);
+      const messageList = conversationMessages.items
+        ?.filter((message) => !message.attributes['archived'])
+        .sort((a, b) => b.index - a.index);
+
       setMessages(messageList);
+
+      if (messageList?.length) {
+        const lastReadMessageIndex = conversation.lastReadMessageIndex ?? -1;
+        const lastMessage = conversation.lastMessage;
+        updateUnreadMessageCount(lastMessage.index - lastReadMessageIndex, messageList);
+      }
       return messageList;
     } catch {
       setMessages([]);
@@ -45,13 +60,7 @@ export const NotificationProvider = ({ children }) => {
   const fetchConversations = async (client: Client) => {
     try {
       const conv = await client.getConversationByUniqueName(account?.email);
-      const messagesList = await fetchMessages(conv);
-      if (messagesList?.length) {
-        const lastReadMessageIndex = conv.lastReadMessageIndex ?? -1;
-        const lastMessage = conv.lastMessage;
-        setUnreadMessageCount(lastMessage.index - lastReadMessageIndex);
-      }
-
+      await fetchMessages(conv);
       setConversation(conv);
     } catch (error) {
       console.log(error);
@@ -60,7 +69,12 @@ export const NotificationProvider = ({ children }) => {
 
   const markMessgaeAsRead = async (message: Message) => {
     const count = await conversation.advanceLastReadMessageIndex(message?.index);
-    setUnreadMessageCount(count);
+    updateUnreadMessageCount(count);
+  };
+
+  const deleteMessage = async (message: Message) => {
+    await message.updateAttributes({ archived: true });
+    await markMessgaeAsRead(message);
   };
 
   useEffect(() => {
@@ -112,13 +126,14 @@ export const NotificationProvider = ({ children }) => {
       });
     }
     return () => {
-      setUnreadMessageCount(0);
+      updateUnreadMessageCount(0);
     };
   }, [token]);
 
   return (
     <NotificationContext.Provider
       value={{
+        deleteMessage,
         markMessgaeAsRead,
         setToken,
         conversation,

@@ -8,7 +8,7 @@ import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 
 const OrdersUnderReviewWidget = () => {
-  const { businessUnit, getAllOrders } = useBusinessUnitStateContext();
+  const { businessUnit, getOrders } = useBusinessUnitStateContext();
   const [orders, setOrders] = useState<Order[]>([]);
   const [orderList, setOrderList] = useState<Order[]>([]);
   const [duration, setDuration] = useState({ label: 'Week', value: 7 });
@@ -24,7 +24,7 @@ const OrdersUnderReviewWidget = () => {
     if (businessUnit) {
       (async () => {
         setIsLoading(true);
-        const orders = await getAllOrders(businessUnit);
+        const orders = await getOrders(businessUnit);
         if (orders?.length) {
           setOrders(orders.filter((order) => order.state?.key === 'review'));
         }

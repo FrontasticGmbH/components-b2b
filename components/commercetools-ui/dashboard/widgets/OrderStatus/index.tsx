@@ -10,7 +10,7 @@ import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitSta
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const OrderStatusWidget = () => {
-  const { getAllOrders, businessUnit } = useBusinessUnitStateContext();
+  const { getOrders, businessUnit } = useBusinessUnitStateContext();
   const [orders, setOrders] = useState<Order[]>([]);
   const [duration, setDuration] = useState({ label: 'Week', value: 7 });
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +26,7 @@ const OrderStatusWidget = () => {
     if (businessUnit) {
       (async () => {
         setIsLoading(true);
-        const orders = await getAllOrders(businessUnit);
+        const orders = await getOrders(businessUnit);
         if (orders?.length) {
           setOrders(orders);
         }

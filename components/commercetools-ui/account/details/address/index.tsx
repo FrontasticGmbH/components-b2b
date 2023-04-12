@@ -45,7 +45,7 @@ const Address: React.FC<AddressProps> = ({ address, removeAddress, updateAddress
             {address.streetName} {address.streetNumber}
           </dt>
           <dt className="text-sm dark:text-light-100">
-            {address.postalCode} {address.city}
+            {` ${address.city}, ${address.state || ''}, ${address.postalCode}`}
           </dt>
           <dt className="mt-2 text-sm text-slate-500 dark:text-light-100">{address.phone}</dt>
         </div>

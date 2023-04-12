@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Order } from '@Types/cart/Order';
-import OrderDetails from 'components/commercetools-ui/business-unit/admin/panels/orders/details';
+import OrderList from 'components/commercetools-ui/business-unit/admin/panels/orders/order-list';
 import Spinner from 'components/commercetools-ui/spinner';
 import useFilters from 'helpers/hooks/useFilters';
 import { useFormat } from 'helpers/hooks/useFormat';
@@ -10,6 +11,8 @@ export interface Props {
 }
 
 const OrdersHistory: FC<Props> = ({ orders }) => {
+  const router = useRouter();
+
   const [accountOrders, setAccountOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { FiltersUI, filteredItems } = useFilters<Order>(
@@ -32,6 +35,49 @@ const OrdersHistory: FC<Props> = ({ orders }) => {
         value: false,
         predicate: (order: Order) => order.returnInfo?.length > 0,
       },
+      {
+        label: 'Initiated/Created by Super User',
+        key: 'superuser-orders',
+        value: false,
+        predicate: (order: Order) => order.origin === 'Merchant',
+      },
+      {
+        label: 'Under Review',
+        key: 'review-orders',
+        value: false,
+        predicate: (order: Order) => order.state?.key === 'review',
+      },
+      {
+        label: 'Rejected',
+        key: 'rejected-orders',
+        value: false,
+        predicate: (order: Order) => order.state?.key === 'rejected',
+      },
+      {
+        label: 'Created before',
+        key: 'order-date-before',
+        extraType: 'date',
+        value: false,
+        predicate: (order: Order, date: string) => new Date(order.createdAt) <= new Date(date),
+      },
+      {
+        label: 'Created after',
+        key: 'order-date-after',
+        extraType: 'date',
+        value: false,
+        predicate: (order: Order, date: string) => new Date(order.createdAt) >= new Date(date),
+      },
+      {
+        label: 'Product',
+        key: 'includes-product',
+        extraType: 'product',
+        value: false,
+        predicate: (order: Order, product: string) =>
+          order.lineItems.some(
+            (lineitem) =>
+              lineitem.variant?.sku === product || lineitem.name?.toLowerCase().includes(product?.toLowerCase()),
+          ),
+      },
     ],
     accountOrders,
   );
@@ -41,7 +87,18 @@ const OrdersHistory: FC<Props> = ({ orders }) => {
   useEffect(() => {
     if (orderHistory) {
       orderHistory().then((data) => {
-        setAccountOrders(data);
+        const highlightId = router.query?.id;
+        setAccountOrders(
+          data.map((order) => {
+            if (order.orderId !== highlightId) {
+              return order;
+            }
+            return {
+              ...order,
+              highlight: true,
+            };
+          }),
+        );
         setLoading(false);
       });
     } else {
@@ -79,13 +136,11 @@ const OrdersHistory: FC<Props> = ({ orders }) => {
             <div className="mb-4 border-y-2 py-2">
               <p className="mb-2">Filters</p>
               <div className="flex flex-row flex-wrap">
-                <FiltersUI />
+                <FiltersUI className="flex flex-row flex-wrap gap-0.5" />
               </div>
             </div>
             <div className="space-y-20">
-              {filteredItems?.map((order) => (
-                <OrderDetails order={order} key={order.orderId} />
-              ))}
+              <OrderList orders={filteredItems} />
             </div>
           </section>
         ) : (

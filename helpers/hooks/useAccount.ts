@@ -183,14 +183,14 @@ export const useAccount = (): UseAccount => {
   };
 
   const addAddress = async (address: Omit<Address, 'addressId'>): Promise<Account> => {
-    const res = await fetchApiHub('/action/account/addAddress', { method: 'POST' }, address);
+    const res = await fetchApiHub('/action/account/addAddress', { method: 'POST' }, { address });
     await mutate('/action/account/getAccount', res);
 
     return res;
   };
 
   const updateAddress = async (address: Address): Promise<Account> => {
-    const res = await fetchApiHub('/action/account/updateAddress', { method: 'POST' }, address);
+    const res = await fetchApiHub('/action/account/updateAddress', { method: 'POST' }, { address });
     await mutate('/action/account/getAccount', res);
 
     return res;

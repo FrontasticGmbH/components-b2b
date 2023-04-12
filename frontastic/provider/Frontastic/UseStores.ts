@@ -1,4 +1,4 @@
-import { Store } from 'cofe-ct-b2b-ecommerce/types/store/store';
+import { Store } from '@Types/store/Store';
 
 export interface UseStores {
   getStoresByKey: (keys: string[]) => Promise<Store[]>;

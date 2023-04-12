@@ -4,6 +4,7 @@ import { Address } from '@commercetools/frontend-domain-types/account/Address';
 import { Dialog, Transition } from '@headlessui/react';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';
+import { STATES } from 'helpers/stateOptions';
 import { useDarkMode } from 'frontastic';
 
 export interface UpdateAddressProps {
@@ -27,7 +28,7 @@ const UpdateAddress: React.FC<UpdateAddressProps> = ({ open, onClose, defaultVal
   const [isLoading, setIsLoading] = useState(false);
 
   //input change handler
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
@@ -179,26 +180,6 @@ const UpdateAddress: React.FC<UpdateAddressProps> = ({ open, onClose, defaultVal
                             />
                           </div>
                         </div>
-                        <div className="sm:col-span-2">
-                          <label
-                            htmlFor="phone"
-                            className="block text-sm font-medium text-gray-700 dark:text-light-100"
-                          >
-                            {formatMessage({ id: 'phone', defaultMessage: 'Phone' })}
-                          </label>
-                          <div className="mt-1">
-                            <input
-                              required
-                              type="text"
-                              name="phone"
-                              id="phone"
-                              autoComplete="tel"
-                              className="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-accent-400 focus:ring-accent-400"
-                              onChange={handleChange}
-                              defaultValue={defaultValues?.phone}
-                            />
-                          </div>
-                        </div>
                         <div>
                           <label
                             htmlFor="postal-code"
@@ -236,68 +217,107 @@ const UpdateAddress: React.FC<UpdateAddressProps> = ({ open, onClose, defaultVal
                             />
                           </div>
                         </div>
-                        {!defaultValues?.isDefaultShippingAddress && (
-                          <div>
-                            <legend className="sr-only">
-                              {formatAccountMessage({
-                                id: 'address.setDefault.delivery',
-                                defaultMessage: 'Set as default delivery address',
-                              })}
-                            </legend>
-                            <div className="relative flex items-start">
-                              <div className="flex h-5 items-center">
-                                <input
-                                  id="is-default-shipping-address"
-                                  aria-describedby="Set as default shipping address"
-                                  name="isDefaultShippingAddress"
-                                  type="checkbox"
-                                  className="h-6 w-6 rounded border-gray-300 text-white focus:ring-accent-400"
-                                  onChange={handleCheckboxChange}
-                                  defaultChecked={defaultValues?.isDefaultShippingAddress}
-                                />
-                              </div>
-                              <div className="ml-3 text-base">
-                                <label htmlFor="is-default-shipping-address" className="text-gray-400">
-                                  {formatAccountMessage({
-                                    id: 'address.setDefault.delivery',
-                                    defaultMessage: 'Set as default delivery address',
-                                  })}
-                                </label>
-                              </div>
+                        <div>
+                          <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-light-100">
+                            {formatMessage({ id: 'state', defaultMessage: 'State' })}
+                          </label>
+                          <div className="mt-1">
+                            <select
+                              id="state"
+                              name="state"
+                              required
+                              placeholder={`${formatMessage({ id: 'state', defaultMessage: 'State' })}`}
+                              className="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-accent-400 focus:ring-accent-400"
+                              onChange={handleChange}
+                              defaultValue={defaultValues?.state}
+                            >
+                              <option value={undefined}></option>
+                              {STATES?.map((item) => (
+                                <option key={item.value} value={item.value}>
+                                  {item.label}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                        <div className="sm:col-span-2">
+                          <label
+                            htmlFor="phone"
+                            className="block text-sm font-medium text-gray-700 dark:text-light-100"
+                          >
+                            {formatMessage({ id: 'phone', defaultMessage: 'Phone' })}
+                          </label>
+                          <div className="mt-1">
+                            <input
+                              required
+                              type="text"
+                              name="phone"
+                              id="phone"
+                              autoComplete="tel"
+                              className="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-accent-400 focus:ring-accent-400"
+                              onChange={handleChange}
+                              defaultValue={defaultValues?.phone}
+                            />
+                          </div>
+                        </div>{' '}
+                        <div>
+                          <legend className="sr-only">
+                            {formatAccountMessage({
+                              id: 'address.setDefault.delivery',
+                              defaultMessage: 'Set as default delivery address',
+                            })}
+                          </legend>
+                          <div className="relative flex items-start">
+                            <div className="flex h-5 items-center">
+                              <input
+                                id="is-default-shipping-address"
+                                aria-describedby="Set as default shipping address"
+                                name="isDefaultShippingAddress"
+                                type="checkbox"
+                                className="h-6 w-6 rounded border-gray-300 focus:ring-accent-400"
+                                onChange={handleCheckboxChange}
+                                defaultChecked={defaultValues?.isDefaultShippingAddress}
+                              />
+                            </div>
+                            <div className="ml-3 text-base">
+                              <label htmlFor="is-default-shipping-address" className="text-gray-400">
+                                {formatAccountMessage({
+                                  id: 'address.setDefault.delivery',
+                                  defaultMessage: 'Set as default delivery address',
+                                })}
+                              </label>
                             </div>
                           </div>
-                        )}
-                        {!defaultValues?.isDefaultBillingAddress && (
-                          <div>
-                            <legend className="sr-only">
-                              {formatAccountMessage({
-                                id: 'address.setDefault.billing',
-                                defaultMessage: 'Set as default billing address',
-                              })}
-                            </legend>
-                            <div className="relative flex items-start">
-                              <div className="flex h-5 items-center">
-                                <input
-                                  id="is-default-billing-address"
-                                  aria-describedby="Set as default billing addaress"
-                                  name="isDefaultBillingAddress"
-                                  type="checkbox"
-                                  className="h-6 w-6 rounded border-gray-300 text-white focus:ring-accent-400"
-                                  onChange={handleCheckboxChange}
-                                  defaultChecked={defaultValues?.isDefaultBillingAddress}
-                                />
-                              </div>
-                              <div className="ml-3 text-base">
-                                <label htmlFor="is-default-billing-address" className="text-gray-400">
-                                  {formatAccountMessage({
-                                    id: 'address.setDefault.billing',
-                                    defaultMessage: 'Set as default billing address',
-                                  })}
-                                </label>
-                              </div>
+                        </div>
+                        <div>
+                          <legend className="sr-only">
+                            {formatAccountMessage({
+                              id: 'address.setDefault.billing',
+                              defaultMessage: 'Set as default billing address',
+                            })}
+                          </legend>
+                          <div className="relative flex items-start">
+                            <div className="flex h-5 items-center">
+                              <input
+                                id="is-default-billing-address"
+                                aria-describedby="Set as default billing addaress"
+                                name="isDefaultBillingAddress"
+                                type="checkbox"
+                                className="h-6 w-6 rounded border-gray-300 focus:ring-accent-400"
+                                onChange={handleCheckboxChange}
+                                defaultChecked={defaultValues?.isDefaultBillingAddress}
+                              />
+                            </div>
+                            <div className="ml-3 text-base">
+                              <label htmlFor="is-default-billing-address" className="text-gray-400">
+                                {formatAccountMessage({
+                                  id: 'address.setDefault.billing',
+                                  defaultMessage: 'Set as default billing address',
+                                })}
+                              </label>
                             </div>
                           </div>
-                        )}
+                        </div>
                         <div className="text-center sm:col-span-2">
                           <p className="mt-4 text-lg leading-6 text-gray-400">
                             {formatAccountMessage({

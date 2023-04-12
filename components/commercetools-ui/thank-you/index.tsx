@@ -32,6 +32,11 @@ const ThankYou: React.FC<Props> = ({ image, title, text }) => {
             <p className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-light-100 sm:text-5xl">
               {title || formatCheckoutMessage({ id: 'order.thanks', defaultMessage: 'Thanks for ordering' })}
             </p>
+            {router?.query?.requireApproval && (
+              <p className="mt-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-light-100 sm:text-2xl">
+                {formatCheckoutMessage({ id: 'order.approval', defaultMessage: 'Your order requires an approval' })}
+              </p>
+            )}
             <p className="mt-2 text-base text-gray-500 dark:text-light-100">
               {text ||
                 formatCheckoutMessage({

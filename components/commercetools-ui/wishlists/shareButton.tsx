@@ -28,7 +28,7 @@ const ShareButton: React.FC<Props> = ({ associations, reload, wishlist }) => {
   }, []);
 
   return (
-    <Popover className="relative mt-4">
+    <Popover className="relative">
       {({ open }) => (
         <>
           <Popover.Button

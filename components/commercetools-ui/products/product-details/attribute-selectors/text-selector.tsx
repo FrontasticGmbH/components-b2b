@@ -26,7 +26,7 @@ const TextSelector: React.FC<Props> = ({ variants, onChangeVariant, selectedVari
     .sort((a, b) => a.attributeValue - b.attributeValue) as GenericAttribute[];
 
   return (
-    <div className="flex flex-row flex-wrap">
+    <div className="flex flex-row flex-wrap gap-1">
       {items.map((item) => (
         <button
           type="button"

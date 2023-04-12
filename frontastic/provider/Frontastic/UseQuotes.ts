@@ -5,4 +5,5 @@ export interface UseQuotes {
   getMyQuoteRequests: () => Promise<QuoteRequest[]>;
   getBusinessUserQuoteRequests: (keys: string[]) => Promise<QuoteRequest[]>;
   updateQuoteState: (id: string, state: string) => Promise<Quote>;
+  updateQuoteRequestState: (id: string, state: string) => Promise<QuoteRequest>;
 }

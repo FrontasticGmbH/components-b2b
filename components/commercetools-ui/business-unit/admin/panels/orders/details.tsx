@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DuplicateIcon, ReceiptRefundIcon } from '@heroicons/react/outline';
+import { DuplicateIcon, ReceiptRefundIcon, XIcon } from '@heroicons/react/outline';
 import { Order } from '@Types/cart/Order';
 import { OrderItems } from 'components/commercetools-ui/account/details/sections/order-items';
 import OrderReturns from 'components/commercetools-ui/account/details/sections/order-returns';
@@ -8,8 +8,9 @@ import InvoiceButton from 'components/commercetools-ui/invoice-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useCart } from 'frontastic';
 import { useBusinessUnitDetailsStateContext } from '../../provider';
-import ReorderModal from './reorder-modal';
-import OrderReturnModal from './return-modal';
+import CancelModal from './modals/cancel-modal';
+import ReorderModal from './modals/reorder-modal';
+import OrderReturnModal from './modals/return-modal';
 
 interface Props {
   order: Order;
@@ -19,10 +20,11 @@ interface Props {
 const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
   const [isReturnModalOpen, setIsReturnModalOpen] = useState(false);
   const [isReorderModalOpen, setIsReorderModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { transitionOrderState } = useCart();
-  const { reloadTree } = useBusinessUnitDetailsStateContext();
+  const { reloadTree, selectedBusinessUnit } = useBusinessUnitDetailsStateContext();
 
   const handleUpdateOrderState = async (state: string) => {
     setIsLoading(true);
@@ -42,6 +44,12 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
           <div className="flex pt-6 sm:block sm:pt-0">
             <dt className="font-medium text-gray-900">Order number</dt>
             <dd className="mb-4 sm:mt-1">{order.orderId}</dd>
+            {selectedBusinessUnit?.isAdmin && (
+              <>
+                <dt className="font-medium text-gray-900">Order belongs to</dt>
+                <dd className="mb-4 sm:mt-1">{order.email}</dd>
+              </>
+            )}
             {order.isPreBuyCart && (
               <>
                 <dt className="font-medium text-gray-900">Order type</dt>
@@ -86,15 +94,36 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
                 Reorder
               </button>
             </div>
-            <div className="flex flex-row">
-              <ReceiptRefundIcon className="mr-2 mt-1 h-4 w-4" />
-              <button type="button" className="mb-2 text-gray-900 underline" onClick={() => setIsReturnModalOpen(true)}>
-                Return
-              </button>
-            </div>
-            <div className="flex flex-row">
-              <InvoiceButton order={order}>Invoice</InvoiceButton>
-            </div>
+
+            {!['Complete', 'Cancelled'].includes(order.orderState) && (
+              <div className="flex flex-row">
+                <ReceiptRefundIcon className="mr-2 mt-1 h-4 w-4" />
+                <button
+                  type="button"
+                  className="mb-2 text-gray-900 underline"
+                  onClick={() => setIsReturnModalOpen(true)}
+                >
+                  Return
+                </button>
+              </div>
+            )}
+            {!['Complete', 'Cancelled'].includes(order.orderState) && (
+              <div className="flex flex-row">
+                <XIcon className="mr-2 mt-1 h-4 w-4" />
+                <button
+                  type="button"
+                  className="mb-2 text-gray-900 underline"
+                  onClick={() => setIsCancelModalOpen(true)}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+            {!['Cancelled'].includes(order.orderState) && (
+              <div className="flex flex-row">
+                <InvoiceButton order={order}>Invoice</InvoiceButton>
+              </div>
+            )}
           </div>
         </dl>
       </div>
@@ -122,7 +151,7 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
         <OrderReturns lineItems={order.lineItems} returnInfo={order.returnInfo} className="mt-4" />
       )}
       <OrderItems lineItems={order.lineItems}></OrderItems>
-      {order.state?.key === 'review' && (
+      {order.state?.key === 'review' && selectedBusinessUnit?.isAdmin && (
         <div className="mx-auto mt-20 max-w-[800px]">
           <h3 className="text-center text-lg font-semibold">Do you approve this order?</h3>
           <div className="flex flex-row justify-between px-32">
@@ -145,6 +174,9 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
       )}
       {isReorderModalOpen && (
         <ReorderModal onClose={() => setIsReorderModalOpen(false)} open={isReorderModalOpen} order={order} />
+      )}
+      {isCancelModalOpen && (
+        <CancelModal onClose={() => setIsCancelModalOpen(false)} open={isCancelModalOpen} order={order} />
       )}
     </div>
   );

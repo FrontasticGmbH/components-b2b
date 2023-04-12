@@ -31,10 +31,9 @@ const List: React.FC<Props> = ({ products, filtering, isPreview, previewURL }) =
           filtering ? '3' : '4'
         } xl:gap-x-8`}
       >
-        {!!data &&
-          products?.map((product) => (
-            <ListItem product={product} key={product.productId} isPreview={isPreview} previewURL={previewURL} />
-          ))}
+        {products?.map((product) => (
+          <ListItem product={product} key={product.productId} isPreview={isPreview} previewURL={previewURL} />
+        ))}
       </div>
     </div>
   );

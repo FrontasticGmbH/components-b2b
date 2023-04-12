@@ -4,6 +4,7 @@ import { Transition, Dialog } from '@headlessui/react';
 import { Order } from '@Types/cart/Order';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useCart, useDarkMode } from 'frontastic';
+import { useBusinessUnitDetailsStateContext } from '../../../provider';
 
 interface Props {
   open: boolean;
@@ -14,6 +15,7 @@ interface Props {
 const ReorderModal: React.FC<Props> = ({ open, onClose, order }) => {
   const { mode } = useDarkMode();
   const { replicateCart } = useCart();
+  const { reloadTree } = useBusinessUnitDetailsStateContext();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,6 +24,7 @@ const ReorderModal: React.FC<Props> = ({ open, onClose, order }) => {
     e.preventDefault();
     setIsLoading(true);
     await replicateCart(order.cartId);
+    reloadTree();
     setIsLoading(false);
     onClose();
   };
@@ -66,17 +69,25 @@ const ReorderModal: React.FC<Props> = ({ open, onClose, order }) => {
                 >
                   <div className="relative mx-auto">
                     <div className="mb-2 text-center">
-                      <h2 className="mb-== text-3xl font-extrabold tracking-tight text-gray-900 dark:text-light-100 sm:text-4xl">
+                      <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-light-100 sm:text-4xl">
                         Reorder
                       </h2>
-                      <p>Are you sure you want to place this order again?</p>
+                      {order.origin !== 'Quote' && <p>Are you sure you want to place this order again?</p>}
+                      {order.origin === 'Quote' && (
+                        <p className="font-semibold text-red-300">
+                          Unfortunately you cannot reorder an order created from a quote.
+                        </p>
+                      )}
                     </div>
                     <form className="" onSubmit={handleSubmit}>
                       <div className="border-1 flex flex-row justify-between border-t">
                         <button type="button" className="button button-secondary" onClick={onClose}>
                           Cancel
                         </button>
-                        <button className="button button-primary flex flex-row" disabled={isLoading}>
+                        <button
+                          className="button button-primary flex flex-row"
+                          disabled={isLoading || order.origin === 'Quote'}
+                        >
                           Reorder
                           {isLoading && <LoadingIcon className="ml-2 h-4 w-4 animate-spin" />}
                         </button>

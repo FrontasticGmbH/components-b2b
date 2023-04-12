@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import debounce from 'lodash.debounce';
 
 interface Filter<T> {
   label: string;
   key: string;
   value: boolean;
-  predicate: (t: T) => boolean;
+  extraType?: 'date' | 'product';
+  extraTypeValue?: string;
+  predicate: (t: T, date?: string) => boolean;
 }
 
 function FilterHook<T>(initialFilters: Filter<T>[], items: T[]) {
@@ -17,6 +20,47 @@ function FilterHook<T>(initialFilters: Filter<T>[], items: T[]) {
     setFilteredItems(items);
   };
 
+  const ExtraField = React.memo(function ExtraField({ filter }: { filter: Filter<any> }) {
+    const [extraFieldValue, setExtraFieldValue] = useState<string>(filter.extraTypeValue);
+
+    const debouncedUpdateExtraFiled = useCallback(
+      debounce((value) => {
+        setFilters(
+          filters.map((f) => {
+            if (f.key === filter.key) {
+              return {
+                ...f,
+                value: true,
+                extraTypeValue: value,
+              };
+            }
+            return f;
+          }),
+        );
+      }, 500),
+      [],
+    );
+
+    const updateExtraField = (value: string) => {
+      setExtraFieldValue(value);
+      debouncedUpdateExtraFiled(value);
+    };
+
+    if (!filter.extraType) {
+      return null;
+    }
+    return (
+      <input
+        className="ml-2 text-black"
+        onChange={(e) => updateExtraField(e.target.value)}
+        name={filter.key}
+        id={filter.key}
+        value={extraFieldValue}
+        type={filter.extraType === 'date' ? 'date' : 'text'}
+      ></input>
+    );
+  });
+
   const updateFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters(
       filters.map((filter) => {
@@ -24,6 +68,7 @@ function FilterHook<T>(initialFilters: Filter<T>[], items: T[]) {
           return {
             ...filter,
             value: e.target.checked,
+            extraTypeValue: e.target.checked ? filter.extraTypeValue : '',
           };
         }
         return filter;
@@ -35,9 +80,12 @@ function FilterHook<T>(initialFilters: Filter<T>[], items: T[]) {
     if (filters?.length && items?.length) {
       if (filters.some((filter) => filter.value)) {
         setFilteredItems(
-          items.filter((order) => {
-            return filters.reduce((prev, filter) => prev || (filter.value && filter.predicate(order)), false);
-          }),
+          items.filter((order) =>
+            filters.reduce(
+              (prev, filter) => prev || (filter.value && filter.predicate(order, filter.extraTypeValue)),
+              false,
+            ),
+          ),
         );
       } else {
         setFilteredItems(items);
@@ -57,7 +105,7 @@ function FilterHook<T>(initialFilters: Filter<T>[], items: T[]) {
             <label
               key={filter.key}
               htmlFor={filter.key}
-              className={`mr-4 cursor-pointer rounded-md py-1 px-2 ${
+              className={`cursor-pointer rounded-md py-1 px-2 ${
                 filter.value ? 'bg-accent-400 text-white' : 'bg-gray-200'
               }`}
             >
@@ -73,6 +121,7 @@ function FilterHook<T>(initialFilters: Filter<T>[], items: T[]) {
                 checked={filter.value}
                 onChange={updateFilter}
               />
+              {!!filter.extraType && <ExtraField filter={filter} />}
             </label>
           ))}
         </div>

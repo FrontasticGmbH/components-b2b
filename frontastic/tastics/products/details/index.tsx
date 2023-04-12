@@ -75,6 +75,7 @@ function ProductDetailsTastic({ data }) {
       isPreview={isPreview}
       product={prod}
       subscriptions={data?.data?.dataSource.subscriptions}
+      configurableComponents={data?.data?.dataSource.configurableComponents}
       productFeaturesAttributes={productFeaturesAttributes}
       variant={variant}
       onChangeVariantIdx={setCurrentVariantIdx}

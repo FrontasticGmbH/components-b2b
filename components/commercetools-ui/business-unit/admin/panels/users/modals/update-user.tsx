@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Associate } from 'cofe-ct-b2b-ecommerce/types/associate/Associate';
 import { MultiSelect } from 'react-multi-select-component';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';
+import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 
 export interface UpdateUserProps {
   open?: boolean;
@@ -15,6 +16,7 @@ export interface UpdateUserProps {
 
 const UpdateUser: React.FC<UpdateUserProps> = ({ open, onClose, updateUser, associate }) => {
   const { formatMessage } = useFormat({ name: 'business-unit' });
+  const { associateRoles } = useBusinessUnitStateContext();
 
   // @ts-ignore
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +27,7 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ open, onClose, updateUser, asso
       value: role.associateRole?.key,
     })),
   );
+  const [options, setOptions] = useState([]);
 
   //submission handler
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,16 +45,11 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ open, onClose, updateUser, asso
     }
   };
 
-  const options = [
-    {
-      label: 'Admin',
-      value: 'admin',
-    },
-    {
-      label: 'Buyer',
-      value: 'buyer',
-    },
-  ];
+  useEffect(() => {
+    if (associateRoles.length) {
+      setOptions(associateRoles.map((role) => ({ value: role.key, label: role.name })));
+    }
+  }, [associateRoles]);
 
   return (
     <Transition.Root show={open} as={Fragment}>

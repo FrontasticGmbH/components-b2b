@@ -22,7 +22,7 @@ const WorkflowRules = () => {
         ast,
       },
     ];
-    await updateWorkflow(selectedBusinessUnit.key, JSON.stringify(newWorkflows));
+    await updateWorkflow(selectedBusinessUnit, JSON.stringify(newWorkflows));
     reloadTree();
   };
 
@@ -33,7 +33,7 @@ const WorkflowRules = () => {
 
   const handleDeleteWorkflow = async () => {
     const newWorkflows: Workflow[] = workflows.filter((workflow) => workflow.id !== selectedWorkflow);
-    await updateWorkflow(selectedBusinessUnit.key, JSON.stringify(newWorkflows));
+    await updateWorkflow(selectedBusinessUnit, JSON.stringify(newWorkflows));
     reloadTree();
   };
 

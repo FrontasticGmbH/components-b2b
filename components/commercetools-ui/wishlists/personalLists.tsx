@@ -90,14 +90,14 @@ const PersonalLists: React.FC<Props> = ({
                       <span>{wishlist.lineItems.length}</span>
                     </p>
                   </div>
-                  <div className="grid grid-cols-3">
+                  <div className="my-4 grid h-10 grid-cols-3">
                     <Link href={`/wishlist/${wishlist.wishlistId}`}>
-                      <button className="button button-primary">View</button>
+                      <button className="button button-primary--small">View</button>
                     </Link>
                     <button
                       onClick={() => addItemsToCart(wishlist.lineItems, i)}
                       disabled={isDisabled || wishlist.lineItems?.length === 0}
-                      className="button button-primary flex flex-row items-center"
+                      className="button button-primary--small flex flex-row items-center"
                     >
                       Order
                       {isAdding[i] && <LoadingIcon className="ml-4 h-4 w-4 animate-spin" />}

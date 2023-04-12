@@ -2,9 +2,10 @@ import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
 import { Cart as CartType } from '@Types/cart/Cart';
-import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
+import { Organization } from '@Types/organization/organization';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference } from 'helpers/reference';
+import { useAccount } from 'frontastic';
 import { NextFrontasticImage } from 'frontastic/lib/image';
 import Spinner from '../spinner';
 import EmptyCart from './emptyCart';
@@ -39,6 +40,8 @@ const Cart = ({
 }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [isQuoteRequestDisabled, setIsQuoteRequestDisabled] = useState(false);
+  const [isOverStock, setIsOverStock] = useState(false);
+  const { account } = useAccount();
 
   //i18n messages
   const { formatMessage: formatCartMessage } = useFormat({ name: 'cart' });
@@ -56,12 +59,10 @@ const Cart = ({
     if (cart?.lineItems) {
       setLoading(false);
     }
-  }, [cart]);
-
-  useEffect(() => {
-    if (cart?.origin === 'Quote') {
-      setIsQuoteRequestDisabled(true);
-    }
+    setIsQuoteRequestDisabled(cart?.origin === 'Quote');
+    setIsOverStock(
+      cart?.lineItems?.some((lineItem) => lineItem.count > lineItem.variant?.availability?.availableQuantity),
+    );
   }, [cart]);
 
   if (loading) {
@@ -108,6 +109,11 @@ const Cart = ({
             organization={organization}
             cart={cart}
             submitButtonLabel={cart.isPreBuyCart && 'Pre order'}
+            disableSubmitButton={
+              isOverStock ||
+              !cart.customerId ||
+              (cart.customerId === account?.accountId && !!organization?.superUserBusinessUnitKey)
+            }
             onSubmit={onCheckout}
             showDiscountsForm={false}
             currentStep="cart"

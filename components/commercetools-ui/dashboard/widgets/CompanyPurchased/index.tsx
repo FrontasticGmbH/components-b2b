@@ -9,7 +9,7 @@ import Image from 'frontastic/lib/image';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 
 const CompanyPurchasedWidget = () => {
-  const { businessUnit, getAllOrders } = useBusinessUnitStateContext();
+  const { businessUnit, getOrders } = useBusinessUnitStateContext();
   const [lineItems, setLineItems] = useState<LineItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,7 +35,7 @@ const CompanyPurchasedWidget = () => {
     if (businessUnit) {
       (async () => {
         setIsLoading(true);
-        const orders = await getAllOrders(businessUnit);
+        const orders = await getOrders(businessUnit);
         if (orders?.length) {
           setLineItems(pickFourTopItems(orders));
         }

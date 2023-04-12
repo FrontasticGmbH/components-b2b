@@ -8,7 +8,7 @@ import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 
 const AverageOrderWidget = () => {
-  const { businessUnit, getAllOrders } = useBusinessUnitStateContext();
+  const { businessUnit, getOrders } = useBusinessUnitStateContext();
   const [orders, setOrders] = useState<Order[]>([]);
   const [duration, setDuration] = useState({ label: 'Week', value: 7 });
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +24,7 @@ const AverageOrderWidget = () => {
     if (businessUnit) {
       (async () => {
         setIsLoading(true);
-        const orders = await getAllOrders(businessUnit);
+        const orders = await getOrders(businessUnit);
         if (orders?.length) {
           setOrders(orders);
         }

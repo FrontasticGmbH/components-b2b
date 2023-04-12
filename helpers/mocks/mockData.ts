@@ -92,6 +92,7 @@ export const orderHistoryMock: Order[] = [
   {
     cartId: '4981a058-d32d-4120-bac9-c7b2ff862e36',
     orderId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
+    customerId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
     orderState: 'Open',
     orderVersion: '1',
     billingAddress: billingAddress,
@@ -101,6 +102,7 @@ export const orderHistoryMock: Order[] = [
   },
   {
     cartId: '4981a058-d32d-4120-bac9-c7b2ff862e36',
+    customerId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
     orderId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
     orderState: 'Open',
     orderVersion: '1',
@@ -250,6 +252,7 @@ export const shippingMethods: ShippingMethod[] = [
 ];
 export const cart: Cart = {
   cartId: 'cf2200af-5891-41f1-aa04-099866ec348a',
+  customerId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
   cartVersion: '28',
   payments: [],
   sum: { fractionDigits: 2, centAmount: 56160, currencyCode: 'EUR' },
@@ -14974,6 +14977,7 @@ export const getMockCart: (numberOfLineitems?: number) => Cart = (numberOfLineit
   }
   let cart: Cart = {
     cartId: 'cf2200af-5891-41f1-aa04-099866ec348a',
+    customerId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
     lineItems: products.slice(0, numberOfLineitems).map((product, n) => ({
       lineItemId: `${n.toString(16)}f2200af-5891-41f1-aa04-099866ec348${n.toString(16)}`,
       name: product.name,

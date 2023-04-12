@@ -60,6 +60,18 @@ const Address: React.FC<AddressProps> = ({ data, updateData, billingIsSameAsShip
     updateCart(updatedData);
   };
 
+  useEffect(() => {
+    if (!!data.shippingCountry && billingIsSameAsShipping) {
+      updateSelection({
+        ...data,
+        billingCity: data.shippingCity,
+        billingPostalCode: data.shippingPostalCode,
+        billingCountry: data.shippingCountry,
+        billingStreetName: data.shippingStreetName,
+      });
+    }
+  }, [billingIsSameAsShipping]);
+
   return (
     <section
       aria-labelledby="cart-heading"
@@ -69,7 +81,27 @@ const Address: React.FC<AddressProps> = ({ data, updateData, billingIsSameAsShip
         <span>{formatMessage({ id: 'shippingTo', defaultMessage: 'Shipping to' })}</span>
       </div>
 
-      <AddressSelection updateSelection={updateSelection} className="mb-4" />
+      <div>
+        <AddressSelection updateSelection={updateSelection} className="mb-4" addressType="shipping" data={data} />
+        {!!selectedAddress && (
+          <label className="mt-4 flex items-center rounded bg-neutral-200 p-4 text-sm">
+            <input
+              id="billing-same-as-shipping"
+              type="checkbox"
+              className="mr-2 text-xl"
+              checked={billingIsSameAsShipping}
+              onChange={toggleBillingAddressOption}
+            />
+            {formatMessage({
+              id: 'billingDetailsLabel',
+              defaultMessage: 'Billing address is the same as shipping address',
+            })}
+          </label>
+        )}
+        {!billingIsSameAsShipping && (
+          <AddressSelection updateSelection={updateSelection} className="mb-4" addressType="billing" data={data} />
+        )}
+      </div>
 
       {!selectedAddress && (
         <AddressForm

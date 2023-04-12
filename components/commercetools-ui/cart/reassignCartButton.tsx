@@ -2,8 +2,9 @@
 import React, { Fragment, HTMLAttributes, useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
+import { CheckIcon } from '@heroicons/react/solid';
+import { Organization } from '@Types/organization/organization';
 import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
-import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
 import { useAccount, useCart } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 
 const ReassignCartButton: React.FC<Props & HTMLAttributes<HTMLDivElement>> = ({ organization, className }) => {
   const { getMyOrganization, businessUnit: currentBusinesssUnit } = useBusinessUnitStateContext();
-  const { reassignCart } = useCart();
+  const { reassignCart, data: cart } = useCart();
   const { account } = useAccount();
 
   const [businessUnit, setBusinessUnit] = useState<BusinessUnit>();
@@ -53,18 +54,20 @@ const ReassignCartButton: React.FC<Props & HTMLAttributes<HTMLDivElement>> = ({ 
             leaveTo="opacity-0 translate-y-1"
           >
             <Popover.Panel
-              className={`absolute left-1/2 z-10 mt-3 w-60 max-w-sm -translate-x-1/2 transform rounded-md bg-gray-300 px-2`}
+              className={`absolute left-1/2 z-10 mt-3 w-60 max-w-sm -translate-x-1/2 transform rounded-md bg-gray-100`}
             >
               {businessUnit.associates
                 ?.filter((associate) => associate.customer.id !== account?.accountId)
                 .map((associate) => (
                   <button
                     type="button"
-                    className="w-full py-2"
+                    className={`flex w-full flex-row items-center p-2 hover:bg-gray-200 disabled:bg-gray-300`}
+                    disabled={associate.customer.id === cart.customerId}
                     key={associate.customer.id}
-                    onClick={() => reassignCart(associate.customer.id)}
+                    onClick={() => reassignCart(associate.customer.id, associate.customer.email)}
                   >
-                    {`${associate.customer.firstName || ''} ${associate.customer.lastName || ''} `}
+                    <span>{`${associate.customer.firstName || ''} ${associate.customer.lastName || ''} `}</span>
+                    {associate.customer.id === cart.customerId && <CheckIcon className="ml-2 h-4 w-4" />}
                   </button>
                 ))}
             </Popover.Panel>

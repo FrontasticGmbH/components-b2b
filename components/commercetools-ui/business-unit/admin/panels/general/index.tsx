@@ -41,7 +41,7 @@ const GeneralPanel: React.FC = () => {
 
   const updateCompanyBudget = async () => {
     setIsLoading(true);
-    await updateBudget(businessUnit?.key, data.budget);
+    await updateBudget(businessUnit, data.budget);
     await reloadTree();
     setIsLoading(false);
   };

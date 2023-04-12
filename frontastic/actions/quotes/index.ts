@@ -18,3 +18,7 @@ export const getBusinessUserQuoteRequests = async (keys: string[]): Promise<Quot
 export const updateQuoteState = async (id: string, state: string): Promise<Quote> => {
   return await fetchApiHub(`/action/quote/updateQuoteState?id=${id}`, { method: 'POST' }, { state });
 };
+
+export const updateQuoteRequestState = async (id: string, state: string): Promise<QuoteRequest> => {
+  return await fetchApiHub(`/action/quote/updateQuoteRequestState?id=${id}`, { method: 'POST' }, { state });
+};
