@@ -2035,10 +2035,10 @@
   resolved "https://registry.yarnpkg.com/@commercetools/frontend-domain-types/-/frontend-domain-types-1.0.3.tgz#8eae385ad672e8acdffb65c63b6a2af110567327"
   integrity sha512-ENsvOvUyY6jdjgdUWn33Jvig+hcLxFaZN/6FNrnA9rz4nGClLhzJE9DT/NlOBryqSLxuw00FJC8NGRnnNzZ8Dg==
 
-"@commercetools/frontend-netlify-plugin@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@commercetools/frontend-netlify-plugin/-/frontend-netlify-plugin-0.0.3.tgz#c1e486a040353208c92c9d67eafe61d7b4700f55"
-  integrity sha512-HbOWyNeq5SK0ISdqtvvUrmR2se4Z1684wmtnJi7x2jojPjoJUiU/IEVmAQdcmonFjGMT1DuiqJemw6TQUDk5Ww==
+"@commercetools/frontend-netlify-plugin@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@commercetools/frontend-netlify-plugin/-/frontend-netlify-plugin-0.0.4.tgz#ca212dbb444fc581cdad2de1685c2c666753be21"
+  integrity sha512-MZQ0aib5WB/3gtJ3aPJAxhz4rUe7dPVshRwZQkn8n69c4/vTRNkF6/Wg3o9bSdXWZV2ENO66YiPUKF3I+Fdq9g==
   dependencies:
     dotenv "^16.0.3"
     node-fetch "^3.3.1"

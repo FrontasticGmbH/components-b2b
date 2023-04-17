@@ -22,7 +22,7 @@
   "dependencies": {
     "@adyen/adyen-web": "^5.16.1",
     "@commercetools/frontend-domain-types": "^1.0.3",
-    "@commercetools/frontend-netlify-plugin": "^0.0.3",
+    "@commercetools/frontend-netlify-plugin": "^0.0.4",
     "@emotion/react": "^11.9.0",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
