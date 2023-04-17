@@ -7,6 +7,14 @@
     "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended"
   ],
+  "overrides": [
+    {
+      "files": ["*.test.ts", "*.test.tsx"],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["tailwindcss", "import", "@typescript-eslint"],
   "rules": {
@@ -19,6 +27,7 @@
     "tailwindcss/no-contradicting-classname": "error",
     "prettier/prettier": "error",
     "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-empty-function": "off",
     "import/order": [
       "warn",
       {
