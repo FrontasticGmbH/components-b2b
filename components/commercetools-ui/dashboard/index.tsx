@@ -20,7 +20,7 @@ const DashboardWrapper: React.FC<Props> = ({ organization }) => {
           {formatMessage({
             id: 'dashboard.desc',
             defaultMessage: 'Your personalized dashboard and widgets. Start by dragging widgets from + list',
-          })}{' '}
+          })}
         </p>
       </div>
       <Dashboard organization={organization} />

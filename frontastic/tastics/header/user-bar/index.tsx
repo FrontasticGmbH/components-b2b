@@ -44,10 +44,9 @@ const UserBarTastic: React.FC<Props> = ({ data }) => {
         />
         <NotificationButton className="ml-2" />
       </span>
-
       <span className="inline-flex items-center px-2">
         <TranslateIcon className="mr-1 inline h-4 w-4 text-accent-400" />
-        <span className="">{router.locale.toUpperCase()}</span>{' '}
+        <span className="">{router.locale.toUpperCase()}</span>
       </span>
     </div>
   );
