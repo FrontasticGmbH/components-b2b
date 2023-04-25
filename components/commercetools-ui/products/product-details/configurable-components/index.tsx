@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { CheckIcon } from '@heroicons/react/outline';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Product } from '@Types/product/Product';
+import { Variant } from '@Types/product/Variant';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { UIProduct } from '..';
 import ConfigurableComponent from './configurable-component';

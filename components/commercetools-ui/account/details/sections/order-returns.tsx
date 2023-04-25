@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/outline';
 import { LineItem } from '@Types/cart/LineItem';
-import { ReturnInfo, ReturnInfoItem } from 'cofe-ct-b2b-ecommerce/types/cart/Order';
+import { ReturnInfo, ReturnInfoItem } from '@Types/cart/Order';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import Image from 'frontastic/lib/image';
 

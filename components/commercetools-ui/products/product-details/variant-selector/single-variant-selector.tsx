@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Product } from '@Types/product/Product';
+import { Variant } from '@Types/product/Variant';
 import WishlistButton from 'components/commercetools-ui/wishlist-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useBundlesHook } from 'helpers/hooks/useSubscription';

@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Transition, Dialog } from '@headlessui/react';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
-import { QuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
+import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useCart, useDarkMode, useQuotes } from 'frontastic';

@@ -4,8 +4,8 @@ import { LineItem } from '@commercetools/frontend-domain-types/wishlist/LineItem
 import { Listbox, Transition } from '@headlessui/react';
 import { ViewListIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon, CheckIcon, ShoppingCartIcon, TrashIcon } from '@heroicons/react/solid';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
-import { Wishlist } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
+import { Variant } from '@Types/product/Variant';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useCart, useWishlist } from 'frontastic';
 import Image from 'frontastic/lib/image';

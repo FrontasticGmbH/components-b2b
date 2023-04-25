@@ -1,9 +1,9 @@
 import { Account } from '@commercetools/frontend-domain-types/account/Account';
 import { Address } from '@commercetools/frontend-domain-types/account/Address';
-import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { Order } from '@Types/cart/Order';
-import { ChannelResourceIdentifier } from 'cofe-ct-b2b-ecommerce/types/channel/channel';
-import { AssociateRole } from 'cofe-ct-b2b-ecommerce/types/associate/Associate';
+import { ChannelResourceIdentifier } from '@Types/channel/channel';
+import { AssociateRole } from '@Types/associate/Associate';
 
 export interface UseBusinessUnit {
   businessUnit: BusinessUnit;

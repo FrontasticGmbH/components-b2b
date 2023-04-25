@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PlusIcon } from '@heroicons/react/outline';
 import { CheckIcon } from '@heroicons/react/solid';
-import { WishlistDraft } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
+import { WishlistDraft } from '@Types/wishlist/Wishlist';
 import { useWishlist } from 'frontastic';
 import { LoadingIcon } from '../icons/loading';
 

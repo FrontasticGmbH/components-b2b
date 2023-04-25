@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useDarkMode } from 'frontastic';
 

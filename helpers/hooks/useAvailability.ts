@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Variant } from '@Types/product/Variant';
 import { useCart } from 'frontastic';
 
 export const useAvailability = (variant: Variant) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { Facet } from '@commercetools/frontend-domain-types/result/Facet';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
+import { Product } from '@Types/product/Product';
 import Breadcrumb from 'components/commercetools-ui/breadcrumb';
 import Filters from 'components/commercetools-ui/filters';
 import FilterIcon from 'components/icons/filter';

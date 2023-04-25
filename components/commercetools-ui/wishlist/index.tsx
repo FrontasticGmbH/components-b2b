@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
-import { Wishlist } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
+import { Variant } from '@Types/product/Variant';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference } from 'helpers/reference';
 import { useCart, useWishlist } from 'frontastic';

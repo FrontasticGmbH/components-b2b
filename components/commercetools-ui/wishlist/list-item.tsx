@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { LineItem } from '@commercetools/frontend-domain-types/wishlist/LineItem';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Variant } from '@Types/product/Variant';
 import debounce from 'lodash.debounce';
 import { DateHelpers } from 'helpers/dateHelpers';
 import { useFormat } from 'helpers/hooks/useFormat';

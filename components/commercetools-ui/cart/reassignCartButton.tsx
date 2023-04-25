@@ -3,8 +3,8 @@ import React, { Fragment, HTMLAttributes, useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { CheckIcon } from '@heroicons/react/solid';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { Organization } from '@Types/organization/organization';
-import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
 import { useAccount, useCart } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 type Props = {

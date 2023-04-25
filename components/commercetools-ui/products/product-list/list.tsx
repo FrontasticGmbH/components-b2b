@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import Head from 'next/head';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
+import { Product } from '@Types/product/Product';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { useCart } from 'frontastic';
 import ListItem from './list-item';

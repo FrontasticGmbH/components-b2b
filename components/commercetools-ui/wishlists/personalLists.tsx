@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/outline';
-import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { Reference } from 'helpers/reference';
 import { useWishlist } from 'frontastic';
 import { LoadingIcon } from '../icons/loading';

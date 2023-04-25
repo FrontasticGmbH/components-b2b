@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CheckIcon } from '@heroicons/react/solid';
-import { Wishlist } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { useWishlist } from 'frontastic';
 import { LoadingIcon } from '../icons/loading';
 type Props = {

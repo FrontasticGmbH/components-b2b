@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState, Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Associate } from 'cofe-ct-b2b-ecommerce/types/associate/Associate';
+import { Associate } from '@Types/associate/Associate';
 import { MultiSelect } from 'react-multi-select-component';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';

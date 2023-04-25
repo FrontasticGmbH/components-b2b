@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { HeartIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
-import { Wishlist } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
+import { Variant } from '@Types/product/Variant';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { useWishlist } from 'frontastic';
 import WishlistButtonItem from './wishlist-button-item';
 import styles from './wishlist-button.module.scss';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Variant } from '@Types/product/Variant';
 
 type Props = {
   onChangeVariant: (variant: Variant) => void;

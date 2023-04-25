@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CheckIcon } from '@heroicons/react/solid';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Variant } from '@Types/product/Variant';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { useCart } from 'frontastic';

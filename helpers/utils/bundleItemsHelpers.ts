@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { LineItem } from '@Types/cart/LineItem';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Variant } from '@Types/product/Variant';
 
 export const BUNDLE_ATTRIBUTE_NAME = 'bundles';
 
