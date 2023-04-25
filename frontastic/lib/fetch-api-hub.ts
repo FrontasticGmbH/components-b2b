@@ -80,7 +80,7 @@ const performFetchApiHub = async (
       'Content-Type': 'application/json',
       Accept: 'application/json',
       ...(init.headers || {}),
-      'X-Frontastic-Access-Token': 'APIKEY',
+      'Commercetools-Frontend-Extension-Version': process.env.NEXT_PUBLIC_EXT_BUILD_ID ?? 'dev',
       ...frontasticSessionHeaders,
       'Frontastic-Locale': i18nForBackend?.[LocaleStorage.locale] || 'en_GB',
     },
