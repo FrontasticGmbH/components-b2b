@@ -26,7 +26,7 @@ const schema = {
     targets: [
       {
         target_id: 'cart.sum.centAmount',
-        label: 'Order Total in USD',
+        label: 'Order Total in GBP',
         type_id: 'int',
       },
       {
