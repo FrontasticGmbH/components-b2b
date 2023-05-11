@@ -42,7 +42,7 @@ export class DateHelpers {
     )}, ${DateHelpers.formatTime(unformattedDate)}`;
   };
   static formatToLocale = (date: Date) => {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat('en-GB', {
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',

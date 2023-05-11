@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({
               <BusinessUnitDropdownTree tree={organizationTree} />
               <BusinessUnitRole organization={organization} />
               <StorePicker organization={organization} />
-              <span className="px-4">Country: US</span>
+              <span className="px-4">Country: GB</span>
               <span className="px-4">Language: English</span>
             </div>
           )}
