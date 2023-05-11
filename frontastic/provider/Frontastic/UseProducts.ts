@@ -1,5 +1,5 @@
-import { Category } from 'cofe-ct-b2b-ecommerce/types/product/Category';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
+import { Category } from '@Types/product/Category';
+import { Product } from '@Types/product/Product';
 import { Result } from '@commercetools/frontend-domain-types/product/Result';
 
 export interface ProductQueryResponse extends Result {

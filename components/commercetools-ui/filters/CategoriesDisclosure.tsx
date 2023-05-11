@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Facet } from '@commercetools/frontend-domain-types/result/Facet';
 import { Disclosure } from '@headlessui/react';
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
+import { Product } from '@Types/product/Product';
 import { GiThermometerCold } from 'react-icons/gi';
 import { URLParam } from 'helpers/utils/updateURLParams';
 import { useProducts } from 'frontastic';

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
+import { Organization } from '@Types/organization/organization';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
-import { useCart } from 'frontastic';
+import { useCart, useWishlist } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 
 interface Props {
@@ -11,12 +11,14 @@ interface Props {
 const StorePicker: React.FC<Props> = ({ organization }) => {
   const { setMyStore } = useBusinessUnitStateContext();
   const { getCart } = useCart();
+  const { fetchStoreWishlists } = useWishlist();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const setStore = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     setIsLoading(true);
     await setMyStore(event.target.value);
+    fetchStoreWishlists().catch(() => console.log('No store in session'));
     getCart();
     setIsLoading(false);
     router.push('/');

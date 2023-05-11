@@ -46,8 +46,6 @@ const Address: React.FC<AddressProps> = ({ data, updateData, billingIsSameAsShip
       };
       setAvailableCountryOptions([showMessageInDropdown]);
     } else {
-      console.log('here');
-
       const totalCountries = getTaxedCountries(shippingMethodsData, projectSettingsCountries?.countries);
 
       setAvailableCountryOptions(totalCountries);

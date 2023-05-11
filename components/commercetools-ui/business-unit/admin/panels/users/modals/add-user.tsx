@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { MultiSelect } from 'react-multi-select-component';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';
+import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 
 export interface AddUserProps {
   open?: boolean;
@@ -14,10 +15,13 @@ export interface AddUserProps {
 const AddUser: React.FC<AddUserProps> = ({ open, onClose, addUser }) => {
   const { formatMessage } = useFormat({ name: 'business-unit' });
 
+  const { associateRoles } = useBusinessUnitStateContext();
+
   // @ts-ignore
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [roles, setRoles] = useState([]);
+  const [options, setOptions] = useState([]);
 
   //submission handler
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,16 +39,11 @@ const AddUser: React.FC<AddUserProps> = ({ open, onClose, addUser }) => {
     }
   };
 
-  const options = [
-    {
-      label: 'Admin',
-      value: 'admin',
-    },
-    {
-      label: 'Buyer',
-      value: 'buyer',
-    },
-  ];
+  useEffect(() => {
+    if (associateRoles.length) {
+      setOptions(associateRoles.map((role) => ({ value: role.key, label: role.name })));
+    }
+  }, [associateRoles]);
 
   return (
     <Transition.Root show={open} as={Fragment}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
+import { Organization } from '@Types/organization/organization';
 import { useAccount } from 'frontastic';
 
 type Props = {

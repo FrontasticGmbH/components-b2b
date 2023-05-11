@@ -1,13 +1,14 @@
-import { QuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
 import { Address } from '@commercetools/frontend-domain-types/account/Address';
-import { Cart } from '@Types/cart/Cart';
 import { Discount } from '@commercetools/frontend-domain-types/cart/Discount';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Cart } from '@Types/cart/Cart';
+import { Order } from '@Types/cart/Order';
+import { LineItemReturnItemDraft } from '@Types/cart/LineItem';
+import { Variant } from '@Types/product/Variant';
+import { QuoteRequest } from '@Types/quotes/QuoteRequest';
+import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
+import toast from 'react-hot-toast';
 import useSWR, { mutate } from 'swr';
 import { fetchApiHub, revalidateOptions } from 'frontastic';
-import { LineItemReturnItemDraft } from 'cofe-ct-b2b-ecommerce/types/cart/LineItem';
-import { Order } from '@Types/cart/Order';
-import { bundleItems } from 'helpers/utils/subscribedItems';
 
 export type CartDetails = {
   account?: { email: string };
@@ -16,36 +17,77 @@ export type CartDetails = {
 };
 
 export const cartItems = () => {
-  const result = useSWR('/action/cart/getCart', fetchApiHub, revalidateOptions);
-  const bundledLineItems = bundleItems(result.data?.lineItems);
-
-  return {
-    data: {
-      ...result.data,
-      lineItems: bundledLineItems,
-    },
-  };
+  try {
+    const result = useSWR('/action/cart/getCart', fetchApiHub, revalidateOptions);
+    if (!result.data) {
+      throw new Error('No cart');
+    }
+    const bundledLineItems = bundleItems(result.data?.lineItems);
+    return {
+      data: {
+        ...result.data,
+        lineItems: bundledLineItems,
+      },
+    };
+  } catch {
+    return {
+      data: undefined,
+    };
+  }
 };
 
 export const getCart = async () => {
   try {
     const res = await fetchApiHub('/action/cart/getCart', { method: 'GET' });
+    if (!res.data) {
+      throw new Error('No cart');
+    }
     mutate('/action/cart/getCart', res);
   } catch {
     mutate('/action/cart/getCart', undefined);
   }
 };
 
-export const reassignCart = async (customerId: string) => {
+export const getCartById = async (id: string) => {
+  const res = await fetchApiHub(`/action/cart/getCartById?id=${id}`, { method: 'GET' });
+  mutate('/action/cart/getCart', res);
+};
+
+export const createCart = async () => {
+  const res = await fetchApiHub(`/action/cart/createCart`, { method: 'POST' });
+  getAllSuperUserCarts();
+  mutate('/action/cart/getCart', res);
+};
+
+export const getAllSuperUserCarts = async () => {
   try {
-    await fetchApiHub(`/action/cart/reassignCart?customerId=${customerId}`, { method: 'POST' });
+    const res = await fetchApiHub('/action/cart/getAllSuperUserCarts', { method: 'GET' });
+    mutate('/action/cart/getAllSuperUserCarts', res);
+  } catch {
+    mutate('/action/cart/getAllSuperUserCarts', undefined);
+  }
+};
+
+export const allSuperUserCarts = (): Cart[] => {
+  const allCarts = useSWR('/action/cart/getAllSuperUserCarts', fetchApiHub, revalidateOptions);
+  return allCarts.data;
+};
+
+export const reassignCart = async (customerId: string, email: string) => {
+  try {
+    await fetchApiHub(`/action/cart/reassignCart?customerId=${customerId}&email=${email}`, { method: 'POST' });
   } catch {
     console.log('cannot reassign cart');
   }
   mutate('/action/cart/getCart', undefined);
 };
 
-export const addItem = async (variant: Variant, quantity: number, subscriptions?: Variant[]) => {
+export const addItem = async (
+  variant: Variant,
+  quantity: number,
+  subscriptions?: Variant[],
+  selectedConfigurableComponents?: Variant[],
+) => {
   const payload = {
     variant: {
       sku: variant.sku,
@@ -54,15 +96,25 @@ export const addItem = async (variant: Variant, quantity: number, subscriptions?
     subscriptions: subscriptions
       ?.filter((subscription) => subscription)
       ?.map((subscription) => ({ sku: subscription.sku, count: 1 })),
+    configurableComponents: selectedConfigurableComponents
+      ?.filter((component) => component)
+      ?.map((component) => ({ sku: component.sku, count: 1 })),
   };
-  const res = await fetchApiHub(
-    '/action/cart/addToCart',
-    {
-      method: 'POST',
-    },
-    payload,
-  );
-  mutate('/action/cart/getCart', res);
+  try {
+    const res = await fetchApiHub(
+      '/action/cart/addToCart',
+      {
+        method: 'POST',
+      },
+      payload,
+    );
+    if (!res.cartId) {
+      throw new Error('Failed adding to cart');
+    }
+    mutate('/action/cart/getCart', res);
+  } catch (e) {
+    toast.error(e.message, { duration: 10000 });
+  }
 };
 
 export const addItems = async (lineItems: any[], subscriptions?: { sku?: string; count?: number }[]) => {
@@ -82,6 +134,9 @@ export const addItems = async (lineItems: any[], subscriptions?: { sku?: string;
     },
     payload,
   );
+  if (!res.cartId) {
+    throw new Error('Failed adding to cart');
+  }
   mutate('/action/cart/getCart', res);
   return res;
 };
@@ -95,6 +150,7 @@ export const orderCart = async (payload?: any) => {
     { payload },
   );
   mutate('/action/cart/getCart', res);
+  return res;
 };
 
 export const orderHistory = async () => {
@@ -243,6 +299,19 @@ export const createQuoteRequestFromCurrentCart = async (comment: string): Promis
 export const returnItems = async (orderNumber: string, returnLineItems: LineItemReturnItemDraft[]): Promise<Order> => {
   try {
     const res = fetchApiHub('/action/cart/returnItems', { method: 'POST' }, { orderNumber, returnLineItems });
+    return res;
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const cancelOrder = async (orderNumber: string): Promise<Order> => {
+  try {
+    const res = fetchApiHub(
+      '/action/cart/updateOrderState',
+      { method: 'POST' },
+      { orderNumber, orderState: 'Cancelled' },
+    );
     return res;
   } catch (e) {
     throw e;

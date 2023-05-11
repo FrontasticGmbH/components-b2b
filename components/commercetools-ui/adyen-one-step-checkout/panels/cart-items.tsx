@@ -2,7 +2,7 @@ import React from 'react';
 import { Cart } from '@Types/cart/Cart';
 import { LineItem } from '@Types/cart/LineItem';
 import { StringHelpers } from 'helpers/stringHelpers';
-import { getSelectedSubscriptionLabel, SUBSCRIPTION_ATTRIBUTE_NAME } from 'helpers/utils/subscribedItems';
+import { getSelectedBundleLabel, BUNDLE_ATTRIBUTE_NAME } from 'helpers/utils/bundleItemsHelpers';
 import Image from 'frontastic/lib/image';
 
 export interface Props {
@@ -24,14 +24,12 @@ const CartItems: React.FC<Props> = ({ cart }) => {
               <h3 className="text-gray-900 dark:text-light-100">
                 <span className="pr-2">{`${lineItem.count}x`}</span> {lineItem.name}
               </h3>
-              {!!lineItem.variant?.attributes?.[SUBSCRIPTION_ATTRIBUTE_NAME]?.length && (
+              {!!lineItem.variant?.attributes?.[BUNDLE_ATTRIBUTE_NAME]?.length && (
                 <div className="flex flex-col">
-                  {lineItem.variant?.attributes?.[SUBSCRIPTION_ATTRIBUTE_NAME].map((subscription: LineItem) => (
+                  {lineItem.variant?.attributes?.[BUNDLE_ATTRIBUTE_NAME].map((subscription: LineItem) => (
                     <div className="td-other-details td-details__sku" key={subscription.lineItemId}>
                       <label className="">{`${subscription.name}: `}</label>
-                      <span className="text-xs">
-                        {getSelectedSubscriptionLabel(subscription.variant, subscription.name)}
-                      </span>
+                      <span className="text-xs">{getSelectedBundleLabel(subscription.variant, subscription.name)}</span>
                     </div>
                   ))}
                 </div>

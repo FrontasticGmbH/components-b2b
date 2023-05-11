@@ -2,8 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { Account } from '@commercetools/frontend-domain-types/account/Account';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
-import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
-import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
+import { Organization } from '@Types/organization/organization';
 import Typography from 'components/commercetools-ui/typography';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';
@@ -32,7 +32,6 @@ export interface HeaderProps {
   organizationTree: BusinessUnit[];
   tagline?: string;
   links: Link[];
-  cartItemCount: number;
   wishlistItemCount?: number;
   logo: { media: NextFrontasticImage } | NextFrontasticImage;
   logoLink: Reference;
@@ -48,7 +47,6 @@ const Header: React.FC<HeaderProps> = ({
   organizationTree,
   tagline,
   links,
-  cartItemCount,
   wishlistItemCount,
   logo,
   logoLink,
@@ -102,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({
               organization={organization}
               businessUnitLink={businessUnitLink}
             />
-            {!!account && <CartButton cartItemCount={cartItemCount} cartLink={cartLink} />}
+            {!!account && <CartButton cartLink={cartLink} organization={organization} />}
           </div>
         </div>
         <nav aria-label="Top" className="mx-auto max-w-full border-b border-gray-200 px-6 lg:px-0">

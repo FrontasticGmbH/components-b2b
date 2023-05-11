@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import Head from 'next/head';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
+import { Product } from '@Types/product/Product';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { useCart } from 'frontastic';
 import ListItem from './list-item';
@@ -31,10 +31,9 @@ const List: React.FC<Props> = ({ products, filtering, isPreview, previewURL }) =
           filtering ? '3' : '4'
         } xl:gap-x-8`}
       >
-        {!!data &&
-          products?.map((product) => (
-            <ListItem product={product} key={product.productId} isPreview={isPreview} previewURL={previewURL} />
-          ))}
+        {products?.map((product) => (
+          <ListItem product={product} key={product.productId} isPreview={isPreview} previewURL={previewURL} />
+        ))}
       </div>
     </div>
   );

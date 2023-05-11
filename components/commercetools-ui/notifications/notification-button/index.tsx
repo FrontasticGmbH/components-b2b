@@ -9,12 +9,12 @@ import { useNotifications } from 'frontastic/provider/Notifications';
 import styles from './index.module.css';
 
 const NotificationButton: React.FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
-  const { isInitialized, unreadMessageCount, messages, markMessgaeAsRead } = useNotifications();
+  const { isInitialized, unreadMessageCount, messages, markMessgaeAsRead, deleteMessage } = useNotifications();
 
   const [isLoading, setIsLoading] = useState(false);
-  const deleteMessage = async (message: Message) => {
+  const hanleDeleteMessage = async (message: Message) => {
     setIsLoading(true);
-    await message.updateAttributes({ archived: true });
+    await deleteMessage(message);
     setIsLoading(false);
   };
   if (!isInitialized) {
@@ -75,7 +75,7 @@ const NotificationButton: React.FC<HTMLAttributes<HTMLDivElement>> = ({ classNam
                           <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-4 w-4 text-accent-500`} />
                         </div>
                       </Disclosure.Button>
-                      {messages.length - i <= unreadMessageCount && (
+                      {i < unreadMessageCount && (
                         <span className="absolute -top-2 left-0 h-6 w-6 rounded-full bg-red-400 px-1 hover:bg-red-500">
                           <span className="flex h-full w-full items-center justify-center text-xs text-white group-hover:text-white">
                             !
@@ -88,7 +88,7 @@ const NotificationButton: React.FC<HTMLAttributes<HTMLDivElement>> = ({ classNam
                           dangerouslySetInnerHTML={{ __html: message.body }}
                           onClick={() => markMessgaeAsRead(message)}
                         ></div>
-                        <button className="self-end" onClick={() => deleteMessage(message)} disabled={isLoading}>
+                        <button className="self-end" onClick={() => hanleDeleteMessage(message)} disabled={isLoading}>
                           {!isLoading && <TrashIcon className="h-4 w-4 text-red-500" />}
                           {isLoading && <LoadingIcon className="h-4 w-4 animate-spin" />}
                         </button>

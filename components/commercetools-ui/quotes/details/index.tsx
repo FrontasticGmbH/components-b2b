@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Transition, Dialog } from '@headlessui/react';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
-import { QuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
+import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useCart, useDarkMode, useQuotes } from 'frontastic';
@@ -17,18 +17,26 @@ interface Props {
 
 const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
   const { mode } = useDarkMode();
-  const { updateQuoteState } = useQuotes();
+  const { updateQuoteState, updateQuoteRequestState } = useQuotes();
   const router = useRouter();
   const { getCart } = useCart();
 
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirmationDisplayed, setIsConfirmationDisplayed] = useState(false);
+  const [isCancellationDisplayed, setIsCancellationDisplayed] = useState(false);
 
   const handleUpdateQuote = async (id, state) => {
     setIsLoading(true);
     await updateQuoteState(id, state);
     setIsLoading(false);
     setIsConfirmationDisplayed(true);
+  };
+
+  const handleUpdateQuoteRequest = async (id, state) => {
+    setIsLoading(true);
+    await updateQuoteRequestState(id, state);
+    setIsLoading(false);
+    setIsCancellationDisplayed(true);
   };
 
   const quoteHistoryData = {
@@ -55,17 +63,23 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
 
   const handleClose = async () => {
     if (isConfirmationDisplayed) {
-      await getCart();
-      router.replace(
-        {
-          pathname: '/checkout',
-        },
-        undefined,
-        {
-          shallow: false,
-        },
-      );
+      try {
+        await getCart();
+        router.replace(
+          {
+            pathname: '/checkout',
+          },
+          undefined,
+          {
+            shallow: false,
+          },
+        );
+      } catch (e) {
+        console.error(e);
+      }
     }
+    setIsCancellationDisplayed(false);
+    setIsConfirmationDisplayed(false);
     onClose();
   };
 
@@ -105,11 +119,11 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
               <div className="absolute inset-0" onClick={handleClose}>
                 {/* eslint-disable */}
                 <div
-                  className="absolute top-1/2 left-1/2 h-[90vh] w-[90%] max-w-[1200px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-white py-16 px-4 dark:bg-primary-200 sm:px-6 lg:py-24 lg:px-8"
+                  className="absolute top-1/2 left-1/2 max-h-[90vh] w-[90%] max-w-[1200px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-white py-16 px-4 dark:bg-primary-200 sm:px-6 lg:py-24 lg:px-8"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {/* eslint-enable */}
-                  {!isConfirmationDisplayed && (
+                  {!isConfirmationDisplayed && !isCancellationDisplayed && (
                     <div className="relative mx-auto max-w-xl">
                       <div className="text-center">
                         <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-light-100 sm:text-4xl">
@@ -140,6 +154,23 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                               {!isLoading && <CheckIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
                               Accept
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                      {data?.quoteRequestState === 'Submitted' && (
+                        <div>
+                          <h3 className="mt-4 text-xl font-extrabold tracking-tight text-gray-900 dark:text-light-100">
+                            Actions
+                          </h3>
+                          <div className="flex flex-row justify-center">
+                            <button
+                              className="button button-secondary flex flex-row"
+                              onClick={() => handleUpdateQuoteRequest(data?.id, 'Cancelled')}
+                            >
+                              {!isLoading && <XIcon className="h-4 w-4 text-white" />}
+                              {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
+                              Withdraw
                             </button>
                           </div>
                         </div>
@@ -197,6 +228,18 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                         </h2>
                         <div className="mt-12">
                           <span className="text-sm">Please close this window and continue to checkout</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {isCancellationDisplayed && (
+                    <div className="relative mx-auto max-w-xl">
+                      <div className="text-center">
+                        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-light-100 sm:text-4xl">
+                          Quote has been withdrawn!
+                        </h2>
+                        <div className="mt-12">
+                          <span className="text-sm">Please close this window.</span>
                         </div>
                       </div>
                     </div>

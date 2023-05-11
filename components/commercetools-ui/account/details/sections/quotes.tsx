@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { QuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
+import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import QuoteList from 'components/commercetools-ui/quotes/quote-list';
 import useFilters from 'helpers/hooks/useFilters';
@@ -100,7 +100,7 @@ const QuotesHistory: FC = () => {
             <div className="mb-4 border-y-2 py-2">
               <p className="mb-2">{formatAccountMessage({ id: 'filters', defaultMessage: 'Filters' })}</p>
               <div className="flex flex-row flex-wrap">
-                <FiltersUI />
+                <FiltersUI className="flex flex-row flex-wrap gap-0.5" />
               </div>
             </div>
             <QuoteList quoteRequestList={filteredItems} />

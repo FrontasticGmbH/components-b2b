@@ -29,7 +29,6 @@
     "@hookform/error-message": "^2.0.0",
     "@naisutech/react-tree": "^3.0.1",
     "@twilio/conversations": "^2.2.1",
-    "cofe-ct-b2b-ecommerce": "^1.0.18",
     "cookie-cutter": "^0.2.0",
     "cookies": "^0.8.0",
     "easyinvoice": "^2.3.3",

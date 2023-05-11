@@ -2,9 +2,9 @@ import { Address } from '@commercetools/frontend-domain-types/account/Address';
 import { Discount } from '@commercetools/frontend-domain-types/cart/Discount';
 import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
 import { ProjectSettings } from '@commercetools/frontend-domain-types/ProjectSettings';
-import { LineItemReturnItemDraft } from 'cofe-ct-b2b-ecommerce/types/cart/LineItem';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
-import { QuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
+import { LineItemReturnItemDraft } from '@Types/cart/LineItem';
+import { Variant } from '@Types/product/Variant';
+import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { Cart } from '@Types/cart/Cart';
 import { Order } from '@Types/cart/Order';
 import { CartDetails } from 'frontastic/actions/cart';
@@ -12,8 +12,15 @@ import { CartDetails } from 'frontastic/actions/cart';
 export interface UseCart {
   data?: Cart;
   getCart: () => Promise<void>;
-  reassignCart: (customerId: string) => Promise<void>;
-  addItem: (variant: Variant, quantity: number, subscriptions?: Variant[]) => Promise<void>;
+  createCart: () => Promise<void>;
+  getCartById: (id: string) => Promise<void>;
+  reassignCart: (customerId: string, email: string) => Promise<void>;
+  addItem: (
+    variant: Variant,
+    quantity: number,
+    subscriptions?: Variant[],
+    selectedConfigurableComponents?: Variant[],
+  ) => Promise<void>;
   addItems: (lineItems: { variant: Variant; quantity: number }[], subscriptions?: Variant[]) => Promise<void>;
   updateCart: (payload: CartDetails) => Promise<Cart>;
   setShippingMethod: (shippingMethodId: string) => Promise<void>;
@@ -23,12 +30,15 @@ export interface UseCart {
   removeDiscountCode?: (discount: Discount) => Promise<void>;
   redeemDiscountCode?: (code: string) => Promise<void>;
   shippingMethods: { data?: ShippingMethod[] };
-  orderCart: (payload?: any) => Promise<void>;
+  orderCart: (payload?: any) => Promise<Order>;
   replicateCart: (orderId: string) => Promise<void>;
   orderHistory?: () => Promise<Order[]>;
   getProjectSettings?: () => Promise<ProjectSettings>;
   createQuoteRequestFromCurrentCart?: (comment: string) => Promise<QuoteRequest>;
   splitLineItem?: (lineItemId: string, data: { address: Address; quantity: number }[]) => Promise<any>;
   returnItems: (orderNumber: string, returnLineItems: LineItemReturnItemDraft[]) => Promise<Order>;
+  cancelOrder: (orderNumber: string) => Promise<Order>;
   transitionOrderState: (orderNumber: string, stateKey: string) => Promise<Order>;
+  allSuperUserCarts: Cart[];
+  getAllSuperUserCarts: () => void;
 }

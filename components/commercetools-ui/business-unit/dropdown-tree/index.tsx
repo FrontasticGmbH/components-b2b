@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
+import { useWishlist } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
+
 const BusinessUnitDropdownTree = ({ tree }) => {
   const { businessUnit, setMyBusinessUnit } = useBusinessUnitStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { fetchStoreWishlists } = useWishlist();
 
   const setBusinessUnit = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     setIsLoading(true);
     const bu = await setMyBusinessUnit(event.target.value);
+    fetchStoreWishlists().catch(() => console.log('No store in session'));
     setIsLoading(false);
     router.replace(
       {

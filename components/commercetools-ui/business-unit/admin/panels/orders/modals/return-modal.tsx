@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { Fragment, useEffect, useState } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
-import { LineItem } from '@Types/cart/LineItem';
+import { LineItem, LineItemReturnItemDraft } from '@Types/cart/LineItem';
 import { Order } from '@Types/cart/Order';
-import { LineItemReturnItemDraft } from 'cofe-ct-b2b-ecommerce/types/cart/LineItem';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useCart, useDarkMode } from 'frontastic';
 import Image from 'frontastic/lib/image';

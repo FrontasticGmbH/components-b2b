@@ -1,6 +1,6 @@
 import React from 'react';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Product } from '@Types/product/Product';
+import { Variant } from '@Types/product/Variant';
 import { UIProduct } from '..';
 import DropdownVariantSelector from './dropdown-variant-selector';
 import GridVariantSelector from './grid-variant-selector';
@@ -9,6 +9,10 @@ import SingleVariantSelector from './single-variant-selector';
 type Props = {
   product: UIProduct;
   subscriptions?: Product[];
+  configurableComponents?: Product[];
+  hideAddTocartButton?: boolean;
+  hideWishlistButton?: boolean;
+  hideAvailability?: boolean;
   onChangeVariantIdx: (idx: number) => void;
   variant: Variant;
 };
@@ -16,8 +20,12 @@ type Props = {
 const VariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
   product,
   subscriptions,
+  configurableComponents,
   variant,
   onChangeVariantIdx,
+  hideAddTocartButton,
+  hideWishlistButton,
+  hideAvailability,
   className,
 }) => {
   const variantSelectors: string[] = product?.variants?.[0]?.attributes?.['variant-selector-attributes'];
@@ -36,6 +44,10 @@ const VariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = 
       <DropdownVariantSelector
         product={product}
         subscriptions={subscriptions}
+        configurableComponents={configurableComponents}
+        hideAddTocartButton={hideAddTocartButton}
+        hideWishlistButton={hideWishlistButton}
+        hideAvailability={hideAvailability}
         onChangeVariantIdx={onChangeVariantIdx}
         variant={variant}
         className={className}
@@ -47,6 +59,10 @@ const VariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = 
       <SingleVariantSelector
         variantSelector={variantSelectors[0]}
         subscriptions={subscriptions}
+        configurableComponents={configurableComponents}
+        hideAddTocartButton={hideAddTocartButton}
+        hideWishlistButton={hideWishlistButton}
+        hideAvailability={hideAvailability}
         product={product}
         onChangeVariantIdx={onChangeVariantIdx}
         variant={variant}
@@ -57,6 +73,7 @@ const VariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = 
   if (variantSelectors?.length > 1 && isSecondAttributeAvailable) {
     return (
       <GridVariantSelector
+        hideAddTocartButton={hideAddTocartButton}
         variantSelectors={variantSelectors}
         product={product}
         className={className}

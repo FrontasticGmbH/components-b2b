@@ -1,5 +1,6 @@
-import { Wishlist, WishlistDraft } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
-import { fetchApiHub } from 'frontastic';
+import { Wishlist, WishlistDraft } from '@Types/wishlist/Wishlist';
+import { fetchApiHub, revalidateOptions } from 'frontastic';
+import useSWR, { mutate } from 'swr';
 
 export const getAllWishlists = async () => {
   return fetchApiHub(`/action/wishlist/getAllWishlists`, { method: 'GET' });
@@ -15,13 +16,15 @@ export const getSharedWishlists = async () => {
   }
 };
 
-export const getStoreWishlists = async () => {
-  try {
-    const lists = await fetchApiHub(`/action/wishlist/getStoreWishlists`);
-    return lists;
-  } catch (error) {
-    console.log(error.message);
-  }
+export const storeWishlists = (): Wishlist[] => {
+  const result = useSWR('/action/wishlist/getStoreWishlists', fetchApiHub, revalidateOptions);
+
+  return result.data;
+};
+
+export const fetchStoreWishlists = async () => {
+  const lists = await fetchApiHub(`/action/wishlist/getStoreWishlists`);
+  mutate('/action/wishlist/getStoreWishlists', lists);
 };
 
 export const addToNewWishlist = async (wishlist: WishlistDraft, sku: string, count = 1) => {
@@ -71,4 +74,12 @@ export const updateLineItem = async (wishlistId: string, lineItemId: string, cou
     { method: 'POST' },
     { lineItem: { id: lineItemId }, count },
   );
+};
+
+export const deleteWishlist = async (wishlistId: string) => {
+  return fetchApiHub(`/action/wishlist/deleteWishlist?id=${wishlistId}`, { method: 'POST' });
+};
+
+export const renameWishlist = async (wishlistId: string, name: string) => {
+  return fetchApiHub(`/action/wishlist/renameWishlist?id=${wishlistId}`, { method: 'POST' }, { name });
 };

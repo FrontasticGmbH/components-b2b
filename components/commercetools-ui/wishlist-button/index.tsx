@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
 import { HeartIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
-import { Wishlist } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
+import { Variant } from '@Types/product/Variant';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { useWishlist } from 'frontastic';
 import WishlistButtonItem from './wishlist-button-item';
 import styles from './wishlist-button.module.scss';
@@ -14,17 +13,13 @@ export interface WishlistButtonProps {
 }
 
 const WishlistButton: React.FC<WishlistButtonProps> = ({ variant, isCompact }) => {
-  const { getStoreWishlists } = useWishlist();
-  const router = useRouter();
+  const { storeWishlists, fetchStoreWishlists } = useWishlist();
   const [wishlists, setWishlists] = useState<Wishlist[]>([]);
-  const fecthWishlists = async () => {
-    const list = await getStoreWishlists();
-    setWishlists(list);
-  };
   useEffect(() => {
-    fecthWishlists();
-    // check if distribution channel is changed then fetch wishlists again
-  }, [router.query]);
+    if (!!storeWishlists) {
+      setWishlists(storeWishlists);
+    }
+  }, [storeWishlists]);
 
   return (
     <Popover className="relative">
@@ -67,11 +62,11 @@ const WishlistButton: React.FC<WishlistButtonProps> = ({ variant, isCompact }) =
                   wishlist={wishlist}
                   key={wishlist.wishlistId}
                   sku={variant.sku}
-                  onAddToWishlist={fecthWishlists}
+                  onAddToWishlist={fetchStoreWishlists}
                 />
               ))}
               <div className={`w-full ${wishlists?.length ? 'border-t-2' : ''}`}>
-                <WishlistNewButton sku={variant.sku} onCreatedNewList={fecthWishlists} />
+                <WishlistNewButton sku={variant.sku} onCreatedNewList={fetchStoreWishlists} />
               </div>
             </Popover.Panel>
           </Transition>

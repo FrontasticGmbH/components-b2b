@@ -1,20 +1,34 @@
 import { useEffect, useState } from 'react';
 import { Account } from '@commercetools/frontend-domain-types/account/Account';
 import { Address } from '@commercetools/frontend-domain-types/account/Address';
-import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
-import { ChannelResourceIdentifier } from 'cofe-ct-b2b-ecommerce/types/channel/channel';
-import { useAccount, useCart } from 'frontastic';
+import { Order } from '@Types/cart/Order';
+import { AssociateRole } from '@Types/associate/Associate';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
+import { ChannelResourceIdentifier } from '@Types/channel/channel';
+import { CurrencyHelpers } from 'helpers/currencyHelpers';
+import { BUSINESS_UNIT_CUSTOM_FILEDS, BUSINESS_UNIT_CUSTOM_TYPE } from 'helpers/customTypes';
+import useSWR, { mutate } from 'swr';
+import { revalidateOptions, useAccount, useCart, useWishlist } from 'frontastic';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 import { UseBusinessUnit } from 'frontastic/provider/Frontastic/UseBusinessUnit';
 import { createStore } from '../../frontastic/actions/stores';
-import { Order } from '@Types/cart/Order';
-import { CurrencyHelpers } from 'helpers/currencyHelpers';
-import { BUSINESS_UNIT_CUSTOM_FILEDS, BUSINESS_UNIT_CUSTOM_TYPE } from 'helpers/customTypes';
 
 export const useBusinessUnit = (): UseBusinessUnit => {
   const [businessUnit, setBusinessUnit] = useState(null);
   const { account } = useAccount();
-  const { getCart } = useCart();
+  const { getCart, getAllSuperUserCarts } = useCart();
+  const { fetchStoreWishlists } = useWishlist();
+
+  const { data: associateRoles } = useSWR<AssociateRole[]>(
+    '/action/associate/getAllAssociateRoles',
+    fetchApiHub,
+    revalidateOptions,
+  );
+
+  const fetchAssociateRoles = async () => {
+    const roles = await fetchApiHub(`/action/associate/getAllAssociateRoles`);
+    mutate('/action/associate/getAllAssociateRoles', roles);
+  };
 
   const getMyOrganization = async (): Promise<any> => {
     if (!businessUnit) {
@@ -60,13 +74,16 @@ export const useBusinessUnit = (): UseBusinessUnit => {
 
   const setMyBusinessUnit = async (businessUnitKey: string) => {
     const res = await fetchApiHub('/action/business-unit/setMe', { method: 'POST' }, { key: businessUnitKey });
+    getAllSuperUserCarts();
     await getCart();
     setBusinessUnit(res);
     return res;
   };
 
   const setMyStore = async (storeKey: string): Promise<ChannelResourceIdentifier> => {
-    return fetchApiHub('/action/store/setMe', { method: 'POST' }, { key: storeKey });
+    const res = await fetchApiHub('/action/store/setMe', { method: 'POST' }, { key: storeKey });
+    getAllSuperUserCarts();
+    return res;
   };
 
   const removeBusinessUnit = async (key: string): Promise<BusinessUnit> => {
@@ -86,7 +103,7 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     );
   };
 
-  const updateBudget = async (key: string, value: number): Promise<any> => {
+  const updateBudget = async (businessUnit: BusinessUnit, value: number): Promise<any> => {
     return fetchApiHub(
       `/action/business-unit/update`,
       { method: 'POST' },
@@ -96,16 +113,17 @@ export const useBusinessUnit = (): UseBusinessUnit => {
             action: 'setCustomType',
             type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
             fields: {
+              ...(businessUnit.custom?.fields || {}),
               [BUSINESS_UNIT_CUSTOM_FILEDS.BUDGET]: CurrencyHelpers.formatToMoney(value),
             },
           },
         ],
-        key,
+        key: businessUnit.key,
       },
     );
   };
 
-  const updateWorkflow = async (key: string, value: any): Promise<any> => {
+  const updateWorkflow = async (businessUnit: BusinessUnit, value: any): Promise<any> => {
     return fetchApiHub(
       `/action/business-unit/update`,
       { method: 'POST' },
@@ -115,11 +133,12 @@ export const useBusinessUnit = (): UseBusinessUnit => {
             action: 'setCustomType',
             type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
             fields: {
+              ...(businessUnit.custom?.fields || {}),
               [BUSINESS_UNIT_CUSTOM_FILEDS.WORKFLOWS]: value,
             },
           },
         ],
-        key,
+        key: businessUnit.key,
       },
     );
   };
@@ -133,19 +152,57 @@ export const useBusinessUnit = (): UseBusinessUnit => {
   };
 
   const addAddress = async (key: string, address: Omit<Address, 'addressId'>): Promise<BusinessUnit> => {
-    return fetchApiHub(
+    const addressKey = `address_${crypto.randomUUID()}`;
+    const businessUnit = await fetchApiHub(
       `/action/business-unit/update`,
       { method: 'POST' },
-      { actions: [{ action: 'addAddress', address }], key },
+      { actions: [{ action: 'addAddress', address: { ...address, key: addressKey } }], key },
     );
+
+    const actions = [];
+    if (address.isDefaultBillingAddress) {
+      actions.push({
+        action: 'setDefaultBillingAddress',
+        addressKey,
+      });
+    }
+    if (address.isDefaultShippingAddress) {
+      actions.push({
+        action: 'setDefaultShippingAddress',
+        addressKey,
+      });
+    }
+    if (actions.length) {
+      fetchApiHub(
+        `/action/business-unit/update`,
+        { method: 'POST' },
+        {
+          actions,
+          key,
+        },
+      );
+    }
+
+    return businessUnit;
   };
 
   const editAddress = async (key: string, addressId: string, address: Address): Promise<BusinessUnit> => {
-    return fetchApiHub(
-      `/action/business-unit/update`,
-      { method: 'POST' },
-      { actions: [{ action: 'changeAddress', addressId, address }], key },
-    );
+    const actions: { action: string; addressId: string; address?: Address }[] = [
+      { action: 'changeAddress', addressId, address },
+    ];
+    if (address.isDefaultBillingAddress) {
+      actions.push({
+        action: 'setDefaultBillingAddress',
+        addressId,
+      });
+    }
+    if (address.isDefaultShippingAddress) {
+      actions.push({
+        action: 'setDefaultShippingAddress',
+        addressId,
+      });
+    }
+    return fetchApiHub(`/action/business-unit/update`, { method: 'POST' }, { actions, key });
   };
 
   const deleteAddress = async (key: string, addressId: string): Promise<BusinessUnit> => {
@@ -172,13 +229,10 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     return fetchApiHub(`/action/account/getById?id=${id}`, { method: 'GET' });
   };
 
-  const getBusinessUnitOrders = async (keys: string[]): Promise<Order[]> => {
-    return await fetchApiHub(
-      `/action/business-unit/getBusinessUnitOrders?keys=${keys?.map((key) => `"${key}"`).join(', ')}`,
-      {
-        method: 'GET',
-      },
-    );
+  const getBusinessUnitOrders = async (key: string): Promise<Order[]> => {
+    return await fetchApiHub(`/action/business-unit/getBusinessUnitOrders?key=${key}`, {
+      method: 'GET',
+    });
   };
 
   const getAllChildKeys = (businessUnit: BusinessUnit, businessUnitTree: BusinessUnit[]): string[] => {
@@ -197,12 +251,7 @@ export const useBusinessUnit = (): UseBusinessUnit => {
   };
 
   const getOrders = async (businessUnit: BusinessUnit): Promise<Order[]> => {
-    return getBusinessUnitOrders([businessUnit.key]);
-  };
-
-  const getAllOrders = async (businessUnit: BusinessUnit): Promise<Order[]> => {
-    const keys = getAllChildKeys(businessUnit, await getMyOrganization());
-    return getBusinessUnitOrders(keys);
+    return getBusinessUnitOrders(businessUnit.key);
   };
 
   useEffect(() => {
@@ -210,9 +259,14 @@ export const useBusinessUnit = (): UseBusinessUnit => {
       (async () => {
         const business = await getMyBusinessUnit();
         const fullBusinessUnit = await fetchApiHub(`/action/business-unit/getByKey?key=${business.key}`);
+        getCart();
+        fetchStoreWishlists().catch(() => console.log('No store in session'));
+        fetchAssociateRoles();
+        getAllSuperUserCarts();
         setBusinessUnit({
           ...fullBusinessUnit,
           ...business,
+          addresses: fullBusinessUnit.addresses,
         });
       })();
     }
@@ -239,6 +293,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     updateWorkflow,
     updateContactEmail,
     getOrders,
-    getAllOrders,
+    associateRoles,
   };
 };

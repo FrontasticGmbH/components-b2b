@@ -4,16 +4,20 @@ import { useFormat } from 'helpers/hooks/useFormat';
 import { mapAddressToString } from 'helpers/utils/addressUtil';
 import { useAccount } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
-
+import { FormData } from '../';
 interface Props {
   updateSelection: (address: object) => void;
   isNewAddressHidden?: boolean;
+  addressType?: string;
+  data: FormData;
 }
 
 const AddressSelection: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
   updateSelection,
   className,
   isNewAddressHidden,
+  data,
+  addressType = 'shipping',
 }) => {
   const { businessUnit } = useBusinessUnitStateContext();
   const { formatMessage } = useFormat({ name: 'business-unit' });
@@ -23,13 +27,14 @@ const AddressSelection: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> =
     updateSelection(
       address
         ? {
-            firstName: address.firstName,
-            lastName: address.lastName,
+            ...data,
+            firstName: addressType === 'billing' ? data.firstName : address.firstName,
+            lastName: addressType === 'billing' ? data.lastName : address.lastName,
             phone: address.phone,
-            shippingStreetName: `${address.streetNumber} ${address.streetName}`,
-            shippingCity: address.city,
-            shippingPostalCode: address.postalCode,
-            shippingCountry: address.country,
+            [`${addressType}StreetName`]: `${address.streetNumber} ${address.streetName}`,
+            [`${addressType}City`]: address.city,
+            [`${addressType}PostalCode`]: address.postalCode,
+            [`${addressType}Country`]: address.country,
             email: account?.email,
           }
         : undefined,

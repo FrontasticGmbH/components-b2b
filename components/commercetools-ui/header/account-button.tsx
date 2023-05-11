@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Account } from '@commercetools/frontend-domain-types/account/Account';
 import { Menu, Transition } from '@headlessui/react';
 import { UserIcon as LoggedInIcon } from '@heroicons/react/solid';
-import { Organization } from 'cofe-ct-b2b-ecommerce/types/organization/organization';
+import { Organization } from '@Types/organization/organization';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';
 import { useAccount } from 'frontastic';
@@ -54,7 +54,7 @@ const AccountButton: React.FC<AccountButtonProps> = ({ accountLink, account, bus
                       account ? 'text-left' : 'text-center'
                     }  text-sm text-primary-400 hover:bg-gray-100 dark:bg-primary-400  dark:text-light-100`}
                   >
-                    {formatAccountMessage({ id: 'profile.and.orders', defaultMessage: 'Profile and Orders' })}
+                    {formatAccountMessage({ id: 'profile-orders', defaultMessage: 'Profile and Orders' })}
                   </ReferenceLink>
                 </Menu.Item>
                 {businessUnit?.isAdmin && (
@@ -64,8 +64,7 @@ const AccountButton: React.FC<AccountButtonProps> = ({ accountLink, account, bus
                       className={`block w-72 cursor-pointer py-2 px-4 text-sm text-primary-400 hover:bg-gray-100 dark:bg-primary-400  dark:text-light-100`}
                     >
                       {organization?.businessUnit &&
-                        formatAccountMessage({ id: 'company', defaultMessage: 'Company' }) +
-                          ': ' +
+                        formatAccountMessage({ id: 'comapny', defaultMessage: 'Company: ' }) +
                           organization.businessUnit.name}
                     </ReferenceLink>
                   </Menu.Item>

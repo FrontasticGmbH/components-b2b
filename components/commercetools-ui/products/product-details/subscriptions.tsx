@@ -1,8 +1,8 @@
 import React from 'react';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Product } from '@Types/product/Product';
+import { Variant } from '@Types/product/Variant';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
-import { getSelectedSubscriptionLabel } from 'helpers/utils/subscribedItems';
+import { getSelectedBundleLabel } from 'helpers/utils/bundleItemsHelpers';
 
 type Props = {
   subscriptions: Product[];
@@ -31,7 +31,7 @@ const Subscriptions: React.FC<Props> = ({ subscriptions, selectedSubscriptions, 
               <option value={null}>No subscription</option>
               {subscription.variants.map((variant) => (
                 <option key={variant.sku} value={variant.sku}>
-                  {getSelectedSubscriptionLabel(variant, subscription.name)}
+                  {getSelectedBundleLabel(variant, subscription.name)}
                 </option>
               ))}
             </select>

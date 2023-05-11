@@ -9,12 +9,11 @@ import OrderList from './order-list';
 
 const OrdersPanel = () => {
   const { selectedBusinessUnit: businessUnit } = useBusinessUnitDetailsStateContext();
-  const { getOrders, getAllOrders } = useBusinessUnitStateContext();
+  const { getOrders } = useBusinessUnitStateContext();
   const { formatMessage: formatAccountMessage } = useFormat({ name: 'account' });
 
   const [isLoading, setIsLoading] = useState(false);
   const [orderList, setOrderList] = useState<Order[]>([]);
-  const [showAllChildOrders, setShowAllChildOrders] = useState(false);
 
   const { FiltersUI, filteredItems } = useFilters<Order>(
     [
@@ -54,6 +53,31 @@ const OrdersPanel = () => {
         value: false,
         predicate: (order: Order) => order.state?.key === 'rejected',
       },
+      {
+        label: 'Created before',
+        key: 'order-date-before',
+        extraType: 'date',
+        value: false,
+        predicate: (order: Order, date: string) => new Date(order.createdAt) <= new Date(date),
+      },
+      {
+        label: 'Created after',
+        key: 'order-date-after',
+        extraType: 'date',
+        value: false,
+        predicate: (order: Order, date: string) => new Date(order.createdAt) >= new Date(date),
+      },
+      {
+        label: 'Product',
+        key: 'includes-product',
+        extraType: 'product',
+        value: false,
+        predicate: (order: Order, product: string) =>
+          order.lineItems.some(
+            (lineitem) =>
+              lineitem.variant?.sku === product || lineitem.name?.toLowerCase().includes(product?.toLowerCase()),
+          ),
+      },
     ],
     orderList,
   );
@@ -68,26 +92,6 @@ const OrdersPanel = () => {
       })();
     }
   }, [businessUnit]);
-
-  useEffect(() => {
-    if (businessUnit) {
-      if (showAllChildOrders) {
-        (async () => {
-          setIsLoading(true);
-          const results = await getAllOrders(businessUnit);
-          setOrderList(results);
-          setIsLoading(false);
-        })();
-      } else {
-        (async () => {
-          setIsLoading(true);
-          const results = await getOrders(businessUnit);
-          setOrderList(results);
-          setIsLoading(false);
-        })();
-      }
-    }
-  }, [showAllChildOrders]);
 
   if (!businessUnit) {
     return null;
@@ -114,23 +118,11 @@ const OrdersPanel = () => {
           <div>
             <div className="mb-4 border-y-2 py-2">
               <p className="mb-2">Filters</p>
-              <FiltersUI className="flex flex-row flex-wrap" />
+              <FiltersUI className="flex flex-row flex-wrap gap-0.5" />
             </div>
             <OrderList orders={filteredItems} />
           </div>
         )}
-      </div>
-      <div className="flex flex-row items-center">
-        <input
-          type="checkbox"
-          id="all-quotes"
-          checked={showAllChildOrders}
-          onChange={(e) => setShowAllChildOrders(e.target.checked)}
-          className="input input-checkbox mr-4"
-        />
-        <label htmlFor="all-quotes" className="block text-sm font-medium text-gray-700 dark:text-light-100">
-          Show all orders from divisions?
-        </label>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import { fetchApiHub } from './fetch-api-hub';
 
 interface Props {
   children: ReactNode;
@@ -19,9 +20,18 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // You can use your own error logging service here
-    // TODO
+    // Report error to backend
     console.log({ error, errorInfo });
+    fetchApiHub(
+        '/frontendError',
+        { method: 'POST' },
+        {
+          message: error.message,
+          stack: error.stack,
+        },
+    ).then((r) => {
+      console.log(r);
+    });
   }
 
   render() {
@@ -29,13 +39,13 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div>
-          <h2>Oops, there is an error!</h2>
-          <p>Check the console for details.</p>
-          <button type="button" onClick={() => this.setState({ hasError: false })}>
-            Try again?
-          </button>
-        </div>
+          <div>
+            <h2>Oops, there is an error!</h2>
+            <p>Check the console for details.</p>
+            <button type="button" onClick={() => this.setState({ hasError: false })}>
+              Try again?
+            </button>
+          </div>
       );
     }
 

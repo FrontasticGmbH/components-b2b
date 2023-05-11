@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, CheckIcon } from '@heroicons/react/outline';
-import { BusinessUnit } from 'cofe-ct-b2b-ecommerce/types/business-unit/BusinessUnit';
-import { Wishlist } from 'cofe-ct-b2b-ecommerce/types/wishlist/Wishlist';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { useWishlist } from 'frontastic';
 import { LoadingIcon } from '../icons/loading';
 
@@ -28,7 +28,7 @@ const ShareButton: React.FC<Props> = ({ associations, reload, wishlist }) => {
   }, []);
 
   return (
-    <Popover className="relative mt-4">
+    <Popover className="relative">
       {({ open }) => (
         <>
           <Popover.Button

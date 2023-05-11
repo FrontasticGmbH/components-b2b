@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { EyeIcon } from '@heroicons/react/outline';
 import { LineItem } from '@Types/cart/LineItem';
-import { QuoteRequest as B2BQuoteRequest } from 'cofe-ct-b2b-ecommerce/types/quotes/QuoteRequest';
+import { QuoteRequest as B2BQuoteRequest } from '@Types/quotes/QuoteRequest';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
+import { useFormat } from 'helpers/hooks/useFormat';
 import QuoteDetails from '../details';
 import styles from './index.module.css';
-import { useFormat } from 'helpers/hooks/useFormat';
 
 interface Props {
   quoteRequestList: QuoteRequest[];

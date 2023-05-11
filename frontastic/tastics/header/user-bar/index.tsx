@@ -13,10 +13,10 @@ type Props = {
 };
 
 const UserBarTastic: React.FC<Props> = ({ data }) => {
-  const router = useRouter();
   const { account } = useAccount();
   const { formatMessage: formatAccountMessage } = useFormat({ name: 'account' });
   const { setToken } = useNotifications();
+  const router = useRouter();
 
   const organization = data.organization?.dataSource?.organization;
   const notificationToken = data.notifications?.dataSource?.notificationToken;

@@ -7,9 +7,8 @@ import Checkout from 'components/commercetools-ui/adyen-one-step-checkout/panels
 import Overview from 'components/commercetools-ui/adyen-one-step-checkout/panels/overview';
 import OrderSummary from 'components/commercetools-ui/cart/orderSummary';
 import { useFormat } from 'helpers/hooks/useFormat';
-import { countryBasedShippingRateIndex } from 'helpers/utils/flattenShippingMethod';
 import { useCart } from 'frontastic';
-import { mapToCartStructure, mapToFormStructure } from './mapFormData';
+import { mapToFormStructure } from './mapFormData';
 import { requiredDataIsValid } from './requiredDataIsValid';
 
 export type FormData = {
@@ -28,7 +27,7 @@ export type FormData = {
 };
 
 const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
-  const { data: cartList, updateCart, setShippingMethod, orderCart } = useCart();
+  const { data: cartList, setShippingMethod, orderCart } = useCart();
   const { formatMessage } = useFormat({ name: 'cart' });
   const router = useRouter();
   const { formatMessage: formatCheckoutMessage } = useFormat({ name: 'checkout' });
@@ -61,18 +60,24 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
   };
 
   const handleOrder = async () => {
-    setIsLoading(true);
-    await orderCart(payment);
-    setIsLoading(false);
-    router.replace(
-      {
-        pathname: '/thank-you',
-      },
-      undefined,
-      {
-        shallow: false,
-      },
-    );
+    try {
+      setIsLoading(true);
+      const order = await orderCart(payment);
+      router.replace(
+        {
+          pathname: '/thank-you',
+          query: !!order.state ? { requireApproval: true } : {},
+        },
+        undefined,
+        {
+          shallow: false,
+        },
+      );
+    } catch (e) {
+      toast.error(e?.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const submitCheckout = () => {
@@ -91,24 +96,6 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
 
   const updateData = (data: FormData) => {
     setData(data);
-  };
-
-  const updateCartData = () => {
-    if (countryBasedShippingRateIndex[data.shippingCountry] == undefined) {
-      toast.error(
-        formatCheckoutMessage({
-          id: 'taxesNotSupported',
-          defaultMessage: 'Taxes are not defined for this country in commercetools',
-        }),
-      );
-      updateData({ ...data, shippingCountry: '' });
-      return;
-    }
-
-    if (dataIsValid) {
-      const updatedData = mapToCartStructure(data, billingIsSameAsShipping);
-      updateCart(updatedData);
-    }
   };
 
   const updatecurrentShippingMethod = (shippingMethod: ShippingMethod) => {
@@ -161,39 +148,45 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
   return (
     <div className="lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16" ref={containerRef}>
       <div className="sm:col-span-7 sm:p-6 lg:col-span-12 lg:mt-0 lg:p-8">
-        <h2>1. Choose An Address</h2> <br />
-        <Address
-          data={data}
-          updateData={updateData}
-          billingIsSameAsShipping={billingIsSameAsShipping}
-          toggleBillingAddressOption={toggleBillingAddressOption}
-        />
+        <div className="border">
+          <h2 className="font-semi-bold ml-6 mt-4 text-lg">1. Address Details</h2>
+          <Address
+            data={data}
+            updateData={updateData}
+            billingIsSameAsShipping={billingIsSameAsShipping}
+            toggleBillingAddressOption={toggleBillingAddressOption}
+          />
+        </div>
       </div>
       <div className="sm:col-span-8 sm:p-6 lg:col-span-12 lg:mt-0 lg:p-8">
-        <h2>2. Choose Shipping</h2>
-        <Overview
-          shippingMethods={cartList?.availableShippingMethods}
-          currentShippingMethod={currentShippingMethod}
-          onSelectShippingMethod={updatecurrentShippingMethod}
-        />
+        <div className="border">
+          <h2 className="font-semi-bold ml-6 mt-4 text-lg">2. Choose Shipping</h2>
+          <Overview
+            shippingMethods={cartList?.availableShippingMethods}
+            currentShippingMethod={currentShippingMethod}
+            onSelectShippingMethod={updatecurrentShippingMethod}
+          />
+        </div>
       </div>
       <div className="sm:col-span-8 sm:p-6 lg:col-span-12 lg:mt-0 lg:p-8">
-        <h2>3. Payment</h2>
-        <Checkout onPaymentUpdate={setPayment} />
-      </div>
-      <div className="sm:col-span-8 sm:p-6 lg:col-span-12 lg:mt-0 lg:p-8">
-        <OrderSummary
-          cart={cartList}
-          submitButtonLabel={submitButtonLabel[2]}
-          disableSubmitButton={disableSubmitButton || isLoading}
-          showDiscountsForm={!isQuoteRequest}
-          showSubmitButton={true}
-          submitLoading={isLoading}
-          onSubmit={submitCheckout}
-          termsLink={termsLink}
-          cancellationLink={cancellationLink}
-          privacyLink={privacyLink}
-        />
+        <div className="border">
+          <h2 className="font-semi-bold ml-6 mt-4 text-lg">3. Payment</h2>
+          <Checkout onPaymentUpdate={setPayment} />
+        </div>
+        <div className="sm:col-span-8 sm:p-6 lg:col-span-12 lg:mt-0 lg:p-8">
+          <OrderSummary
+            cart={cartList}
+            submitButtonLabel={submitButtonLabel[2]}
+            disableSubmitButton={disableSubmitButton || isLoading}
+            showDiscountsForm={!isQuoteRequest}
+            showSubmitButton={true}
+            submitLoading={isLoading}
+            onSubmit={submitCheckout}
+            termsLink={termsLink}
+            cancellationLink={cancellationLink}
+            privacyLink={privacyLink}
+          />
+        </div>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { Address as AddressType } from '@commercetools/frontend-domain-types/acc
 import { Transition, Dialog } from '@headlessui/react';
 import { Cart } from '@Types/cart/Cart';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
-import { getSelectedSubscriptionLabel } from 'helpers/utils/subscribedItems';
+import { getSelectedBundleLabel } from 'helpers/utils/bundleItemsHelpers';
 import Address from '../../address';
 import { OrderItems } from '../../sections/order-items';
 
@@ -180,7 +180,7 @@ const SubscriptionDetailsModal: React.FC<Props> = ({ open, onClose, subscription
                             <option value={null}>No subscription</option>
                             {subscription.subscription?.product?.variants.map((variant) => (
                               <option key={variant.sku} value={variant.sku}>
-                                {getSelectedSubscriptionLabel(variant, subscription.subscription?.product.name)}
+                                {getSelectedBundleLabel(variant, subscription.subscription?.product.name)}
                               </option>
                             ))}
                           </select>

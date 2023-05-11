@@ -1,10 +1,8 @@
 import React from 'react';
 import Header from 'components/commercetools-ui/header';
-import { calculateCartCount } from 'helpers/utils/calculateCartCount';
-import { useCart, useAccount } from 'frontastic/provider';
+import { useAccount } from 'frontastic/provider';
 
 const HeaderTastic = ({ data }) => {
-  const { data: cart } = useCart();
   const { account } = useAccount();
 
   return (
@@ -13,7 +11,6 @@ const HeaderTastic = ({ data }) => {
       links={data.links}
       organization={data.organization?.dataSource?.organization}
       organizationTree={data.tree?.dataSource?.tree}
-      cartItemCount={calculateCartCount(cart?.lineItems) || 0}
       logo={data.logo}
       logoLink={data.logoLink}
       account={account}

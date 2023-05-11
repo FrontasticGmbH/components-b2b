@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { CheckIcon } from '@heroicons/react/solid';
-import { Product } from 'cofe-ct-b2b-ecommerce/types/product/Product';
-import { Variant } from 'cofe-ct-b2b-ecommerce/types/product/Variant';
+import { Product } from '@Types/product/Product';
+import { Variant } from '@Types/product/Variant';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
+import { useBundlesHook } from 'helpers/hooks/useSubscription';
 import { StringHelpers } from 'helpers/stringHelpers';
 import { useCart } from 'frontastic';
 import { UIProduct } from '..';
@@ -13,6 +14,7 @@ import SingleVariantSelector from './single-variant-selector';
 type Props = {
   product: UIProduct;
   subscriptions?: Product[];
+  hideAddTocartButton?: boolean;
   variantSelectors: string[];
 };
 
@@ -57,8 +59,10 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
   subscriptions,
   variantSelectors,
   className,
+  hideAddTocartButton,
 }) => {
   const { addItems, data: cart } = useCart();
+  const { handleBundleSelect, selectedBundles } = useBundlesHook(subscriptions);
 
   const [grouped, setGrouped] = useState(groupedVariants(product.variants, variantSelectors));
   const [selectedFirstVariantIdx, setSelectedFirstVariantIdx] = useState(0);
@@ -67,9 +71,6 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [added, setAdded] = useState<boolean>(false);
-  const [selectedSubscriptions, setSelectedSubscriptions] = useState<Variant[]>(
-    Array(subscriptions?.length).fill(null),
-  );
 
   const handleChangeFirstSelector = (index: number) => {
     const variant = product.variants[index];
@@ -89,18 +90,6 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
     }
   };
 
-  const handleSubscriptionSelect = (index: number, sku: string) => {
-    const selectedVariant = !sku ? null : subscriptions?.[index].variants.find((v) => v.sku === sku);
-    setSelectedSubscriptions(
-      selectedSubscriptions.map((_, i) => {
-        if (i === index) {
-          return selectedVariant;
-        }
-        return _;
-      }) as Variant[],
-    );
-  };
-
   const lowestPrice = grouped
     ?.flat()
     .reduce((curr, prev) => Math.min(curr, prev.variant.price?.centAmount || curr), Number.MAX_SAFE_INTEGER);
@@ -114,7 +103,7 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
   const handleAddToCart = async () => {
     setIsLoading(true);
     const lineitems = grouped.flat().filter((lineitem) => lineitem.quantity > 0);
-    await addItems(lineitems, selectedSubscriptions);
+    await addItems(lineitems, selectedBundles);
     setGrouped(groupedVariants(product.variants, variantSelectors));
     setAdded(true);
     setIsLoading(false);
@@ -217,8 +206,8 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
         {!!subscriptions?.length && (
           <Subscriptions
             subscriptions={subscriptions}
-            onSubscriptionSelect={handleSubscriptionSelect}
-            selectedSubscriptions={selectedSubscriptions}
+            onSubscriptionSelect={handleBundleSelect}
+            selectedSubscriptions={selectedBundles}
           />
         )}
         <div className="mt-8 flex flex-row items-center">
@@ -226,19 +215,21 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
             <p className="text-gray-400">Total price:</p>
             <p>{CurrencyHelpers.formatForCurrency(totalPrice)}</p>
           </div>
-          <div className="?basis-2/3 ml-8">
-            <button
-              type="button"
-              onClick={handleAddToCart}
-              className="flex w-full flex-1 items-center justify-center rounded-md border border-transparent bg-accent-400 py-3 px-8 text-base font-medium text-white hover:bg-accent-500 focus:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:bg-gray-400"
-              disabled={isLoading || totalCount === 0}
-            >
-              {!isLoading && !added && `Add all to cart`}
+          {!hideAddTocartButton && (
+            <div className="ml-8 basis-2/3">
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="flex w-full flex-1 items-center justify-center rounded-md border border-transparent bg-accent-400 py-3 px-8 text-base font-medium text-white hover:bg-accent-500 focus:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:bg-gray-400"
+                disabled={isLoading || totalCount === 0}
+              >
+                {!isLoading && !added && `Add all to cart`}
 
-              {isLoading && <LoadingIcon className="h-6 w-6 animate-spin" />}
-              {!isLoading && added && <CheckIcon className="h-6 w-6" />}
-            </button>
-          </div>
+                {isLoading && <LoadingIcon className="h-6 w-6 animate-spin" />}
+                {!isLoading && added && <CheckIcon className="h-6 w-6" />}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

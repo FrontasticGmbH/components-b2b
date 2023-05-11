@@ -43,7 +43,13 @@ const AddressesPanel: React.FC = () => {
   };
 
   const handleOpenEdit = (address: Address) => {
-    setSelectedAddress(address);
+    setSelectedAddress({
+      ...address,
+      // @ts-ignore
+      isDefaultBillingAddress: address.id === businessUnit.defaultBillingAddressId,
+      // @ts-ignore
+      isDefaultShippingAddress: address.id === businessUnit.defaultShippingAddressId,
+    });
     setIsEditModalOpen(true);
   };
 
@@ -71,7 +77,7 @@ const AddressesPanel: React.FC = () => {
             <tr>
               <td>{formatMessage({ id: '', defaultMessage: 'Name' })}</td>
               <td>{formatMessage({ id: '', defaultMessage: 'Address' })}</td>
-              <td>{formatMessage({ id: '', defaultMessage: 'City' })}</td>
+              <td>{formatMessage({ id: '', defaultMessage: 'City, State' })}</td>
               <td>{formatMessage({ id: '', defaultMessage: 'Zipcode' })}</td>
               <td>{formatMessage({ id: '', defaultMessage: 'Country' })}</td>
               <td style={{ width: '5%' }}></td>
@@ -84,7 +90,7 @@ const AddressesPanel: React.FC = () => {
                 <tr key={address.id}>
                   <td>{`${address.firstName} ${address.lastName}`}</td>
                   <td>{`${address.streetNumber} ${address.streetName}`}</td>
-                  <td>{address.city}</td>
+                  <td>{`${address.city} ${address.state ? `, ${address.state}` : ''}`}</td>
                   <td>{address.postalCode}</td>
                   <td>{address.country}</td>
                   <td className="flex flex-row items-center">

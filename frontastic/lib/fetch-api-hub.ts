@@ -75,6 +75,7 @@ const performFetchApiHub = async (
   const actualInit = {
     ...bodyOverride,
     ...init,
+    cache: 'no-cache' as RequestCache,
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',

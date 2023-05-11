@@ -1,4 +1,4 @@
-import { Store } from 'cofe-ct-b2b-ecommerce/types/store/store';
+import { Store } from '@Types/store/Store';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 import { RegisterAccount } from '../../../helpers/hooks/useAccount';
 
