@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
+import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { ExclamationCircleIcon } from '@heroicons/react/outline';
 import { Cart } from '@Types/cart/Cart';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';

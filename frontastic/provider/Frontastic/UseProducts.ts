@@ -1,6 +1,6 @@
 import { Category } from '@Types/product/Category';
 import { Product } from '@Types/product/Product';
-import { Result } from '@commercetools/frontend-domain-types/product/Result';
+import { Result } from '@Types/product/Result';
 
 export interface ProductQueryResponse extends Result {
   items: Product[];

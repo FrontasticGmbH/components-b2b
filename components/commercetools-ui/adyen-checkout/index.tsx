@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
+import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import toast from 'react-hot-toast';
 import Address from 'components/commercetools-ui/adyen-checkout/panels/address';
 import Checkout from 'components/commercetools-ui/adyen-checkout/panels/checkout';

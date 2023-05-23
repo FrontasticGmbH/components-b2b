@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Facet } from '@commercetools/frontend-domain-types/result/Facet';
-import { RangeFacet } from '@commercetools/frontend-domain-types/result/RangeFacet';
+import { Facet } from '@Types/result/Facet';
+import { RangeFacet } from '@Types/result/RangeFacet';
 import { Product } from '@Types/product/Product';
 import { TwoThumbInputRange } from 'react-two-thumb-input-range';
 import { URLParam } from 'helpers/utils/updateURLParams';

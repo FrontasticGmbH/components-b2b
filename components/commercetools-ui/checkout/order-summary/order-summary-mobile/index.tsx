@@ -1,4 +1,4 @@
-import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
+import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { Disclosure } from '@headlessui/react';
 import { ExclamationCircleIcon } from '@heroicons/react/outline';
 import { Cart } from '@Types/cart/Cart';

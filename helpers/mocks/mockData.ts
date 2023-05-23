@@ -1,14 +1,14 @@
-import { Account } from '@commercetools/frontend-domain-types/account/Account';
-import { Address } from '@commercetools/frontend-domain-types/account/Address';
-import { Group } from '@commercetools/frontend-domain-types/account/Group';
+import { Account } from '@Types/account/Account';
+import { Address } from '@Types/account/Address';
+import { Group } from '@Types/account/Group';
 import { Cart } from '@Types/cart/Cart';
 import { LineItem as CartLineItem } from '@Types/cart/LineItem';
 import { Order } from '@Types/cart/Order';
-import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
+import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { Product } from '@Types/product/Product';
 import { Variant } from '@Types/product/Variant';
-import { LineItem } from '@commercetools/frontend-domain-types/wishlist/LineItem';
-import { Wishlist } from '@commercetools/frontend-domain-types/wishlist/Wishlist';
+import { LineItem } from '@Types/wishlist/LineItem';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { Link } from 'components/commercetools-ui/footer/column';
 import { NextFrontasticImage } from 'frontastic/lib/image';
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Facet } from '@commercetools/frontend-domain-types/result/Facet';
+import { Facet } from '@Types/result/Facet';
 import { Disclosure } from '@headlessui/react';
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid';
 import { Product } from '@Types/product/Product';

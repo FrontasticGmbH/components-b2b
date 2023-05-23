@@ -1,5 +1,5 @@
-import { Address } from '@commercetools/frontend-domain-types/account/Address';
-import { Discount } from '@commercetools/frontend-domain-types/cart/Discount';
+import { Address } from '@Types/account/Address';
+import { Discount } from '@Types/cart/Discount';
 import { Cart } from '@Types/cart/Cart';
 import { Order } from '@Types/cart/Order';
 import { LineItemReturnItemDraft } from '@Types/cart/LineItem';

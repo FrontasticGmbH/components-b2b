@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Discount } from '@commercetools/frontend-domain-types/cart/Discount';
+import { Discount } from '@Types/cart/Discount';
 import { XIcon } from '@heroicons/react/outline';
 import { Cart } from '@Types/cart/Cart';
 import toast from 'react-hot-toast';

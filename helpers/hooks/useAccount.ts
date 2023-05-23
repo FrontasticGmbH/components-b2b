@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Account } from '@commercetools/frontend-domain-types/account/Account';
-import { Address } from '@commercetools/frontend-domain-types/account/Address';
+import { Account } from '@Types/account/Account';
+import { Address } from '@Types/account/Address';
 import { REMEMBER_ME } from 'helpers/constants/localStorage';
 import useSWR, { mutate } from 'swr';
 import { revalidateOptions, useCart } from 'frontastic';

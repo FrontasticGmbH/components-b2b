@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react';
-import { Address } from '@commercetools/frontend-domain-types/account/Address';
+import { Address } from '@Types/account/Address';
 import { PencilAltIcon, XIcon } from '@heroicons/react/solid';
 import CreateAddress from 'components/commercetools-ui/account/details/modals/createAddress';
 import UpdateAddress from 'components/commercetools-ui/account/details/modals/updateAddress';

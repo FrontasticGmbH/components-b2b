@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Account } from '@commercetools/frontend-domain-types/account/Account';
-import type { Address as AddressType } from '@commercetools/frontend-domain-types/account/Address';
+import { Account } from '@Types/account/Account';
+import type { Address as AddressType } from '@Types/account/Address';
 import { StarIcon } from '@heroicons/react/solid';
 import { useFormat } from 'helpers/hooks/useFormat';
 import UpdateAddressModal from '../modals/updateAddress';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Address } from '@commercetools/frontend-domain-types/account/Address';
-import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
-import { ProjectSettings } from '@commercetools/frontend-domain-types/ProjectSettings';
+import { Address } from '@Types/account/Address';
+import { ShippingMethod } from '@Types/cart/ShippingMethod';
+import { ProjectSettings } from '@Types/ProjectSettings';
 import { CountryOption } from 'helpers/countryOptions';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { getTaxedCountries } from 'helpers/utils/getTaxedCountries';

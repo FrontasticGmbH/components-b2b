@@ -1,5 +1,5 @@
-import { Account } from '@commercetools/frontend-domain-types/account/Account';
-import { Address } from '@commercetools/frontend-domain-types/account/Address';
+import { Account } from '@Types/account/Account';
+import { Address } from '@Types/account/Address';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { Order } from '@Types/cart/Order';
 import { ChannelResourceIdentifier } from '@Types/channel/channel';

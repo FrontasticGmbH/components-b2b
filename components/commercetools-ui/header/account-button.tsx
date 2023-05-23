@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Account } from '@commercetools/frontend-domain-types/account/Account';
+import { Account } from '@Types/account/Account';
 import { Menu, Transition } from '@headlessui/react';
 import { UserIcon as LoggedInIcon } from '@heroicons/react/solid';
 import { Organization } from '@Types/organization/organization';

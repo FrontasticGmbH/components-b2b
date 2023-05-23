@@ -1,5 +1,5 @@
 import { useState, Fragment } from 'react';
-import { Address } from '@commercetools/frontend-domain-types/account/Address';
+import { Address } from '@Types/account/Address';
 import { Dialog, Transition } from '@headlessui/react';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';

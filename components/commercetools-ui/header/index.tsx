@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Account } from '@commercetools/frontend-domain-types/account/Account';
+import { Account } from '@Types/account/Account';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';

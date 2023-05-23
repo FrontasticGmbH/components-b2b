@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LineItem } from '@commercetools/frontend-domain-types/wishlist/LineItem';
+import { LineItem } from '@Types/wishlist/LineItem';
 import Spinner from '../spinner';
 import { WishlistItem } from './list-item';
 

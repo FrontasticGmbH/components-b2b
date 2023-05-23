@@ -1,7 +1,7 @@
-import { Address } from '@commercetools/frontend-domain-types/account/Address';
-import { Discount } from '@commercetools/frontend-domain-types/cart/Discount';
-import { ShippingMethod } from '@commercetools/frontend-domain-types/cart/ShippingMethod';
-import { ProjectSettings } from '@commercetools/frontend-domain-types/ProjectSettings';
+import { Address } from '@Types/account/Address';
+import { Discount } from '@Types/cart/Discount';
+import { ShippingMethod } from '@Types/cart/ShippingMethod';
+import { ProjectSettings } from '@Types/ProjectSettings';
 import { LineItemReturnItemDraft } from '@Types/cart/LineItem';
 import { Variant } from '@Types/product/Variant';
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';

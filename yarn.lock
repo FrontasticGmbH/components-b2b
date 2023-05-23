@@ -2035,11 +2035,6 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@commercetools/frontend-domain-types@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@commercetools/frontend-domain-types/-/frontend-domain-types-1.0.3.tgz#8eae385ad672e8acdffb65c63b6a2af110567327"
-  integrity sha512-ENsvOvUyY6jdjgdUWn33Jvig+hcLxFaZN/6FNrnA9rz4nGClLhzJE9DT/NlOBryqSLxuw00FJC8NGRnnNzZ8Dg==
-
 "@commercetools/frontend-netlify-plugin@^0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@commercetools/frontend-netlify-plugin/-/frontend-netlify-plugin-0.0.4.tgz#ca212dbb444fc581cdad2de1685c2c666753be21"
