@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
-import { Account } from '@Types/account/Account';
-import { Address } from '@Types/account/Address';
-import { Order } from '@Types/cart/Order';
-import { AssociateRole } from '@Types/associate/Associate';
-import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { ChannelResourceIdentifier } from '@Types/channel/channel';
-import { CurrencyHelpers } from 'helpers/currencyHelpers';
-import { BUSINESS_UNIT_CUSTOM_FILEDS, BUSINESS_UNIT_CUSTOM_TYPE } from 'helpers/customTypes';
-import useSWR, { mutate } from 'swr';
-import { revalidateOptions, useAccount, useCart, useWishlist } from 'frontastic';
-import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
-import { UseBusinessUnit } from 'frontastic/provider/Frontastic/UseBusinessUnit';
-import { createStore } from '../../frontastic/actions/stores';
+import {useEffect, useState} from 'react';
+import {Address} from '@Types/account/Address';
+import {Order} from '@Types/cart/Order';
+import {AssociateRole} from '@Types/associate/Associate';
+import {BusinessUnit} from '@Types/business-unit/BusinessUnit';
+import {ChannelResourceIdentifier} from '@Types/channel/channel';
+import {CurrencyHelpers} from 'helpers/currencyHelpers';
+import {BUSINESS_UNIT_CUSTOM_FILEDS, BUSINESS_UNIT_CUSTOM_TYPE} from 'helpers/customTypes';
+import useSWR, {mutate} from 'swr';
+import {revalidateOptions, useAccount, useCart, useWishlist} from 'frontastic';
+import {fetchApiHub} from 'frontastic/lib/fetch-api-hub';
+import {UseBusinessUnit} from 'frontastic/provider/Frontastic/UseBusinessUnit';
+import {createStore} from '../../frontastic/actions/stores';
 
 export const useBusinessUnit = (): UseBusinessUnit => {
   const [businessUnit, setBusinessUnit] = useState(null);
@@ -225,10 +224,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     return fetchApiHub(`/action/business-unit/updateAssociate?key=${key}`, { method: 'POST' }, { id, roles });
   };
 
-  const getUser = async (id: string): Promise<Account> => {
-    return fetchApiHub(`/action/account/getById?id=${id}`, { method: 'GET' });
-  };
-
   const getBusinessUnitOrders = async (key: string): Promise<Order[]> => {
     return await fetchApiHub(`/action/business-unit/getBusinessUnitOrders?key=${key}`, {
       method: 'GET',
@@ -277,7 +272,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     removeUser,
     updateUser,
     updateBudget,
-    getUser,
     addAddress,
     deleteAddress,
     editAddress,

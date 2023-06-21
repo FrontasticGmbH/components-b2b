@@ -1,12 +1,11 @@
-import { Context, createContext, useContext } from 'react';
-import { useBusinessUnit as useBusinessUnitHook } from '../../../helpers/hooks/useBusinessUnit';
-import { UseBusinessUnit } from '../Frontastic/UseBusinessUnit';
+import {Context, createContext, useContext} from 'react';
+import {useBusinessUnit as useBusinessUnitHook} from '../../../helpers/hooks/useBusinessUnit';
+import {UseBusinessUnit} from '../Frontastic/UseBusinessUnit';
 
 const BusinessUnitStateContext: Context<UseBusinessUnit> = createContext({
   addAddress: () => null,
   editAddress: () => null,
   deleteAddress: () => null,
-  getUser: () => null,
   getOrders: () => null,
   addUser: () => null,
   removeUser: () => null,
@@ -42,7 +41,6 @@ export const BusinessUnitProvider = ({ children }) => {
     addUser,
     removeUser,
     updateUser,
-    getUser,
     getOrders,
     getSuperUserBusinessUnits,
     removeBusinessUnit,
@@ -69,7 +67,6 @@ export const BusinessUnitProvider = ({ children }) => {
         addUser,
         removeUser,
         updateUser,
-        getUser,
         getOrders,
         removeBusinessUnit,
         updateBudget,

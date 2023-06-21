@@ -1,9 +1,8 @@
-import { Account } from '@Types/account/Account';
-import { Address } from '@Types/account/Address';
-import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { Order } from '@Types/cart/Order';
-import { ChannelResourceIdentifier } from '@Types/channel/channel';
-import { AssociateRole } from '@Types/associate/Associate';
+import {Address} from '@Types/account/Address';
+import {BusinessUnit} from '@Types/business-unit/BusinessUnit';
+import {Order} from '@Types/cart/Order';
+import {ChannelResourceIdentifier} from '@Types/channel/channel';
+import {AssociateRole} from '@Types/associate/Associate';
 
 export interface UseBusinessUnit {
   businessUnit: BusinessUnit;
@@ -20,7 +19,6 @@ export interface UseBusinessUnit {
   addUser: (key: string, email: string, roles: string[]) => Promise<BusinessUnit>;
   updateUser: (key: string, id: string, roles: string[]) => Promise<BusinessUnit>;
   removeUser: (key: string, id: string) => Promise<BusinessUnit>;
-  getUser: (id: string) => Promise<Account>;
   getOrders: (businessUnit: BusinessUnit) => Promise<Order[]>;
   getSuperUserBusinessUnits: (email: string) => Promise<BusinessUnit[]>;
   setMyBusinessUnit: (businessUnitKey: string) => Promise<BusinessUnit>;
