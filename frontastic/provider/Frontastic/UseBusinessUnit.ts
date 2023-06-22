@@ -1,8 +1,8 @@
-import {Address} from '@Types/account/Address';
-import {BusinessUnit} from '@Types/business-unit/BusinessUnit';
-import {Order} from '@Types/cart/Order';
-import {ChannelResourceIdentifier} from '@Types/channel/channel';
-import {AssociateRole} from '@Types/associate/Associate';
+import { Address } from '@Types/account/Address';
+import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
+import { Order } from '@Types/cart/Order';
+import { ChannelResourceIdentifier } from '@Types/channel/channel';
+import { AssociateRole } from '@Types/associate/Associate';
 
 export interface UseBusinessUnit {
   businessUnit: BusinessUnit;
