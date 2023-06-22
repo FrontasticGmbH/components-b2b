@@ -2,7 +2,7 @@ import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { Cart as CartType } from '@Types/cart/Cart';
-import { Organization } from '@Types/organization/organization';
+import { Organization } from 'types/organization';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference } from 'helpers/reference';
 import { useAccount } from 'frontastic';

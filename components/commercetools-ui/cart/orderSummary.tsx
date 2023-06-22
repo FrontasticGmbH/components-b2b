@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Cart } from '@Types/cart/Cart';
 import { LineItem } from '@Types/cart/LineItem';
-import { Organization } from '@Types/organization/organization';
+import { Organization } from 'types/organization';
 import { useTranslation, Trans } from 'react-i18next';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useFormat } from 'helpers/hooks/useFormat';
