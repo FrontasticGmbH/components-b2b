@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Account } from '@Types/account/Account';
 import { Address } from '@Types/account/Address';
 import { Order } from '@Types/cart/Order';
 import { AssociateRole } from '@Types/associate/Associate';
@@ -225,10 +224,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     return fetchApiHub(`/action/business-unit/updateAssociate?key=${key}`, { method: 'POST' }, { id, roles });
   };
 
-  const getUser = async (id: string): Promise<Account> => {
-    return fetchApiHub(`/action/account/getById?id=${id}`, { method: 'GET' });
-  };
-
   const getBusinessUnitOrders = async (key: string): Promise<Order[]> => {
     return await fetchApiHub(`/action/business-unit/getBusinessUnitOrders?key=${key}`, {
       method: 'GET',
@@ -277,7 +272,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     removeUser,
     updateUser,
     updateBudget,
-    getUser,
     addAddress,
     deleteAddress,
     editAddress,
