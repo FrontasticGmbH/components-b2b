@@ -6,14 +6,10 @@ import { calculateCartCount } from 'helpers/utils/calculateCartCount';
 import { useCart } from 'frontastic';
 
 const CartsExplorerButton: React.FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
-  const { allSuperUserCarts, data: currentCart, getCart, createCart } = useCart();
+  const { allSuperUserCarts, data: currentCart, getCart } = useCart();
 
   const handleCartSelection = async () => {
     await getCart();
-  };
-
-  const handleCreateNewCart = async () => {
-    await createCart();
   };
 
   return (
@@ -73,7 +69,7 @@ const CartsExplorerButton: React.FC<HTMLAttributes<HTMLDivElement>> = ({ classNa
               <button
                 type="button"
                 className={`inline w-full p-2 text-left text-xs hover:bg-gray-200 disabled:bg-gray-300 `}
-                onClick={handleCreateNewCart}
+                onClick={handleCartSelection}
               >
                 + Create a new cart
               </button>
