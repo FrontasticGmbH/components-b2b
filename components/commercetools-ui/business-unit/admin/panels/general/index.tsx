@@ -137,7 +137,7 @@ const GeneralPanel: React.FC = () => {
           </div>
         </div>
         <div className="basis-1/2">
-          <label htmlFor="budget">{formatMessage({ id: 'budget', defaultMessage: 'Budget in GBP' })}</label>
+          <label htmlFor="budget">{formatMessage({ id: 'budget', defaultMessage: 'Budget in EUR' })}</label>
           <div className="flex flex-row">
             <input
               id="budget"

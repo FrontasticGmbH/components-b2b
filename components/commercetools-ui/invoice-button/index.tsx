@@ -44,7 +44,7 @@ const InvoiceButton: React.FC<Props & HTMLAttributes<HTMLButtonElement>> = ({ or
     }),
     settings: {
       local: 'en-GB',
-      currency: 'GBP',
+      currency: 'EUR',
       'margin-top': 50,
       'margin-right': 50,
       'margin-left': 50,
