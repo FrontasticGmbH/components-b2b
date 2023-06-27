@@ -6,10 +6,10 @@ import { calculateCartCount } from 'helpers/utils/calculateCartCount';
 import { useCart } from 'frontastic';
 
 const CartsExplorerButton: React.FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
-  const { allSuperUserCarts, data: currentCart, getCartById, createCart } = useCart();
+  const { allSuperUserCarts, data: currentCart, getCart, createCart } = useCart();
 
-  const handleCartSelection = async (cartId: string) => {
-    await getCartById(cartId);
+  const handleCartSelection = async () => {
+    await getCart();
   };
 
   const handleCreateNewCart = async () => {
@@ -46,7 +46,7 @@ const CartsExplorerButton: React.FC<HTMLAttributes<HTMLDivElement>> = ({ classNa
                   className={`inline w-full p-2 text-left text-xs hover:bg-gray-200 disabled:bg-gray-300 `}
                   disabled={cart.cartId === currentCart?.cartId}
                   key={cart.cartId}
-                  onClick={() => handleCartSelection(cart.cartId)}
+                  onClick={() => handleCartSelection()}
                 >
                   <span>Cart</span>
                   {cart.origin === 'Quote' && <span>{` created from a quote`}</span>}

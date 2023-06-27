@@ -48,10 +48,6 @@ export const getCart = async () => {
   }
 };
 
-export const getCartById = async (id: string) => {
-  const res = await fetchApiHub(`/action/cart/getCartById?id=${id}`, { method: 'GET' });
-  mutate('/action/cart/getCart', res);
-};
 
 export const createCart = async () => {
   const res = await fetchApiHub(`/action/cart/createCart`, { method: 'POST' });
