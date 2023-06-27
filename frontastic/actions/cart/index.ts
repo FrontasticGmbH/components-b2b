@@ -51,7 +51,7 @@ export const getCart = async () => {
 export const getAllSuperUserCarts = async () => {
   try {
     const res = await fetchApiHub('/action/cart/getAllSuperUserCarts', { method: 'GET' });
-    mutate('/action/cart/getAllSuperUserCarts', res);
+    mutate('/action/cart/getAllSuperUserCarts', []);
   } catch {
     mutate('/action/cart/getAllSuperUserCarts', undefined);
   }
