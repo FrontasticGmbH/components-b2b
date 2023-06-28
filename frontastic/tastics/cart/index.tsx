@@ -1,5 +1,5 @@
 import React from 'react';
-import { Organization } from 'types/organization';
+import { Organization } from 'types/Organization';
 import Cart from 'components/commercetools-ui/cart';
 import { useCart } from 'frontastic/provider';
 

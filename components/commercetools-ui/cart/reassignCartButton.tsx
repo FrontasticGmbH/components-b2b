@@ -4,7 +4,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { CheckIcon } from '@heroicons/react/solid';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { Organization } from 'types/organization';
+import { Organization } from 'types/Organization';
 import { useAccount, useCart } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 type Props = {

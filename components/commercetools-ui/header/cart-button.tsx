@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/outline';
-import { Organization } from 'types/organization';
+import { Organization } from 'types/Organization';
 import debounce from 'lodash.debounce';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Organization } from 'types/organization';
+import { Organization } from 'types/Organization';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useCart, useWishlist } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';

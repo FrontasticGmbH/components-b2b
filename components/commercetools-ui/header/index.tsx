@@ -3,7 +3,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import { Account } from '@Types/account/Account';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { Organization } from 'types/organization';
+import { Organization } from 'types/Organization';
 import Typography from 'components/commercetools-ui/typography';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';
