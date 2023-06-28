@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NextLink from 'next/link';
-import { Facet } from '@Types/result/Facet';
 import { Product } from '@Types/product/Product';
+import { Facet } from '@Types/result/Facet';
 import Breadcrumb from 'components/commercetools-ui/breadcrumb';
 import Filters from 'components/commercetools-ui/filters';
 import FilterIcon from 'components/icons/filter';

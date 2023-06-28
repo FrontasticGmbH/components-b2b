@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { LineItem } from '@Types/wishlist/LineItem';
 import { Variant } from '@Types/product/Variant';
+import { LineItem } from '@Types/wishlist/LineItem';
 import debounce from 'lodash.debounce';
 import { DateHelpers } from 'helpers/dateHelpers';
 import { useFormat } from 'helpers/hooks/useFormat';

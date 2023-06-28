@@ -1,7 +1,7 @@
 import { useState, Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 import { Account } from '@Types/account/Account';
 import { Address } from '@Types/account/Address';
-import { Dialog, Transition } from '@headlessui/react';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { STATES } from 'helpers/stateOptions';

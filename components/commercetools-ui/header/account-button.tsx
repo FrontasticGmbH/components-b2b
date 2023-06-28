@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { Account } from '@Types/account/Account';
 import { Menu, Transition } from '@headlessui/react';
 import { UserIcon as LoggedInIcon } from '@heroicons/react/solid';
+import { Account } from '@Types/account/Account';
 import { Organization } from '@Types/organization/organization';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';

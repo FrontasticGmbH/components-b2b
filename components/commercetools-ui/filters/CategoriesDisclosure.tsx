@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Facet } from '@Types/result/Facet';
 import { Disclosure } from '@headlessui/react';
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid';
 import { Product } from '@Types/product/Product';
+import { Facet } from '@Types/result/Facet';
 import { GiThermometerCold } from 'react-icons/gi';
 import { URLParam } from 'helpers/utils/updateURLParams';
 import { useProducts } from 'frontastic';
