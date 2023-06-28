@@ -6,7 +6,6 @@ import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';
 import { calculateCartCount } from 'helpers/utils/calculateCartCount';
 import { useCart } from 'frontastic';
-import CartsExplorerButton from '../cart/cartsExplorerButton';
 
 interface CartButtonProps {
   cartLink?: Reference;
@@ -55,7 +54,6 @@ const CartButton: React.FC<CartButtonProps> = ({ cartLink, organization }) => {
           </>
         )}
       </ReferenceLink>
-      {!!organization.superUserBusinessUnitKey && <CartsExplorerButton className="ml-2 h-4 w-4" />}
     </>
   );
 };

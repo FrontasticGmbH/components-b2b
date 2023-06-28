@@ -27,7 +27,7 @@ const ReassignCartButton: React.FC<Props & HTMLAttributes<HTMLDivElement>> = ({ 
     });
   }, [currentBusinesssUnit]);
 
-  if (!organization?.superUserBusinessUnitKey || !businessUnit?.associates?.length) {
+  if (!businessUnit?.associates?.length) {
     return null;
   }
 
