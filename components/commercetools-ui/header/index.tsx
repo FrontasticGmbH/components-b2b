@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { Account } from '@Types/account/Account';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
+import { Account } from '@Types/account/Account';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { Organization } from 'types/organization';
 import Typography from 'components/commercetools-ui/typography';

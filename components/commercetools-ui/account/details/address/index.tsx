@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { StarIcon } from '@heroicons/react/solid';
 import { Account } from '@Types/account/Account';
 import type { Address as AddressType } from '@Types/account/Address';
-import { StarIcon } from '@heroicons/react/solid';
 import { useFormat } from 'helpers/hooks/useFormat';
 import UpdateAddressModal from '../modals/updateAddress';
 
