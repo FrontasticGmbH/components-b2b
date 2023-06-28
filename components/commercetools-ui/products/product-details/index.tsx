@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Money } from '@Types/product/Money';
 import { Disclosure } from '@headlessui/react';
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline';
 import { Category } from '@Types/product/Category';
+import { Money } from '@Types/product/Money';
 import { Product } from '@Types/product/Product';
 import { Variant } from '@Types/product/Variant';
 import { StringHelpers } from 'helpers/stringHelpers';

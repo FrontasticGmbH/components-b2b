@@ -13,5 +13,9 @@ module.exports = {
     en: 'en_GB',
     de: 'de_CH',
   },
+  i18nForCurrency: {
+    en: 'EUR',
+    de: 'EUR',
+  },
   localePath: path.resolve('./public/locales'),
 };

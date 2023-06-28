@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import { Address } from '@Types/account/Address';
 import { Dialog, Transition } from '@headlessui/react';
+import { Address } from '@Types/account/Address';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useDarkMode } from 'frontastic';
 

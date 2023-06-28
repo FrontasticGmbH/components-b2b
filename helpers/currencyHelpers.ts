@@ -10,7 +10,7 @@ export class CurrencyHelpers {
   static formatToMoney = function (costInDollars: number): Money {
     return {
       centAmount: costInDollars * 100,
-      currencyCode: 'GBP',
+      currencyCode: 'EUR',
       fractionDigits: 2,
     };
   };
@@ -18,7 +18,7 @@ export class CurrencyHelpers {
   private static formatNumberForCurrency = function (costInCents: number) {
     return CurrencyHelpers.formatMoneyCurrency({
       centAmount: costInCents,
-      currencyCode: 'GBP',
+      currencyCode: 'EUR',
       fractionDigits: 2,
     });
   };
@@ -32,7 +32,7 @@ export class CurrencyHelpers {
   };
 
   private static formatMoneyCurrency = function (price: Money) {
-    return Intl.NumberFormat('en-GB', { style: 'currency', currency: price?.currencyCode ?? 'GBP' }).format(
+    return Intl.NumberFormat('en-GB', { style: 'currency', currency: price?.currencyCode ?? 'EUR' }).format(
       (price?.centAmount ?? 0) / Math.pow(10, price?.fractionDigits ?? 2),
     );
   };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Discount } from '@Types/cart/Discount';
 import { XIcon } from '@heroicons/react/outline';
 import { Cart } from '@Types/cart/Cart';
+import { Discount } from '@Types/cart/Discount';
 import toast from 'react-hot-toast';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { useCart } from 'frontastic/provider';
