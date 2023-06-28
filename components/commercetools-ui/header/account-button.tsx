@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { UserIcon as LoggedInIcon } from '@heroicons/react/solid';
 import { Account } from '@Types/account/Account';
-import { Organization } from 'types/Organization';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';
+import { Organization } from 'types/Organization';
 import { useAccount } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 

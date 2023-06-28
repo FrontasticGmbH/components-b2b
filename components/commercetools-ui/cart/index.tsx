@@ -1,10 +1,10 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { Cart as CartType } from '@Types/cart/Cart';
-import { Organization } from 'types/Organization';
 import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference } from 'helpers/reference';
+import { Organization } from 'types/Organization';
 import { useAccount } from 'frontastic';
 import { NextFrontasticImage } from 'frontastic/lib/image';
 import Spinner from '../spinner';

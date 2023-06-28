@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/outline';
-import { Organization } from 'types/Organization';
 import debounce from 'lodash.debounce';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference, ReferenceLink } from 'helpers/reference';
 import { calculateCartCount } from 'helpers/utils/calculateCartCount';
+import { Organization } from 'types/Organization';
 import { useCart } from 'frontastic';
 
 interface CartButtonProps {
