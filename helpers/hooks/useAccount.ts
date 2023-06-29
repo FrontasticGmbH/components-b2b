@@ -84,6 +84,7 @@ export const useAccount = (): UseAccount => {
     if (remember) window.localStorage.setItem(REMEMBER_ME, '1');
     try {
       const res = await fetchApiHub('/action/account/login', { method: 'POST' }, payload);
+      await fetchApiHub('/action/business-unit/getOrganization', { method: 'GET' });
       await mutate('/action/account/getAccount', res);
       await getShippingMethods();
       return res;

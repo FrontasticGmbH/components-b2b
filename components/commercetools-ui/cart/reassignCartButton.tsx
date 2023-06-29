@@ -4,7 +4,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { CheckIcon } from '@heroicons/react/solid';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { Organization } from '@Types/organization/organization';
+import { Organization } from 'types/Organization';
 import { useAccount, useCart } from 'frontastic';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 type Props = {
@@ -27,7 +27,7 @@ const ReassignCartButton: React.FC<Props & HTMLAttributes<HTMLDivElement>> = ({ 
     });
   }, [currentBusinesssUnit]);
 
-  if (!organization?.superUserBusinessUnitKey || !businessUnit?.associates?.length) {
+  if (!businessUnit?.associates?.length) {
     return null;
   }
 

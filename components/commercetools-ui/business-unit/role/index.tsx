@@ -1,5 +1,5 @@
 import React from 'react';
-import { Organization } from '@Types/organization/organization';
+import { Organization } from 'types/Organization';
 import { useAccount } from 'frontastic';
 
 type Props = {

@@ -2,9 +2,9 @@ import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { Cart as CartType } from '@Types/cart/Cart';
 import { ShippingMethod } from '@Types/cart/ShippingMethod';
-import { Organization } from '@Types/organization/organization';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference } from 'helpers/reference';
+import { Organization } from 'types/Organization';
 import { useAccount } from 'frontastic';
 import { NextFrontasticImage } from 'frontastic/lib/image';
 import Spinner from '../spinner';
@@ -109,11 +109,7 @@ const Cart = ({
             organization={organization}
             cart={cart}
             submitButtonLabel={cart.isPreBuyCart && 'Pre order'}
-            disableSubmitButton={
-              isOverStock ||
-              !cart.customerId ||
-              (cart.customerId === account?.accountId && !!organization?.superUserBusinessUnitKey)
-            }
+            disableSubmitButton={isOverStock || !cart.customerId || cart.customerId === account?.accountId}
             onSubmit={onCheckout}
             showDiscountsForm={false}
             currentStep="cart"
