@@ -1,13 +1,13 @@
 import { Address } from '@Types/account/Address';
-import { Discount } from '@Types/cart/Discount';
 import { Cart } from '@Types/cart/Cart';
-import { Order } from '@Types/cart/Order';
+import { Discount } from '@Types/cart/Discount';
 import { LineItemReturnItemDraft } from '@Types/cart/LineItem';
+import { Order } from '@Types/cart/Order';
 import { Variant } from '@Types/product/Variant';
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';
-import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
 import toast from 'react-hot-toast';
 import useSWR, { mutate } from 'swr';
+import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
 import { fetchApiHub, revalidateOptions } from 'frontastic';
 
 export type CartDetails = {
@@ -57,8 +57,7 @@ export const getAllSuperUserCarts = async () => {
 };
 
 export const allSuperUserCarts = (): Cart[] => {
-  const allCarts = useSWR('/action/cart/getAllSuperUserCarts', fetchApiHub, revalidateOptions);
-  return allCarts.data;
+  return [] as Cart[];
 };
 
 export const reassignCart = async (customerId: string, email: string) => {
