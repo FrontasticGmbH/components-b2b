@@ -172,27 +172,6 @@ const Register: React.FC<RegisterProps> = ({ logo, loginLink }) => {
                     />
                   </div>
                 </div>
-                <div className="ml-2 basis-1/2">
-                  <label htmlFor="businessType" className="block text-sm font-medium text-gray-700 dark:text-light-100">
-                    {formatMessage({ id: 'businessType', defaultMessage: 'Business Type' })}
-                  </label>
-                  <div className="mt-1 w-full">
-                    <select
-                      id="businessType"
-                      name="businessType"
-                      required
-                      className="input input-primary w-full"
-                      onChange={handleChange}
-                    >
-                      <option value={null} disabled selected></option>
-                      {businessTypes.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
               </div>
               <div>
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-light-100">

@@ -119,14 +119,8 @@ export const useAccount = (): UseAccount => {
         method: 'GET',
       });
     } catch {
-      const response = await fetchApiHub('/action/account/register', { method: 'POST' }, acc);
       try {
-        const store = await createStore({
-          ...account,
-          rootCategoryId: BusinessTypeToCategoryMap[account.businessType],
-        });
-        fetchApiHub('/action/business-unit/create', { method: 'POST' }, { account, customer: response, store });
-        return response;
+        return await fetchApiHub('/action/account/register', { method: 'POST' }, acc);
       } catch (error) {
         throw error;
       }
