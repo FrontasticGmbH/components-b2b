@@ -30,7 +30,7 @@ const SplitItemModal: React.FC<Props> = ({ open, lineItem, onClose }) => {
         if (item.address.id === id) {
           return {
             ...item,
-            quantity: parseInt(e.target.value, 10),
+            count: parseInt(e.target.value, 10),
           };
         }
         return item;
