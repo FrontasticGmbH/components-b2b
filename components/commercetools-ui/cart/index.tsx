@@ -109,7 +109,7 @@ const Cart = ({
             organization={organization}
             cart={cart}
             submitButtonLabel={cart.isPreBuyCart && 'Pre order'}
-            disableSubmitButton={isOverStock || !cart.customerId || cart.customerId === account?.accountId}
+            disableSubmitButton={isOverStock || !cart.customerId}
             onSubmit={onCheckout}
             showDiscountsForm={false}
             currentStep="cart"
