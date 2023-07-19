@@ -1,14 +1,14 @@
-import {Address} from '@Types/account/Address';
-import {Cart} from '@Types/cart/Cart';
-import {Discount} from '@Types/cart/Discount';
-import {ReturnItem} from '@Types/cart/LineItem';
-import {Order} from '@Types/cart/Order';
-import {Variant} from '@Types/product/Variant';
-import {QuoteRequest} from '@Types/quotes/QuoteRequest';
+import { Address } from '@Types/account/Address';
+import { Cart } from '@Types/cart/Cart';
+import { Discount } from '@Types/cart/Discount';
+import { ReturnItem } from '@Types/cart/LineItem';
+import { Order } from '@Types/cart/Order';
+import { Variant } from '@Types/product/Variant';
+import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import toast from 'react-hot-toast';
-import useSWR, {mutate} from 'swr';
-import {bundleItems} from 'helpers/utils/bundleItemsHelpers';
-import {fetchApiHub, revalidateOptions} from 'frontastic';
+import useSWR, { mutate } from 'swr';
+import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
+import { fetchApiHub, revalidateOptions } from 'frontastic';
 
 export type CartDetails = {
   account?: { email: string };
@@ -285,7 +285,7 @@ export const createQuoteRequestFromCurrentCart = async (comment: string): Promis
 
 export const returnItems = async (orderNumber: string, returnLineItems: ReturnItem[]): Promise<Order> => {
   try {
-    const res = fetchApiHub('/action/cart/returnItems', {method: 'POST'}, {orderNumber, returnLineItems});
+    const res = fetchApiHub('/action/cart/returnItems', { method: 'POST' }, { orderNumber, returnLineItems });
     return res;
   } catch (e) {
     throw e;

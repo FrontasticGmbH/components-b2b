@@ -1,13 +1,13 @@
-import {Address} from '@Types/account/Address';
-import {Discount} from '@Types/cart/Discount';
-import {ShippingMethod} from '@Types/cart/ShippingMethod';
-import {ProjectSettings} from '@Types/ProjectSettings';
-import {ReturnItem} from '@Types/cart/LineItem';
-import {Variant} from '@Types/product/Variant';
-import {QuoteRequest} from '@Types/quotes/QuoteRequest';
-import {Cart} from '@Types/cart/Cart';
-import {Order} from '@Types/cart/Order';
-import {CartDetails} from 'frontastic/actions/cart';
+import { Address } from '@Types/account/Address';
+import { Discount } from '@Types/cart/Discount';
+import { ShippingMethod } from '@Types/cart/ShippingMethod';
+import { ProjectSettings } from '@Types/ProjectSettings';
+import { ReturnItem } from '@Types/cart/LineItem';
+import { Variant } from '@Types/product/Variant';
+import { QuoteRequest } from '@Types/quotes/QuoteRequest';
+import { Cart } from '@Types/cart/Cart';
+import { Order } from '@Types/cart/Order';
+import { CartDetails } from 'frontastic/actions/cart';
 
 export interface UseCart {
   data?: Cart;

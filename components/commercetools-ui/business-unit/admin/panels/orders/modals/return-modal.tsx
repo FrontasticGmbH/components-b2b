@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, {Fragment, useEffect, useState} from 'react';
-import {Dialog, Transition} from '@headlessui/react';
-import {LineItem, ReturnItem} from '@Types/cart/LineItem';
-import {Order} from '@Types/cart/Order';
-import {LoadingIcon} from 'components/commercetools-ui/icons/loading';
-import {useCart, useDarkMode} from 'frontastic';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { LineItem, ReturnItem } from '@Types/cart/LineItem';
+import { Order } from '@Types/cart/Order';
+import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
+import { useCart, useDarkMode } from 'frontastic';
 import Image from 'frontastic/lib/image';
 
 interface Props {

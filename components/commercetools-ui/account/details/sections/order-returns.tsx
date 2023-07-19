@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import {Disclosure} from '@headlessui/react';
-import {ChevronUpIcon} from '@heroicons/react/outline';
-import {LineItem} from '@Types/cart/LineItem';
-import {ReturnInfo, ReturnInfoItem} from '@Types/cart/Order';
-import {CurrencyHelpers} from 'helpers/currencyHelpers';
+import { Disclosure } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/outline';
+import { LineItem } from '@Types/cart/LineItem';
+import { ReturnInfo, ReturnInfoItem } from '@Types/cart/Order';
+import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import Image from 'frontastic/lib/image';
 
 type Props = {
