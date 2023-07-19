@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { Fragment, useEffect, useState } from 'react';
-import { Transition, Dialog } from '@headlessui/react';
-import { LineItem, LineItemReturnItemDraft } from '@Types/cart/LineItem';
-import { Order } from '@Types/cart/Order';
-import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
-import { useCart, useDarkMode } from 'frontastic';
+import React, {Fragment, useEffect, useState} from 'react';
+import {Dialog, Transition} from '@headlessui/react';
+import {LineItem, ReturnItem} from '@Types/cart/LineItem';
+import {Order} from '@Types/cart/Order';
+import {LoadingIcon} from 'components/commercetools-ui/icons/loading';
+import {useCart, useDarkMode} from 'frontastic';
 import Image from 'frontastic/lib/image';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
   order: Order;
 }
 
-interface LineItemReturn extends LineItemReturnItemDraft {
+interface LineItemReturn extends ReturnItem {
   selected?: boolean;
 }
 
@@ -42,7 +42,7 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
             lineitem.count -
             order.returnInfo.reduce(
               (prev, curr) =>
-                prev + curr.items.reduce((p, c) => p + (c.lineItemId === lineitem.lineItemId ? c.quantity : 0), 0),
+                prev + curr.items.reduce((p, c) => p + (c.lineItemId === lineitem.lineItemId ? c.count : 0), 0),
               0,
             ),
         })),
@@ -51,7 +51,7 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
   const getInitalReturnLineItems = (): LineItemReturn[] => {
     return orderWithAvailableQuantities.lineItems.map((lineitem) => ({
       lineItemId: lineitem.lineItemId,
-      quantity: 0,
+      count: 0,
       shipmentState: 'Returned',
       selected: false,
     }));
@@ -79,7 +79,7 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
     const lineItems = [...returnLineItems];
     lineItems[index] = {
       ...lineItems[index],
-      quantity: +e.target.value,
+      count: +e.target.value,
     };
     setReturnLineItems(lineItems);
   };
@@ -109,7 +109,7 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
       try {
         await returnItems(
           order.orderId,
-          returnLineItems.filter((item) => item.quantity > 0),
+          returnLineItems.filter((item) => item.count > 0),
         );
       } catch (e) {
         console.log(e);
@@ -120,7 +120,7 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
   };
 
   useEffect(() => {
-    setIsValid(returnLineItems.some((item) => item.selected && item.quantity > 0));
+    setIsValid(returnLineItems.some((item) => item.selected && item.count > 0));
   }, [returnLineItems]);
 
   if (!order) {
@@ -207,7 +207,7 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
                               <label htmlFor="quantity">Quantity to return</label>
                               <input
                                 className="input input-primary h-10"
-                                value={returnLineItems[i].quantity}
+                                value={returnLineItems[i].count}
                                 id="quantity"
                                 name="quantity"
                                 type="number"

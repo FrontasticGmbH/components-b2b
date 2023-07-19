@@ -1,13 +1,13 @@
-import { Address } from '@Types/account/Address';
-import { Discount } from '@Types/cart/Discount';
-import { ShippingMethod } from '@Types/cart/ShippingMethod';
-import { ProjectSettings } from '@Types/ProjectSettings';
-import { LineItemReturnItemDraft } from '@Types/cart/LineItem';
-import { Variant } from '@Types/product/Variant';
-import { QuoteRequest } from '@Types/quotes/QuoteRequest';
-import { Cart } from '@Types/cart/Cart';
-import { Order } from '@Types/cart/Order';
-import { CartDetails } from 'frontastic/actions/cart';
+import {Address} from '@Types/account/Address';
+import {Discount} from '@Types/cart/Discount';
+import {ShippingMethod} from '@Types/cart/ShippingMethod';
+import {ProjectSettings} from '@Types/ProjectSettings';
+import {ReturnItem} from '@Types/cart/LineItem';
+import {Variant} from '@Types/product/Variant';
+import {QuoteRequest} from '@Types/quotes/QuoteRequest';
+import {Cart} from '@Types/cart/Cart';
+import {Order} from '@Types/cart/Order';
+import {CartDetails} from 'frontastic/actions/cart';
 
 export interface UseCart {
   data?: Cart;
@@ -34,7 +34,7 @@ export interface UseCart {
   getProjectSettings?: () => Promise<ProjectSettings>;
   createQuoteRequestFromCurrentCart?: (comment: string) => Promise<QuoteRequest>;
   splitLineItem?: (lineItemId: string, shippingAddresses: { address: Address; count: number }[]) => Promise<any>;
-  returnItems: (orderNumber: string, returnLineItems: LineItemReturnItemDraft[]) => Promise<Order>;
+  returnItems: (orderNumber: string, returnLineItems: ReturnItem[]) => Promise<Order>;
   cancelOrder: (orderNumber: string) => Promise<Order>;
   transitionOrderState: (orderNumber: string, stateKey: string) => Promise<Order>;
   allSuperUserCarts: Cart[];

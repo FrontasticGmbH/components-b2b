@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import { Disclosure } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/outline';
-import { LineItem } from '@Types/cart/LineItem';
-import { ReturnInfo, ReturnInfoItem } from '@Types/cart/Order';
-import { CurrencyHelpers } from 'helpers/currencyHelpers';
+import {Disclosure} from '@headlessui/react';
+import {ChevronUpIcon} from '@heroicons/react/outline';
+import {LineItem} from '@Types/cart/LineItem';
+import {ReturnInfo, ReturnInfoItem} from '@Types/cart/Order';
+import {CurrencyHelpers} from 'helpers/currencyHelpers';
 import Image from 'frontastic/lib/image';
 
 type Props = {
@@ -120,7 +120,7 @@ const OrderReturns: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({ 
                           <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">
                             {new Date(product.createdAt).toLocaleDateString()}
                           </td>
-                          <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">{product.quantity}</td>
+                          <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">{product.count}</td>
                           <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">
                             {product.shipmentState}
                           </td>
