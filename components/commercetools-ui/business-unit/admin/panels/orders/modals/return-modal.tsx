@@ -52,7 +52,6 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
     return orderWithAvailableQuantities.lineItems.map((lineitem) => ({
       lineItemId: lineitem.lineItemId,
       count: 0,
-      shipmentState: 'Returned',
       selected: false,
     }));
   };
