@@ -34,7 +34,7 @@ export interface UseCart {
   getProjectSettings?: () => Promise<ProjectSettings>;
   createQuoteRequestFromCurrentCart?: (comment: string) => Promise<QuoteRequest>;
   splitLineItem?: (lineItemId: string, shippingAddresses: { address: Address; count: number }[]) => Promise<any>;
-  returnItems: (orderNumber: string, returnLineItems: ReturnLineItem[]) => Promise<Order>;
+  returnItems: (orderId: string, returnLineItems: ReturnLineItem[]) => Promise<Order>;
   cancelOrder: (orderNumber: string) => Promise<Order>;
   transitionOrderState: (orderNumber: string, stateKey: string) => Promise<Order>;
   allSuperUserCarts: Cart[];
