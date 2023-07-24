@@ -1,12 +1,12 @@
 import { Address } from '@Types/account/Address';
-import { Discount } from '@Types/cart/Discount';
-import { ShippingMethod } from '@Types/cart/ShippingMethod';
-import { ProjectSettings } from '@Types/ProjectSettings';
-import { ReturnItem } from '@Types/cart/LineItem';
-import { Variant } from '@Types/product/Variant';
-import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { Cart } from '@Types/cart/Cart';
+import { Discount } from '@Types/cart/Discount';
+import { ReturnLineItem } from '@Types/cart/LineItem';
 import { Order } from '@Types/cart/Order';
+import { ShippingMethod } from '@Types/cart/ShippingMethod';
+import { Variant } from '@Types/product/Variant';
+import { ProjectSettings } from '@Types/ProjectSettings';
+import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { CartDetails } from 'frontastic/actions/cart';
 
 export interface UseCart {
@@ -34,7 +34,7 @@ export interface UseCart {
   getProjectSettings?: () => Promise<ProjectSettings>;
   createQuoteRequestFromCurrentCart?: (comment: string) => Promise<QuoteRequest>;
   splitLineItem?: (lineItemId: string, shippingAddresses: { address: Address; count: number }[]) => Promise<any>;
-  returnItems: (orderNumber: string, returnLineItems: ReturnItem[]) => Promise<Order>;
+  returnItems: (orderNumber: string, returnLineItems: ReturnLineItem[]) => Promise<Order>;
   cancelOrder: (orderNumber: string) => Promise<Order>;
   transitionOrderState: (orderNumber: string, stateKey: string) => Promise<Order>;
   allSuperUserCarts: Cart[];

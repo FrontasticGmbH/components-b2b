@@ -1,7 +1,7 @@
 import { Address } from '@Types/account/Address';
 import { Cart } from '@Types/cart/Cart';
 import { Discount } from '@Types/cart/Discount';
-import { ReturnItem } from '@Types/cart/LineItem';
+import { ReturnLineItem } from '@Types/cart/LineItem';
 import { Order } from '@Types/cart/Order';
 import { Variant } from '@Types/product/Variant';
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';
@@ -283,7 +283,7 @@ export const createQuoteRequestFromCurrentCart = async (comment: string): Promis
   return fetchApiHub('/action/quote/createQuoteRequest', { method: 'POST' }, { comment });
 };
 
-export const returnItems = async (orderNumber: string, returnLineItems: ReturnItem[]): Promise<Order> => {
+export const returnItems = async (orderNumber: string, returnLineItems: ReturnLineItem[]): Promise<Order> => {
   try {
     const res = fetchApiHub('/action/cart/returnItems', { method: 'POST' }, { orderNumber, returnLineItems });
     return res;
