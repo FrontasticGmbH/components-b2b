@@ -77,7 +77,7 @@ const SplitItemModal: React.FC<Props> = ({ open, lineItem, onClose }) => {
             };
           }
           return {
-            quantity: targets[targetIndex].quantity,
+            quantity: targets[targetIndex].count,
             address,
           };
         }),
