@@ -36,8 +36,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     const result = await fetchApiHub(`/action/business-unit/getCompanies`, {
       method: 'GET',
     });
-    console.log('getMyOrganization result:: ', result);
-
     return result.map((bu) => ({
       ...bu,
       id: bu.key,
