@@ -41,7 +41,7 @@ const Register: React.FC<RegisterProps> = ({ logo, loginLink }) => {
     email: '',
     password: '',
     confirmPassword: '',
-    company: '',
+    companyName: '',
     lastName: '',
     firstName: '',
     businessType: null,
@@ -89,7 +89,7 @@ const Register: React.FC<RegisterProps> = ({ logo, loginLink }) => {
         lastName: data.lastName,
         email: data.email,
         password: data.password,
-        company: data.company,
+        companyName: data.companyName,
         confirmed: true,
         businessType: data.businessType,
       });
@@ -159,13 +159,13 @@ const Register: React.FC<RegisterProps> = ({ logo, loginLink }) => {
               </div>
               <div className="flex flex-row">
                 <div className="basis-1/2">
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-light-100">
-                    {formatMessage({ id: 'company', defaultMessage: 'Company' })}
+                  <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 dark:text-light-100">
+                    {formatMessage({ id: 'companyName', defaultMessage: 'Company name' })}
                   </label>
                   <div className="mt-1">
                     <input
-                      id="company"
-                      name="company"
+                      id="companyName"
+                      name="companyName"
                       required
                       className="block w-full appearance-none rounded-md border border-gray-300 py-2 px-3 shadow-sm placeholder:text-gray-400 focus:border-accent-400 focus:outline-none focus:ring-accent-400 sm:text-sm"
                       onChange={handleChange}

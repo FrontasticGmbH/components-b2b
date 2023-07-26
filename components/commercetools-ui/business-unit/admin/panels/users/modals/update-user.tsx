@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState, Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Associate } from '@Types/associate/Associate';
+import { Associate } from '@Types/account/Associate';
 import { MultiSelect } from 'react-multi-select-component';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useFormat } from 'helpers/hooks/useFormat';
@@ -21,10 +21,9 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ open, onClose, updateUser, asso
   // @ts-ignore
   const [isLoading, setIsLoading] = useState(false);
   const [roles, setRoles] = useState(
-    associate?.associateRoleAssignments?.map((role) => ({
-      // @ts-ignore
-      label: role.associateRole?.name || role.associateRole?.key,
-      value: role.associateRole?.key,
+    associate?.roles?.map((role) => ({
+      label: role?.name || role?.key,
+      value: role?.key,
     })),
   );
   const [options, setOptions] = useState([]);
@@ -35,7 +34,7 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ open, onClose, updateUser, asso
     e.preventDefault();
     try {
       await updateUser(
-        associate.customer.id,
+        associate.accountId,
         roles.map((role) => role.value),
       );
     } catch (err) {
@@ -94,7 +93,7 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ open, onClose, updateUser, asso
                         Edit associate
                       </h2>
                       <p className="mt-4 text-lg leading-6 text-gray-400">
-                        Edit <strong>{associate?.customer?.email}</strong> roles
+                        Edit <strong>{associate?.email}</strong> roles
                       </p>
                     </div>
                     <div className="mt-12">
@@ -113,7 +112,7 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ open, onClose, updateUser, asso
                               name="email"
                               id="email"
                               autoComplete="email"
-                              value={associate?.customer?.email}
+                              value={associate?.email}
                               readOnly={true}
                               className="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-accent-400 focus:ring-accent-400"
                             />

@@ -135,7 +135,7 @@ function AccountTestTastic() {
               const account = await register({
                 email: crypto.randomUUID() + '@r9e.de',
                 password: '3e7e422b-93d1-4ed8-8dca-161dd1867ca6',
-                company: 'John',
+                companyName: 'John',
               });
             }}
           >

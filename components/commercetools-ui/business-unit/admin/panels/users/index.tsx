@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PencilAltIcon, XIcon } from '@heroicons/react/solid';
-import { Associate } from '@Types/associate/Associate';
+import { Associate } from '@Types/account/Associate';
 import AddUser from 'components/commercetools-ui/business-unit/admin/panels/users/modals/add-user';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
@@ -75,10 +75,10 @@ const UsersPanel = () => {
           <tbody>
             {!!businessUnit.associates.length &&
               businessUnit.associates.map((associate) => (
-                <tr key={associate.customer.id}>
-                  <td>{`${associate.customer.firstName} ${associate.customer.lastName}`}</td>
-                  <td className="text-ellipsis-150">{associate.customer.email}</td>
-                  <td>{associate.associateRoleAssignments?.map((role) => role.associateRole?.key).join(', ')}</td>
+                <tr key={associate.accountId}>
+                  <td>{`${associate.firstName} ${associate.lastName}`}</td>
+                  <td className="text-ellipsis-150">{associate.email}</td>
+                  <td>{associate.roles?.map((role) => role?.key).join(', ')}</td>
                   <td className="flex flex-row items-center">
                     <button onClick={() => handleOpenEdit(associate)}>
                       <PencilAltIcon className="mt-1 h-4 w-4" />

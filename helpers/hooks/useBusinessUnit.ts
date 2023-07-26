@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Address } from '@Types/account/Address';
 import { Order } from '@Types/cart/Order';
-import { AssociateRole } from '@Types/associate/Associate';
+import { AssociateRole } from '@Types/account/Associate';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { ChannelResourceIdentifier } from '@Types/channel/channel';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
@@ -19,14 +19,14 @@ export const useBusinessUnit = (): UseBusinessUnit => {
   const { fetchStoreWishlists } = useWishlist();
 
   const { data: associateRoles } = useSWR<AssociateRole[]>(
-    '/action/associate/getAllAssociateRoles',
+    '/action/business-unit/getAssociateRoles',
     fetchApiHub,
     revalidateOptions,
   );
 
   const fetchAssociateRoles = async () => {
-    const roles = await fetchApiHub(`/action/associate/getAllAssociateRoles`);
-    mutate('/action/associate/getAllAssociateRoles', roles);
+    const roles = await fetchApiHub(`/action/business-unit/getAssociateRoles`);
+    mutate('/action/business-unit/getAssociateRoles', roles);
   };
 
   const getMyOrganization = async (): Promise<any> => {

@@ -39,7 +39,7 @@ export interface UpdateAccount {
 export interface RegisterAccount extends UpdateAccount {
   email: string;
   password: string;
-  company: string;
+  companyName: string;
   confirmed?: boolean;
   billingAddress?: Address;
   shippingAddress?: Address;
@@ -114,7 +114,7 @@ export const useAccount = (): UseAccount => {
     const acc = { ...account, host };
     let sameBusinessUnit = null;
     try {
-      const suggestedBUName = `business_unit_${account.company.toLowerCase().replace(/ /g, '_')}`;
+      const suggestedBUName = `business_unit_${account.companyName.toLowerCase().replace(/ /g, '_')}`;
       sameBusinessUnit = await fetchApiHub(`/action/business-unit/getByKey?key=${suggestedBUName}`, {
         method: 'GET',
       });
@@ -126,7 +126,7 @@ export const useAccount = (): UseAccount => {
       }
     }
     if (!!sameBusinessUnit) {
-      throw new Error(`An account for the company ${account.company} already exists`);
+      throw new Error(`An account for the company ${account.companyName} already exists`);
     }
   };
 
