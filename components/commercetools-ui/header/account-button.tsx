@@ -57,18 +57,6 @@ const AccountButton: React.FC<AccountButtonProps> = ({ accountLink, account, bus
                     {formatAccountMessage({ id: 'profile-orders', defaultMessage: 'Profile and Orders' })}
                   </ReferenceLink>
                 </Menu.Item>
-                {businessUnit?.isAdmin && (
-                  <Menu.Item>
-                    <ReferenceLink
-                      target={businessUnitLink}
-                      className={`block w-72 cursor-pointer py-2 px-4 text-sm text-primary-400 hover:bg-gray-100 dark:bg-primary-400  dark:text-light-100`}
-                    >
-                      {organization?.businessUnit &&
-                        formatAccountMessage({ id: 'comapny', defaultMessage: 'Company: ' }) +
-                          organization.businessUnit.name}
-                    </ReferenceLink>
-                  </Menu.Item>
-                )}
                 {account && (
                   <Menu.Item>
                     <button

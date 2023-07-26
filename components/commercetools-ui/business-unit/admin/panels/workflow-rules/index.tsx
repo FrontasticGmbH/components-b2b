@@ -44,15 +44,7 @@ const WorkflowRules = () => {
 
   useEffect(() => {
     if (selectedBusinessUnit) {
-      if (selectedBusinessUnit.custom?.fields?.workflows) {
-        try {
-          setWorkflows(JSON.parse(selectedBusinessUnit.custom?.fields?.workflows));
-        } catch {
-          console.error('Cannot transform object');
-        }
-      } else {
-        setWorkflows([]);
-      }
+      setWorkflows([]);
     }
   }, [selectedBusinessUnit]);
   return (

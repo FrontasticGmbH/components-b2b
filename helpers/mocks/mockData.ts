@@ -316,14 +316,14 @@ export const orders: Order[] = [
     orderId: 'ord-101',
     orderVersion: '25',
     orderState: 'ORDER STATE',
-    createdAt: new Date().toISOString(),
+    createdAt: new Date(),
     ...cart,
   },
   {
     orderId: 'ord-102',
     orderVersion: '26',
     orderState: 'ORDER STATE',
-    createdAt: new Date().toISOString(),
+    createdAt: new Date(),
     ...cart,
   },
 ];
@@ -14975,7 +14975,7 @@ export const getMockCart: (numberOfLineitems?: number) => Cart = (numberOfLineit
   if (numberOfLineitems > 25) {
     console.info('Mock cart returned with only 16 lineitems, only 16 available');
   }
-  let cart: Cart = {
+  const cart: Cart = {
     cartId: 'cf2200af-5891-41f1-aa04-099866ec348a',
     customerId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
     lineItems: products.slice(0, numberOfLineitems).map((product, n) => ({

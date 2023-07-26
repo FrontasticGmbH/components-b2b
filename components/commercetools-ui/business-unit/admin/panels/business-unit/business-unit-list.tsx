@@ -55,7 +55,6 @@ const BusinessUnitList: React.FC<Props> = ({ nodes }) => {
                 <td>{businessUnit.name}</td>
                 <td className="text-ellipsis-150">{businessUnit.key}</td>
                 <td>{businessUnit.status}</td>
-                <td className="text-ellipsis-150">{new Date(businessUnit.createdAt).toLocaleString()}</td>
                 <td className="flex flex-row items-center">
                   <button onClick={() => handleOpenDelete(businessUnit)}>
                     <XIcon className="mt-1 h-4 w-4" />

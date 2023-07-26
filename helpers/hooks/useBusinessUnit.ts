@@ -36,6 +36,8 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     const result = await fetchApiHub(`/action/business-unit/getCompanies`, {
       method: 'GET',
     });
+    console.log('getMyOrganization result:: ', result);
+
     return result.map((bu) => ({
       ...bu,
       id: bu.key,
@@ -112,7 +114,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
             action: 'setCustomType',
             type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
             fields: {
-              ...(businessUnit.custom?.fields || {}),
               [BUSINESS_UNIT_CUSTOM_FILEDS.BUDGET]: CurrencyHelpers.formatToMoney(value),
             },
           },
@@ -132,7 +133,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
             action: 'setCustomType',
             type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
             fields: {
-              ...(businessUnit.custom?.fields || {}),
               [BUSINESS_UNIT_CUSTOM_FILEDS.WORKFLOWS]: value,
             },
           },

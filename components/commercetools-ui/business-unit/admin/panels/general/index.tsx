@@ -16,13 +16,12 @@ const GeneralPanel: React.FC = () => {
     status: '',
     unitType: '',
     stores: [],
-    budget: -1,
   });
   const [isLoading, setIsLoading] = useState(false);
   const [stores, setStores] = useState([]);
   const [isStoreLoading, setIsStoreLoading] = useState(false);
 
-  const { updateName, updateContactEmail, updateBudget } = useBusinessUnitStateContext();
+  const { updateName, updateContactEmail } = useBusinessUnitStateContext();
   const { getStoresByKey } = useStores();
 
   const updateCompanyName = async () => {
@@ -35,13 +34,6 @@ const GeneralPanel: React.FC = () => {
   const updateCompanyEmail = async () => {
     setIsLoading(true);
     await updateContactEmail(businessUnit?.key, data.contactEmail);
-    await reloadTree();
-    setIsLoading(false);
-  };
-
-  const updateCompanyBudget = async () => {
-    setIsLoading(true);
-    await updateBudget(businessUnit, data.budget);
     await reloadTree();
     setIsLoading(false);
   };
@@ -60,7 +52,6 @@ const GeneralPanel: React.FC = () => {
       status: businessUnit?.status,
       unitType: businessUnit?.unitType,
       stores: businessUnit?.stores,
-      budget: CurrencyHelpers.getDollarsValue(businessUnit?.custom?.fields?.budget),
     });
   }, [businessUnit]);
 
@@ -129,30 +120,6 @@ const GeneralPanel: React.FC = () => {
               <button
                 className="ml-2 flex w-16 justify-center rounded-md border border-transparent bg-accent-400 py-2 text-center text-sm font-medium text-white shadow-sm transition-colors duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 disabled:bg-gray-300"
                 onClick={updateCompanyEmail}
-              >
-                {!isLoading && 'Apply'}
-                {isLoading && <LoadingIcon className="mt-0.5 h-4 w-4 animate-spin" />}
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="basis-1/2">
-          <label htmlFor="budget">{formatMessage({ id: 'budget', defaultMessage: 'Budget in EUR' })}</label>
-          <div className="flex flex-row">
-            <input
-              id="budget"
-              name="budget"
-              type="number"
-              min={1}
-              onChange={updateValue}
-              placeholder={data.budget === -1 ? 'No budget set' : ''}
-              value={data.budget === -1 ? '' : data.budget}
-              className="input input-primary"
-            />
-            {CurrencyHelpers.getDollarsValue(businessUnit.custom?.fields?.budget) !== data.budget && data.budget > 0 && (
-              <button
-                className="ml-2 flex w-16 justify-center rounded-md border border-transparent bg-accent-400 py-2 text-center text-sm font-medium text-white shadow-sm transition-colors duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 disabled:bg-gray-300"
-                onClick={updateCompanyBudget}
               >
                 {!isLoading && 'Apply'}
                 {isLoading && <LoadingIcon className="mt-0.5 h-4 w-4 animate-spin" />}
