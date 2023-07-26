@@ -213,15 +213,19 @@ export const useBusinessUnit = (): UseBusinessUnit => {
   };
 
   const addUser = async (key: string, email: string, roles: string[]): Promise<BusinessUnit> => {
-    return fetchApiHub(`/action/business-unit/addAssociate?key=${key}`, { method: 'POST' }, { email, roles });
+    return fetchApiHub(`/action/business-unit/addAssociate?key=${key}`, { method: 'POST' }, { email, roleKeys: roles });
   };
 
   const removeUser = async (key: string, id: string): Promise<BusinessUnit> => {
-    return fetchApiHub(`/action/business-unit/removeAssociate?key=${key}`, { method: 'POST' }, { id });
+    return fetchApiHub(`/action/business-unit/removeAssociate?key=${key}`, { method: 'POST' }, { accountId: id });
   };
 
   const updateUser = async (key: string, id: string, roles: string[]): Promise<BusinessUnit> => {
-    return fetchApiHub(`/action/business-unit/updateAssociate?key=${key}`, { method: 'POST' }, { id, roles });
+    return fetchApiHub(
+      `/action/business-unit/updateAssociate?key=${key}`,
+      { method: 'POST' },
+      { accountId: id, roleKeys: roles },
+    );
   };
 
   const getBusinessUnitOrders = async (key: string): Promise<Order[]> => {
