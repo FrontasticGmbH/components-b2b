@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { XIcon } from '@heroicons/react/outline';
-import { Workflow } from '@Types/workflow/Workflow';
+import { Workflow } from 'types/Workflow';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
 import { useBusinessUnitDetailsStateContext } from '../../provider';
 import NewWorkflowModal from './create';

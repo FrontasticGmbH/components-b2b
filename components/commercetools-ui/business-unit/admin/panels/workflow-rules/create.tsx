@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { Fragment, useState } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
-import { WorkflowItem } from '@Types/workflow/Workflow';
 // @ts-ignore
 import { UIPredicate } from 'ui-predicate-react';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
+import { WorkflowItem } from 'types/Workflow';
 interface Props {
   onClose: () => void;
   onSave: (ast: any) => Promise<void>;
