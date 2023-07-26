@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Associate } from '@Types/account/Associate';
+import { Associate } from '@Types/business-unit/Associate';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useDarkMode } from 'frontastic';
 

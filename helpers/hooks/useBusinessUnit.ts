@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Address } from '@Types/account/Address';
 import { Order } from '@Types/cart/Order';
-import { AssociateRole } from '@Types/account/Associate';
+import { AssociateRole } from '@Types/business-unit/Associate';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { ChannelResourceIdentifier } from '@Types/channel/channel';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';

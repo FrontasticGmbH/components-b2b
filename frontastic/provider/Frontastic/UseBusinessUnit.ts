@@ -2,7 +2,7 @@ import { Address } from '@Types/account/Address';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { Order } from '@Types/cart/Order';
 import { ChannelResourceIdentifier } from '@Types/channel/channel';
-import { AssociateRole } from '@Types/account/Associate';
+import { AssociateRole } from '@Types/business-unit/Associate';
 
 export interface UseBusinessUnit {
   businessUnit: BusinessUnit;

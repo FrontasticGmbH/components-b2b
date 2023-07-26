@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PencilAltIcon, XIcon } from '@heroicons/react/solid';
-import { Associate } from '@Types/account/Associate';
+import { Associate } from '@Types/business-unit/Associate';
 import AddUser from 'components/commercetools-ui/business-unit/admin/panels/users/modals/add-user';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { useBusinessUnitStateContext } from 'frontastic/provider/BusinessUnitState';
