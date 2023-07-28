@@ -12,7 +12,6 @@ interface EnhancedFrontasticState extends FrontasticState {
 const initialState: EnhancedFrontasticState = {
   useCart: {} as any,
   useWishlist: {} as any,
-  useSubscriptions: {} as any,
   useAccount: {} as any,
   useAdyen: {} as any,
   useProducts: {} as any,
@@ -85,10 +84,4 @@ export const useStores = () => {
   const context = React.useContext(FrontasticContext);
   checkContext(context);
   return context.useStores;
-};
-
-export const useSubscriptions = () => {
-  const context = React.useContext(FrontasticContext);
-  checkContext(context);
-  return context.useSubscriptions;
 };

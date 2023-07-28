@@ -23,7 +23,6 @@ export const BusinessUnitPanels: React.FC = () => {
     { name: formatAccountMessage({ id: 'business-unit', defaultMessage: 'Business unit' }), href: '#business-unit' },
     { name: formatAccountMessage({ id: 'quotes', defaultMessage: 'Quotes' }), href: '#quotes' },
     { name: formatAccountMessage({ id: 'quotes', defaultMessage: 'Orders' }), href: '#orders' },
-    { name: 'Workflow', href: '#workflow' },
   ];
 
   const mapping = {
