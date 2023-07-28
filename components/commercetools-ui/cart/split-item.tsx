@@ -27,7 +27,7 @@ const SplitItemModal: React.FC<Props> = ({ open, lineItem, onClose }) => {
     const id = e.target.id;
     setData(
       data.map((item) => {
-        if (item.address.id === id) {
+        if (item.address.addressId === id) {
           return {
             ...item,
             count: parseInt(e.target.value, 10),
@@ -69,7 +69,7 @@ const SplitItemModal: React.FC<Props> = ({ open, lineItem, onClose }) => {
       setData(
         businessUnit.addresses.map((address) => {
           // @ts-ignore
-          const targetIndex = targets.findIndex((target) => target.addressKey === address.id);
+          const targetIndex = targets.findIndex((target) => target.addressKey === address.addressId);
           if (targetIndex === -1) {
             return {
               quantity: 0,
@@ -131,23 +131,23 @@ const SplitItemModal: React.FC<Props> = ({ open, lineItem, onClose }) => {
                     <form onSubmit={handleSplitLineItem}>
                       <div className="flexl flex-col">
                         {data?.map((item, i) => (
-                          <div className="mb-4 flex flex-row" key={item.address.id}>
-                            <label htmlFor={`address_${item.address.id}`} className="w-full">
+                          <div className="mb-4 flex flex-row" key={item.address.addressId}>
+                            <label htmlFor={`address_${item.address.addressId}`} className="w-full">
                               {`Address ${i + 1}`}
                               <input
                                 className="input input-primary"
                                 type="text"
-                                id={`address_${item.address.id}`}
+                                id={`address_${item.address.addressId}`}
                                 defaultValue={mapAddressToString(item.address)}
                                 readOnly
                               />
                             </label>
-                            <label htmlFor={item.address.id} className="ml-4">
+                            <label htmlFor={item.address.addressId} className="ml-4">
                               {`Quantity`}
                               <input
                                 className="input input-primary"
                                 type="number"
-                                id={item.address.id}
+                                id={item.address.addressId}
                                 defaultValue={0}
                                 value={item.quantity}
                                 onChange={updateCount}

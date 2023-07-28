@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Address } from '@Types/account/Address';
 import { Order } from '@Types/cart/Order';
-import { AssociateRole } from '@Types/associate/Associate';
+import { AssociateRole } from '@Types/business-unit/Associate';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { ChannelResourceIdentifier } from '@Types/channel/channel';
-import { CurrencyHelpers } from 'helpers/currencyHelpers';
-import { BUSINESS_UNIT_CUSTOM_FILEDS, BUSINESS_UNIT_CUSTOM_TYPE } from 'helpers/customTypes';
+import { Channel } from '@Types/store/Channel';
 import useSWR, { mutate } from 'swr';
 import { revalidateOptions, useAccount, useCart, useWishlist } from 'frontastic';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 import { UseBusinessUnit } from 'frontastic/provider/Frontastic/UseBusinessUnit';
-import { createStore } from '../../frontastic/actions/stores';
 
 export const useBusinessUnit = (): UseBusinessUnit => {
   const [businessUnit, setBusinessUnit] = useState(null);
@@ -19,14 +16,14 @@ export const useBusinessUnit = (): UseBusinessUnit => {
   const { fetchStoreWishlists } = useWishlist();
 
   const { data: associateRoles } = useSWR<AssociateRole[]>(
-    '/action/associate/getAllAssociateRoles',
+    '/action/business-unit/getAssociateRoles',
     fetchApiHub,
     revalidateOptions,
   );
 
   const fetchAssociateRoles = async () => {
-    const roles = await fetchApiHub(`/action/associate/getAllAssociateRoles`);
-    mutate('/action/associate/getAllAssociateRoles', roles);
+    const roles = await fetchApiHub(`/action/business-unit/getAssociateRoles`);
+    mutate('/action/business-unit/getAssociateRoles', roles);
   };
 
   const getMyOrganization = async (): Promise<any> => {
@@ -42,16 +39,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
       label: bu.name,
       parentId: bu.parentUnit ? bu.parentUnit.key : null,
     }));
-  };
-
-  const createBusinessUnitAndStore = async (account, customer, parentBusinessUnit: string = null): Promise<any> => {
-    const store = await createStore(account, parentBusinessUnit);
-
-    return await fetchApiHub(
-      '/action/business-unit/create',
-      { method: 'POST' },
-      { account, customer, store, parentBusinessUnit },
-    );
   };
 
   const createBusinessUnit = async (account, customer, parentBusinessUnit: string = null): Promise<any> => {
@@ -79,7 +66,7 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     return res;
   };
 
-  const setMyStore = async (storeKey: string): Promise<ChannelResourceIdentifier> => {
+  const setMyStore = async (storeKey: string): Promise<Channel> => {
     const res = await fetchApiHub('/action/store/setMe', { method: 'POST' }, { key: storeKey });
     getAllSuperUserCarts();
     return res;
@@ -99,46 +86,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
       `/action/business-unit/update`,
       { method: 'POST' },
       { actions: [{ action: 'changeName', name }], key },
-    );
-  };
-
-  const updateBudget = async (businessUnit: BusinessUnit, value: number): Promise<any> => {
-    return fetchApiHub(
-      `/action/business-unit/update`,
-      { method: 'POST' },
-      {
-        actions: [
-          {
-            action: 'setCustomType',
-            type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
-            fields: {
-              ...(businessUnit.custom?.fields || {}),
-              [BUSINESS_UNIT_CUSTOM_FILEDS.BUDGET]: CurrencyHelpers.formatToMoney(value),
-            },
-          },
-        ],
-        key: businessUnit.key,
-      },
-    );
-  };
-
-  const updateWorkflow = async (businessUnit: BusinessUnit, value: any): Promise<any> => {
-    return fetchApiHub(
-      `/action/business-unit/update`,
-      { method: 'POST' },
-      {
-        actions: [
-          {
-            action: 'setCustomType',
-            type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
-            fields: {
-              ...(businessUnit.custom?.fields || {}),
-              [BUSINESS_UNIT_CUSTOM_FILEDS.WORKFLOWS]: value,
-            },
-          },
-        ],
-        key: businessUnit.key,
-      },
     );
   };
 
@@ -213,15 +160,19 @@ export const useBusinessUnit = (): UseBusinessUnit => {
   };
 
   const addUser = async (key: string, email: string, roles: string[]): Promise<BusinessUnit> => {
-    return fetchApiHub(`/action/business-unit/addAssociate?key=${key}`, { method: 'POST' }, { email, roles });
+    return fetchApiHub(`/action/business-unit/addAssociate?key=${key}`, { method: 'POST' }, { email, roleKeys: roles });
   };
 
   const removeUser = async (key: string, id: string): Promise<BusinessUnit> => {
-    return fetchApiHub(`/action/business-unit/removeAssociate?key=${key}`, { method: 'POST' }, { id });
+    return fetchApiHub(`/action/business-unit/removeAssociate?key=${key}`, { method: 'POST' }, { accountId: id });
   };
 
   const updateUser = async (key: string, id: string, roles: string[]): Promise<BusinessUnit> => {
-    return fetchApiHub(`/action/business-unit/updateAssociate?key=${key}`, { method: 'POST' }, { id, roles });
+    return fetchApiHub(
+      `/action/business-unit/updateAssociate?key=${key}`,
+      { method: 'POST' },
+      { accountId: id, roleKeys: roles },
+    );
   };
 
   const getBusinessUnitOrders = async (key: string): Promise<Order[]> => {
@@ -271,20 +222,17 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     addUser,
     removeUser,
     updateUser,
-    updateBudget,
     addAddress,
     deleteAddress,
     editAddress,
     businessUnit,
     createBusinessUnit,
-    createBusinessUnitAndStore,
     getMyOrganization,
     getSuperUserBusinessUnits,
     setMyBusinessUnit,
     removeBusinessUnit,
     setMyStore,
     updateName,
-    updateWorkflow,
     updateContactEmail,
     getOrders,
     associateRoles,

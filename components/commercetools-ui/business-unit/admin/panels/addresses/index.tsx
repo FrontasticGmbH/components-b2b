@@ -24,11 +24,11 @@ const AddressesPanel: React.FC = () => {
     reloadTree();
   };
   const editBusnessUnitAddress = async (address): Promise<void> => {
-    await editAddress(businessUnit.key, address.id, address);
+    await editAddress(businessUnit.key, address.addressId, address);
     reloadTree();
   };
   const deleteBusnessUnitAddress = async (address) => {
-    await deleteAddress(businessUnit.key, address.id);
+    await deleteAddress(businessUnit.key, address.addressId);
     reloadTree();
   };
 
@@ -46,9 +46,9 @@ const AddressesPanel: React.FC = () => {
     setSelectedAddress({
       ...address,
       // @ts-ignore
-      isDefaultBillingAddress: address.id === businessUnit.defaultBillingAddressId,
+      isDefaultBillingAddress: address.addressId === businessUnit.defaultBillingAddressId,
       // @ts-ignore
-      isDefaultShippingAddress: address.id === businessUnit.defaultShippingAddressId,
+      isDefaultShippingAddress: address.addressId === businessUnit.defaultShippingAddressId,
     });
     setIsEditModalOpen(true);
   };
@@ -87,7 +87,7 @@ const AddressesPanel: React.FC = () => {
             {!!businessUnit.addresses.length &&
               businessUnit.addresses.map((address) => (
                 // @ts-ignore
-                <tr key={address.id}>
+                <tr key={address.addressId}>
                   <td>{`${address.firstName} ${address.lastName}`}</td>
                   <td>{`${address.streetNumber} ${address.streetName}`}</td>
                   <td>{`${address.city} ${address.state ? `, ${address.state}` : ''}`}</td>

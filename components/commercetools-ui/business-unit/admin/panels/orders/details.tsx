@@ -3,7 +3,6 @@ import { DuplicateIcon, ReceiptRefundIcon, XIcon } from '@heroicons/react/outlin
 import { Order } from '@Types/cart/Order';
 import { OrderItems } from 'components/commercetools-ui/account/details/sections/order-items';
 import OrderReturns from 'components/commercetools-ui/account/details/sections/order-returns';
-import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import InvoiceButton from 'components/commercetools-ui/invoice-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useCart } from 'frontastic';
@@ -44,12 +43,6 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
           <div className="flex pt-6 sm:block sm:pt-0">
             <dt className="font-medium text-gray-900">Order number</dt>
             <dd className="mb-4 sm:mt-1">{order.orderId}</dd>
-            {selectedBusinessUnit?.isAdmin && (
-              <>
-                <dt className="font-medium text-gray-900">Order belongs to</dt>
-                <dd className="mb-4 sm:mt-1">{order.email}</dd>
-              </>
-            )}
             {order.isPreBuyCart && (
               <>
                 <dt className="font-medium text-gray-900">Order type</dt>
@@ -151,24 +144,6 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
         <OrderReturns lineItems={order.lineItems} returnInfo={order.returnInfo} className="mt-4" />
       )}
       <OrderItems lineItems={order.lineItems}></OrderItems>
-      {order.state?.key === 'review' && selectedBusinessUnit?.isAdmin && (
-        <div className="mx-auto mt-20 max-w-[800px]">
-          <h3 className="text-center text-lg font-semibold">Do you approve this order?</h3>
-          <div className="flex flex-row justify-between px-32">
-            <button
-              className="button button-secondary flex flex-row"
-              onClick={() => handleUpdateOrderState('rejected')}
-            >
-              {!isLoading && <span>Reject</span>}
-              {isLoading && <LoadingIcon className="ml-4 h-6 w-6 animate-spin" />}
-            </button>
-            <button className="button button-primary flex flex-row" onClick={() => handleUpdateOrderState('finished')}>
-              {!isLoading && <span>Accept</span>}
-              {isLoading && <LoadingIcon className="ml-4 h-6 w-6 animate-spin" />}
-            </button>
-          </div>
-        </div>
-      )}
       {isReturnModalOpen && (
         <OrderReturnModal onClose={() => setIsReturnModalOpen(false)} open={isReturnModalOpen} order={order} />
       )}

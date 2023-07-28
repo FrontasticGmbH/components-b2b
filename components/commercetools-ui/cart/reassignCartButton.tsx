@@ -57,17 +57,17 @@ const ReassignCartButton: React.FC<Props & HTMLAttributes<HTMLDivElement>> = ({ 
               className={`absolute left-1/2 z-10 mt-3 w-60 max-w-sm -translate-x-1/2 transform rounded-md bg-gray-100`}
             >
               {businessUnit.associates
-                ?.filter((associate) => associate.customer.id !== account?.accountId)
+                ?.filter((associate) => associate.accountId !== account?.accountId)
                 .map((associate) => (
                   <button
                     type="button"
                     className={`flex w-full flex-row items-center p-2 hover:bg-gray-200 disabled:bg-gray-300`}
-                    disabled={associate.customer.id === cart.customerId}
-                    key={associate.customer.id}
-                    onClick={() => reassignCart(associate.customer.id, associate.customer.email)}
+                    disabled={associate.accountId === cart.customerId}
+                    key={associate.accountId}
+                    onClick={() => reassignCart(associate.accountId, associate.email)}
                   >
-                    <span>{`${associate.customer.firstName || ''} ${associate.customer.lastName || ''} `}</span>
-                    {associate.customer.id === cart.customerId && <CheckIcon className="ml-2 h-4 w-4" />}
+                    <span>{`${associate.firstName || ''} ${associate.lastName || ''} `}</span>
+                    {associate.accountId === cart.customerId && <CheckIcon className="ml-2 h-4 w-4" />}
                   </button>
                 ))}
             </Popover.Panel>

@@ -30,7 +30,7 @@ const CreateUser: React.FC<AddUserProps> = ({ open, onClose, addUser }) => {
     email: '',
     password: DEFAULT_PASSWORD,
     confirmPassword: DEFAULT_PASSWORD,
-    company: '',
+    companyName: '',
     lastName: '',
     firstName: '',
   });
@@ -47,7 +47,7 @@ const CreateUser: React.FC<AddUserProps> = ({ open, onClose, addUser }) => {
         lastName: data.lastName,
         email: data.email,
         password: data.password,
-        company: data.company,
+        companyName: data.companyName,
         confirmed: true,
       });
       if (!response.accountId) {

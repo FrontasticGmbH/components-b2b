@@ -5,7 +5,6 @@ import GeneralSection from 'components/commercetools-ui/business-unit/admin/pane
 import OrderSection from 'components/commercetools-ui/business-unit/admin/panels/orders';
 import QuotesSection from 'components/commercetools-ui/business-unit/admin/panels/quotes';
 import UsersSection from 'components/commercetools-ui/business-unit/admin/panels/users';
-import WorkflowRules from 'components/commercetools-ui/business-unit/admin/panels/workflow-rules';
 import { useFormat } from 'helpers/hooks/useFormat';
 import useHash from 'helpers/hooks/useHash';
 
@@ -34,7 +33,6 @@ export const BusinessUnitPanels: React.FC = () => {
     '#business-unit': BusinessUnitSection,
     '#quotes': QuotesSection,
     '#orders': OrderSection,
-    '#workflow': WorkflowRules,
   };
 
   //tabs change (mobile only)

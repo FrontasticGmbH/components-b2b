@@ -1,9 +1,9 @@
 import { Store } from '@Types/store/Store';
-import { ChannelResourceIdentifier } from '@Types/channel/channel';
+import { Channel } from '@Types/store/Channel';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 
 export interface Organization {
   businessUnit: BusinessUnit;
-  distributionChannel: ChannelResourceIdentifier;
+  distributionChannel: Channel;
   store: Store;
 }

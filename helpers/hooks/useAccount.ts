@@ -6,19 +6,12 @@ import useSWR, { mutate } from 'swr';
 import { revalidateOptions, useCart } from 'frontastic';
 import { fetchApiHub, ResponseError } from 'frontastic/lib/fetch-api-hub';
 import { UseAccount } from 'frontastic/provider/Frontastic/UseAccount';
-import { createStore } from '../../frontastic/actions/stores';
 
 export enum BusinessTypes {
   Pharmaceuticals = 'pharmaceuticals',
   OfficeSupply = 'officeSupply',
   Others = 'others',
 }
-
-const BusinessTypeToCategoryMap = {
-  [BusinessTypes.Pharmaceuticals]: '02171b4a-f869-42ac-9de9-81fd446f144f',
-  [BusinessTypes.OfficeSupply]: '49a0132e-3993-4186-a1e5-03e19ed5b1e5',
-  [BusinessTypes.Others]: '1e50afe7-4d56-4576-b76d-f6239201b570',
-};
 
 export interface GetAccountResult {
   loggedIn: boolean;
@@ -39,7 +32,7 @@ export interface UpdateAccount {
 export interface RegisterAccount extends UpdateAccount {
   email: string;
   password: string;
-  company: string;
+  companyName: string;
   confirmed?: boolean;
   billingAddress?: Address;
   shippingAddress?: Address;
@@ -114,7 +107,7 @@ export const useAccount = (): UseAccount => {
     const acc = { ...account, host };
     let sameBusinessUnit = null;
     try {
-      const suggestedBUName = `business_unit_${account.company.toLowerCase().replace(/ /g, '_')}`;
+      const suggestedBUName = `business_unit_${account.companyName.toLowerCase().replace(/ /g, '_')}`;
       sameBusinessUnit = await fetchApiHub(`/action/business-unit/getByKey?key=${suggestedBUName}`, {
         method: 'GET',
       });
@@ -126,7 +119,7 @@ export const useAccount = (): UseAccount => {
       }
     }
     if (!!sameBusinessUnit) {
-      throw new Error(`An account for the company ${account.company} already exists`);
+      throw new Error(`An account for the company ${account.companyName} already exists`);
     }
   };
 

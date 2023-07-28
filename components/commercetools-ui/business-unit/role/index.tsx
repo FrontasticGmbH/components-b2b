@@ -13,8 +13,8 @@ const BusinessUnitRole: React.FC<Props> = ({ organization }) => {
     return null;
   }
   const roles = organization?.businessUnit?.associates
-    ?.find((associate) => associate?.customer?.id === account.accountId)
-    ?.associateRoleAssignments?.map((role) => role.associateRole.key);
+    ?.find((associate) => associate?.accountId === account.accountId)
+    ?.roles?.map((role) => role.key);
 
   return <span className="px-2 text-sm font-light">{!!roles?.length ? `(${roles.join(', ')})` : 'No role!'}</span>;
 };

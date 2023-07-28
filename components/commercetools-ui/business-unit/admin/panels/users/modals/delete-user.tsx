@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Associate } from '@Types/associate/Associate';
+import { Associate } from '@Types/business-unit/Associate';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useDarkMode } from 'frontastic';
 
@@ -18,7 +18,7 @@ const DeleteUser: React.FC<Props> = ({ open, deleteUser, associate, onClose }) =
 
   const handleDeleteUser = async () => {
     setIsLoading(true);
-    await deleteUser(associate.customer.id);
+    await deleteUser(associate.accountId);
     setIsLoading(false);
     onClose();
   };
@@ -66,7 +66,7 @@ const DeleteUser: React.FC<Props> = ({ open, deleteUser, associate, onClose }) =
                         Remove associate
                       </h2>
                       <p className="mt-4 text-lg leading-6 text-gray-400">
-                        Are you sure you want to remove <strong>{associate?.customer?.email}</strong>?
+                        Are you sure you want to remove <strong>{associate?.email}</strong>?
                       </p>
                     </div>
                     <div className="flex flex-row justify-between">

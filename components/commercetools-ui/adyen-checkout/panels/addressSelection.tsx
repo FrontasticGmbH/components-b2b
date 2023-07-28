@@ -47,7 +47,7 @@ const AddressSelection: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> =
   }
 
   const addressSelectionHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const address = businessUnit.addresses.find((address) => address.id === event.target.value);
+    const address = businessUnit.addresses.find((address) => address.addressId === event.target.value);
     updateAddress(address);
   };
 
@@ -59,7 +59,7 @@ const AddressSelection: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> =
       {/* TODO: default value can be the last order on this BU */}
       <select onChange={addressSelectionHandler} className="input input-primary">
         {businessUnit.addresses.map((address) => (
-          <option key={address.id} value={address.id}>
+          <option key={address.addressId} value={address.addressId}>
             {mapAddressToString(address)}
           </option>
         ))}
