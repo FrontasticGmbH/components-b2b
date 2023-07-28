@@ -10,7 +10,6 @@ import {
   SecuritySection,
   OrdersHistorySection,
   QuotesSection,
-  SubscriptionSection,
 } from './sections/exporter';
 
 function classNames(...classes) {
@@ -55,7 +54,6 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({ loginLink }) => {
     '#addresses': AddressesSection,
     '#security': SecuritySection,
     '#quotes': QuotesSection,
-    '#subscriptions': SubscriptionSection,
     '#orders': OrdersHistorySection,
   };
 

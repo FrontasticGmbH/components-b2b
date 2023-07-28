@@ -33,7 +33,6 @@ import {
   updateQuoteRequestState,
 } from '../../actions/quotes';
 import { getStoresByKey } from '../../actions/stores';
-import { getAllSubscriptions } from '../../actions/subscriptions';
 import {
   addToWishlist,
   removeLineItem,
@@ -59,7 +58,6 @@ import { UseWishlist } from './UseWishlist';
 export interface FrontasticState {
   useCart: UseCart;
   useWishlist: UseWishlist;
-  useSubscriptions: UseSubscriptions;
   useAdyen: UseAdyen;
   useProducts: UseProducts;
   useQuotes: UseQuotes;
@@ -125,9 +123,6 @@ export const getFrontasticState = (): FrontasticState => {
     },
     useStores: {
       getStoresByKey,
-    },
-    useSubscriptions: {
-      getAllSubscriptions,
     },
   };
 };
