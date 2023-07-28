@@ -16,7 +16,7 @@ type Props = {
 
 const DeleteBusinessUnit: React.FC<Props> = ({ open, parentBusinessUnit, onClose, onCreate }) => {
   const { mode } = useDarkMode();
-  const { createBusinessUnitAndStore, createBusinessUnit } = useBusinessUnit();
+  const { createBusinessUnit } = useBusinessUnit();
   const { account: userAccount } = useAccount();
 
   const { formatMessage } = useFormat({ name: 'account' });
@@ -47,11 +47,7 @@ const DeleteBusinessUnit: React.FC<Props> = ({ open, parentBusinessUnit, onClose
     e.preventDefault();
     setIsLoading(true);
     try {
-      if (data.isNewStore) {
-        await createBusinessUnitAndStore(data.account, data.customer, parentBusinessUnit.key);
-      } else {
-        await createBusinessUnit(data.account, data.customer, parentBusinessUnit.key);
-      }
+      await createBusinessUnit(data.account, data.customer, parentBusinessUnit.key);
       onCreate();
       onClose();
     } catch (e) {

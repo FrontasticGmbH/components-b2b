@@ -3,14 +3,13 @@ import { Address } from '@Types/account/Address';
 import { Order } from '@Types/cart/Order';
 import { AssociateRole } from '@Types/business-unit/Associate';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
-import { ChannelResourceIdentifier } from '@Types/channel/channel';
+import { Channel } from '@Types/store/Channel';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { BUSINESS_UNIT_CUSTOM_FILEDS, BUSINESS_UNIT_CUSTOM_TYPE } from 'helpers/customTypes';
 import useSWR, { mutate } from 'swr';
 import { revalidateOptions, useAccount, useCart, useWishlist } from 'frontastic';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 import { UseBusinessUnit } from 'frontastic/provider/Frontastic/UseBusinessUnit';
-import { createStore } from '../../frontastic/actions/stores';
 
 export const useBusinessUnit = (): UseBusinessUnit => {
   const [businessUnit, setBusinessUnit] = useState(null);
@@ -44,16 +43,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     }));
   };
 
-  const createBusinessUnitAndStore = async (account, customer, parentBusinessUnit: string = null): Promise<any> => {
-    const store = await createStore(account, parentBusinessUnit);
-
-    return await fetchApiHub(
-      '/action/business-unit/create',
-      { method: 'POST' },
-      { account, customer, store, parentBusinessUnit },
-    );
-  };
-
   const createBusinessUnit = async (account, customer, parentBusinessUnit: string = null): Promise<any> => {
     return await fetchApiHub(
       '/action/business-unit/create',
@@ -79,7 +68,7 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     return res;
   };
 
-  const setMyStore = async (storeKey: string): Promise<ChannelResourceIdentifier> => {
+  const setMyStore = async (storeKey: string): Promise<Channel> => {
     const res = await fetchApiHub('/action/store/setMe', { method: 'POST' }, { key: storeKey });
     getAllSuperUserCarts();
     return res;
@@ -279,7 +268,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     editAddress,
     businessUnit,
     createBusinessUnit,
-    createBusinessUnitAndStore,
     getMyOrganization,
     getSuperUserBusinessUnits,
     setMyBusinessUnit,
