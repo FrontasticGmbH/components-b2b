@@ -4,8 +4,6 @@ import { Order } from '@Types/cart/Order';
 import { AssociateRole } from '@Types/business-unit/Associate';
 import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import { Channel } from '@Types/store/Channel';
-import { CurrencyHelpers } from 'helpers/currencyHelpers';
-import { BUSINESS_UNIT_CUSTOM_FILEDS, BUSINESS_UNIT_CUSTOM_TYPE } from 'helpers/customTypes';
 import useSWR, { mutate } from 'swr';
 import { revalidateOptions, useAccount, useCart, useWishlist } from 'frontastic';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
@@ -88,44 +86,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
       `/action/business-unit/update`,
       { method: 'POST' },
       { actions: [{ action: 'changeName', name }], key },
-    );
-  };
-
-  const updateBudget = async (businessUnit: BusinessUnit, value: number): Promise<any> => {
-    return fetchApiHub(
-      `/action/business-unit/update`,
-      { method: 'POST' },
-      {
-        actions: [
-          {
-            action: 'setCustomType',
-            type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
-            fields: {
-              [BUSINESS_UNIT_CUSTOM_FILEDS.BUDGET]: CurrencyHelpers.formatToMoney(value),
-            },
-          },
-        ],
-        key: businessUnit.key,
-      },
-    );
-  };
-
-  const updateWorkflow = async (businessUnit: BusinessUnit, value: any): Promise<any> => {
-    return fetchApiHub(
-      `/action/business-unit/update`,
-      { method: 'POST' },
-      {
-        actions: [
-          {
-            action: 'setCustomType',
-            type: { typeId: 'type', key: BUSINESS_UNIT_CUSTOM_TYPE },
-            fields: {
-              [BUSINESS_UNIT_CUSTOM_FILEDS.WORKFLOWS]: value,
-            },
-          },
-        ],
-        key: businessUnit.key,
-      },
     );
   };
 
@@ -262,7 +222,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     addUser,
     removeUser,
     updateUser,
-    updateBudget,
     addAddress,
     deleteAddress,
     editAddress,
@@ -274,7 +233,6 @@ export const useBusinessUnit = (): UseBusinessUnit => {
     removeBusinessUnit,
     setMyStore,
     updateName,
-    updateWorkflow,
     updateContactEmail,
     getOrders,
     associateRoles,
