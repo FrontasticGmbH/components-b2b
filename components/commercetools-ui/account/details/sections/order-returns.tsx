@@ -121,9 +121,6 @@ const OrderReturns: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({ 
                             {new Date(product.createdAt).toLocaleDateString()}
                           </td>
                           <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">{product.count}</td>
-                          <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">
-                            {product.shipmentState}
-                          </td>
                           <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">{product.comment}</td>
 
                           <td className="whitespace-nowrap py-2 text-right font-medium dark:text-light-100">

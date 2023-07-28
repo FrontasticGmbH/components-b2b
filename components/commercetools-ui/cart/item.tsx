@@ -57,7 +57,7 @@ const Item = ({ lineItem, goToProductPage, editItemQuantity, removeItem, isModif
   }, [count]);
 
   useEffect(() => {
-    setIsSplitted(lineItem?.shippingDetails?.valid && lineItem?.shippingDetails?.targets?.length > 0);
+    setIsSplitted(lineItem?.shippingDetails?.valid && lineItem?.shippingDetails?.shippingAddresses?.length > 0);
   }, [lineItem]);
 
   return (

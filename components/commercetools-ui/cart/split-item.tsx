@@ -64,7 +64,9 @@ const SplitItemModal: React.FC<Props> = ({ open, lineItem, onClose }) => {
 
   useEffect(() => {
     if (businessUnit?.addresses?.length) {
-      const targets = lineItem.shippingDetails?.targets?.length ? [...lineItem.shippingDetails.targets] : [];
+      const targets = lineItem.shippingDetails?.shippingAddresses?.length
+        ? [...lineItem.shippingDetails.shippingAddresses]
+        : [];
 
       setData(
         businessUnit.addresses.map((address) => {
@@ -84,6 +86,9 @@ const SplitItemModal: React.FC<Props> = ({ open, lineItem, onClose }) => {
       );
     }
   }, [businessUnit]);
+
+  console.log('data:: ', data);
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog className={`${mode} default fixed inset-0 z-10 overflow-y-auto`} onClose={onClose}>
