@@ -145,9 +145,13 @@ export const shippingMethods = () => {
 };
 
 export const replicateCart = async (orderId: string) => {
-  const res = await fetchApiHub(`/action/cart/replicateCart?orderId=${orderId}`, {
-    method: 'POST',
-  });
+  const res = await fetchApiHub(
+    `/action/cart/replicateCart`,
+    {
+      method: 'POST',
+    },
+    { orderId },
+  );
   mutate('/action/cart/getCart', res);
 };
 
