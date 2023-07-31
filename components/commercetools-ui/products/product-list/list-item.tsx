@@ -42,14 +42,14 @@ const ListItem: React.FC<Props> = ({ product, isPreview, previewURL }) => {
           </p>
         </a>
       </NextLink>
-      <div className={`flex flex-row ${cart?.isPreBuyCart ? 'justify-center' : 'justify-between'}`}>
-        {availableQuantity > 0 && !cart?.isPreBuyCart && (
+      <div className="flex flex-row justify-between">
+        {availableQuantity > 0 && (
           <div className="text-sm text-gray-400">
             {formatProductMessage({ id: 'available-quantity', defaultMessage: 'Available qty: ' })}
             <span>{availableQuantity}</span>
           </div>
         )}
-        {(!availableQuantity || availableQuantity <= 0) && !cart?.isPreBuyCart && (
+        {(!availableQuantity || availableQuantity <= 0) && (
           <div className="text-sm text-gray-400">
             {formatProductMessage({ id: 'outOfStock', defaultMessage: 'Out of stock' })}
           </div>
@@ -59,13 +59,11 @@ const ListItem: React.FC<Props> = ({ product, isPreview, previewURL }) => {
             className="mr-2 items-center rounded-md border border-transparent bg-transparent text-center text-sm font-medium text-white transition-colors duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2"
             type="button"
             onClick={() => setCount(count - 1)}
-            disabled={count <= 1 || (!product.variants?.[0].isOnStock && !cart?.isPreBuyCart)}
+            disabled={count <= 1 || !product.variants?.[0].isOnStock}
           >
             <MinusCircleIcon
               className={`h-4 w-4 ${
-                count <= 1 || (!product.variants?.[0].isOnStock && !cart?.isPreBuyCart)
-                  ? 'text-gray-300'
-                  : 'text-accent-400'
+                count <= 1 || !product.variants?.[0].isOnStock ? 'text-gray-300' : 'text-accent-400'
               }`}
             />
           </button>
@@ -73,29 +71,24 @@ const ListItem: React.FC<Props> = ({ product, isPreview, previewURL }) => {
             className="w-10 appearance-none rounded border border-gray-300 px-1 leading-tight text-gray-700 shadow focus:outline-none disabled:bg-gray-400"
             onChange={(e) => setCount(parseInt(e.target.value || '1', 10))}
             value={count}
-            disabled={!product.variants?.[0].isOnStock && !cart?.isPreBuyCart}
+            disabled={!product.variants?.[0].isOnStock}
           ></input>
           <button
             type="button"
             className="ml-2 items-center rounded-md border border-transparent bg-transparent text-center text-sm font-medium text-white transition-colors duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2"
             onClick={() => setCount(count + 1)}
-            disabled={(count >= availableQuantity && !cart?.isPreBuyCart) || !product.variants?.[0].isOnStock}
+            disabled={count >= availableQuantity || !product.variants?.[0].isOnStock}
           >
             <PlusCircleIcon
               className={`h-4 w-4 ${
-                (count >= availableQuantity && !cart?.isPreBuyCart) || !product.variants?.[0].isOnStock
-                  ? 'text-gray-300'
-                  : 'text-accent-400'
+                count >= availableQuantity || !product.variants?.[0].isOnStock ? 'text-gray-300' : 'text-accent-400'
               }`}
             />
           </button>
         </div>
       </div>
       <AddToCartButton
-        disabled={
-          !cart?.isPreBuyCart &&
-          (count > availableQuantity || availableQuantity <= 0 || !product.variants?.[0].isOnStock)
-        }
+        disabled={count > availableQuantity || availableQuantity <= 0 || !product.variants?.[0].isOnStock}
         quantity={count}
         variant={product.variants[0]}
         onAddedToCart={addedToCart}

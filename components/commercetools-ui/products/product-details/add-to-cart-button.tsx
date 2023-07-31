@@ -52,38 +52,23 @@ const AddToCartButton: React.FC<Props> = ({ quantity = 1, variant, disabled, onA
 
   return (
     <>
-      {!cart.isPreBuyCart && (
-        <button
-          type="button"
-          onClick={() => handleAddToCart(variant)}
-          className="mt-8 flex w-full flex-1 items-center justify-center rounded-md border border-transparent bg-accent-400 py-3 px-8 text-base font-medium text-white hover:bg-accent-500 focus:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:bg-gray-400"
-          disabled={!variant.isOnStock || isLoading || disabled}
-        >
-          {!isLoading && !added && (
-            <>
-              {variant.isOnStock
-                ? formatProductMessage({ id: 'cart.add', defaultMessage: 'Add to Cart' })
-                : formatProductMessage({ id: 'outOfStock', defaultMessage: 'Out of stock' })}
-            </>
-          )}
+      <button
+        type="button"
+        onClick={() => handleAddToCart(variant)}
+        className="mt-8 flex w-full flex-1 items-center justify-center rounded-md border border-transparent bg-accent-400 py-3 px-8 text-base font-medium text-white hover:bg-accent-500 focus:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:bg-gray-400"
+        disabled={!variant.isOnStock || isLoading || disabled}
+      >
+        {!isLoading && !added && (
+          <>
+            {variant.isOnStock
+              ? formatProductMessage({ id: 'cart.add', defaultMessage: 'Add to Cart' })
+              : formatProductMessage({ id: 'outOfStock', defaultMessage: 'Out of stock' })}
+          </>
+        )}
 
-          {isLoading && <LoadingIcon className="h-6 w-6 animate-spin" />}
-          {!isLoading && added && <CheckIcon className="h-6 w-6" />}
-        </button>
-      )}
-      {cart.isPreBuyCart && (
-        <button
-          type="button"
-          onClick={() => handleAddToCart(variant)}
-          className="mt-8 flex w-full flex-1 items-center justify-center rounded-md border border-transparent bg-accent-400 py-3 px-8 text-base font-medium text-white hover:bg-accent-500 focus:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:bg-gray-400"
-          disabled={isLoading || disabled}
-        >
-          {!isLoading && !added && formatProductMessage({ id: 'cart.add', defaultMessage: 'Add to Cart' })}
-
-          {isLoading && <LoadingIcon className="h-6 w-6 animate-spin" />}
-          {!isLoading && added && <CheckIcon className="h-6 w-6" />}
-        </button>
-      )}
+        {isLoading && <LoadingIcon className="h-6 w-6 animate-spin" />}
+        {!isLoading && added && <CheckIcon className="h-6 w-6" />}
+      </button>
     </>
   );
 };

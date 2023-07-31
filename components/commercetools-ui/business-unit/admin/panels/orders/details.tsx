@@ -43,12 +43,6 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
           <div className="flex pt-6 sm:block sm:pt-0">
             <dt className="font-medium text-gray-900">Order number</dt>
             <dd className="mb-4 sm:mt-1">{order.orderId}</dd>
-            {order.isPreBuyCart && (
-              <>
-                <dt className="font-medium text-gray-900">Order type</dt>
-                <dd className="mb-4 sm:mt-1">Pre order</dd>
-              </>
-            )}
             <dt className="font-medium text-gray-900">Total amount</dt>
             <dd className="mb-4 sm:mt-1">{CurrencyHelpers.formatForCurrency(order.sum.centAmount)}</dd>
             <dt className="font-medium text-gray-900">Order status</dt>

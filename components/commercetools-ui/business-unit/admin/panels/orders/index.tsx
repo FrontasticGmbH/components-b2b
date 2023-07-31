@@ -18,12 +18,6 @@ const OrdersPanel = () => {
   const { FiltersUI, filteredItems } = useFilters<Order>(
     [
       {
-        label: 'Pre orders',
-        key: 'pre-orders',
-        value: false,
-        predicate: (order: Order) => order.isPreBuyCart,
-      },
-      {
         label: 'Pending orders',
         key: 'pending-orders',
         value: false,

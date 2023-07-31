@@ -108,7 +108,6 @@ const Cart = ({
           <OrderSummary
             organization={organization}
             cart={cart}
-            submitButtonLabel={cart.isPreBuyCart && 'Pre order'}
             disableSubmitButton={isOverStock || !cart.customerId}
             onSubmit={onCheckout}
             showDiscountsForm={false}

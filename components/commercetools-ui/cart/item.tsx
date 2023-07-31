@@ -24,7 +24,7 @@ const Item = ({ lineItem, goToProductPage, editItemQuantity, removeItem, isModif
 
   const bundles = lineItem.variant?.attributes?.[BUNDLE_ATTRIBUTE_NAME];
   const {
-    data: { isPreBuyCart },
+    data: {},
   } = useCart();
 
   const handleRemoveItem = async () => {
@@ -134,13 +134,12 @@ const Item = ({ lineItem, goToProductPage, editItemQuantity, removeItem, isModif
               count > lineItem.variant.availability?.availableQuantity && 'text-red-500'
             }`}
           >
-            {!isPreBuyCart && lineItem.variant.availability?.availableQuantity > 0 && (
+            {lineItem.variant.availability?.availableQuantity > 0 && (
               <>
                 <label>In Stock:</label> {lineItem.variant.availability?.availableQuantity}
               </>
             )}
-            {!isPreBuyCart && lineItem.variant.availability?.availableQuantity <= 0 && <label>Out of stock</label>}
-            {isPreBuyCart && <>&nbsp;</>}
+            {lineItem.variant.availability?.availableQuantity <= 0 && <label>Out of stock</label>}
           </p>
         </td>
 

@@ -130,10 +130,10 @@ const DropdownVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElem
           </Combobox>
         </div>
       )}
-      {!hideAvailability && !cart?.isPreBuyCart && variant.isOnStock && (
+      {!hideAvailability && variant.isOnStock && (
         <p className="text-sm text-gray-400">{`Available Qty: ${variant?.availability?.availableQuantity || 0}`}</p>
       )}
-      {!hideAvailability && !cart?.isPreBuyCart && !variant.isOnStock && (
+      {!hideAvailability && !variant.isOnStock && (
         <>
           <p className="text-sm text-gray-400">
             {formatProductMessage({ id: 'outOfStock', defaultMessage: 'Out of stock' })}
