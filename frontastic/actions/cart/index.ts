@@ -60,9 +60,9 @@ export const allSuperUserCarts = (): Cart[] => {
   return [] as Cart[];
 };
 
-export const reassignCart = async (customerId: string, email: string) => {
+export const reassignCart = async (accountId: string, email: string) => {
   try {
-    await fetchApiHub(`/action/cart/reassignCart?customerId=${customerId}&email=${email}`, { method: 'POST' });
+    await fetchApiHub(`/action/cart/reassignCart`, { method: 'POST' }, { accountId: accountId, email: email });
   } catch {
     console.log('cannot reassign cart');
   }
