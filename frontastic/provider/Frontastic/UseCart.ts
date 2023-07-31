@@ -22,7 +22,7 @@ export interface UseCart {
   removeDiscountCode?: (discount: Discount) => Promise<void>;
   redeemDiscountCode?: (code: string) => Promise<void>;
   shippingMethods: { data?: ShippingMethod[] };
-  orderCart: (payload?: any) => Promise<Order>;
+  orderCart: (purchaseOrderNumber?: string) => Promise<Order>;
   replicateCart: (orderId: string) => Promise<void>;
   orderHistory?: () => Promise<Order[]>;
   getProjectSettings?: () => Promise<ProjectSettings>;

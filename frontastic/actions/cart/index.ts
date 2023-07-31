@@ -90,13 +90,13 @@ export const addItems = async (lineItems: any[]) => {
   return res;
 };
 
-export const orderCart = async (payload?: any) => {
+export const orderCart = async (purchaseOrderNumber?: string) => {
   const res = await fetchApiHub(
     '/action/cart/checkout',
     {
       method: 'POST',
     },
-    { payload },
+    { purchaseOrderNumber: purchaseOrderNumber },
   );
   mutate('/action/cart/getCart', res);
   return res;
