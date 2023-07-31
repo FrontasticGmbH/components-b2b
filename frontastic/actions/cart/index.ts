@@ -256,11 +256,7 @@ export const returnItems = async (orderNumber: string, returnLineItems: ReturnLi
 
 export const cancelOrder = async (orderNumber: string): Promise<Order> => {
   try {
-    const res = fetchApiHub(
-      '/action/cart/updateOrderState',
-      { method: 'POST' },
-      { orderNumber, orderState: 'Cancelled' },
-    );
+    const res = fetchApiHub('/action/cart/cancelOrder', { method: 'POST' }, { orderNumber });
     return res;
   } catch (e) {
     throw e;

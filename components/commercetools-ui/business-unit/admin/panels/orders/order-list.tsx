@@ -61,8 +61,8 @@ const OrderList: React.FC<Props> = ({ orders }) => {
                   {order.orderId}
                 </td>
                 <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                <td className="text-ellipsis-150" title={order.businessUnit}>
-                  {order.businessUnit}
+                <td className="text-ellipsis-150" title={order.businessUnitKey}>
+                  {order.businessUnitKey}
                 </td>
                 <td className="text-ellipsis-150">{mapAddressToString(order.shippingAddress)}</td>
                 <td className="text-ellipsis-150">{order.state?.name || order.orderState}</td>
