@@ -245,27 +245,27 @@ export const createQuoteRequestFromCurrentCart = async (comment: string): Promis
   return fetchApiHub('/action/quote/createQuoteRequest', { method: 'POST' }, { comment });
 };
 
-export const returnItems = async (orderNumber: string, returnLineItems: ReturnLineItem[]): Promise<Order> => {
+export const returnItems = async (orderId: string, returnLineItems: ReturnLineItem[]): Promise<Order> => {
   try {
-    const res = fetchApiHub('/action/cart/returnItems', { method: 'POST' }, { orderNumber, returnLineItems });
+    const res = fetchApiHub('/action/cart/returnItems', { method: 'POST' }, { orderId, returnLineItems });
     return res;
   } catch (e) {
     throw e;
   }
 };
 
-export const cancelOrder = async (orderNumber: string): Promise<Order> => {
+export const cancelOrder = async (orderId: string): Promise<Order> => {
   try {
-    const res = fetchApiHub('/action/cart/cancelOrder', { method: 'POST' }, { orderNumber });
+    const res = fetchApiHub('/action/cart/cancelOrder', { method: 'POST' }, { orderId });
     return res;
   } catch (e) {
     throw e;
   }
 };
 
-export const transitionOrderState = async (orderNumber: string, stateKey: string): Promise<Order> => {
+export const transitionOrderState = async (orderId: string, stateKey: string): Promise<Order> => {
   try {
-    const res = fetchApiHub('/action/cart/transitionOrderState', { method: 'POST' }, { orderNumber, stateKey });
+    const res = fetchApiHub('/action/cart/transitionOrderState', { method: 'POST' }, { orderId, stateKey });
     return res;
   } catch (e) {
     throw e;
