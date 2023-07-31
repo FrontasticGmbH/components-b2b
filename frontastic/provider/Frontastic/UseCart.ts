@@ -12,7 +12,7 @@ import { CartDetails } from 'frontastic/actions/cart';
 export interface UseCart {
   data?: Cart;
   getCart: () => Promise<void>;
-  reassignCart: (customerId: string, email: string) => Promise<void>;
+  reassignCart: (accountId: string, email: string) => Promise<void>;
   addItems: (variants: { variant: Variant; quantity: number }[]) => Promise<void>;
   updateCart: (payload: CartDetails) => Promise<Cart>;
   setShippingMethod: (shippingMethodId: string) => Promise<void>;

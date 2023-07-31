@@ -62,12 +62,12 @@ const ReassignCartButton: React.FC<Props & HTMLAttributes<HTMLDivElement>> = ({ 
                   <button
                     type="button"
                     className={`flex w-full flex-row items-center p-2 hover:bg-gray-200 disabled:bg-gray-300`}
-                    disabled={associate.accountId === cart.customerId}
+                    disabled={associate.accountId === cart.accountId}
                     key={associate.accountId}
                     onClick={() => reassignCart(associate.accountId, associate.email)}
                   >
                     <span>{`${associate.firstName || ''} ${associate.lastName || ''} `}</span>
-                    {associate.accountId === cart.customerId && <CheckIcon className="ml-2 h-4 w-4" />}
+                    {associate.accountId === cart.accountId && <CheckIcon className="ml-2 h-4 w-4" />}
                   </button>
                 ))}
             </Popover.Panel>

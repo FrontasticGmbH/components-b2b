@@ -108,7 +108,7 @@ const Cart = ({
           <OrderSummary
             organization={organization}
             cart={cart}
-            disableSubmitButton={isOverStock || !cart.customerId}
+            disableSubmitButton={isOverStock || !cart.accountId}
             onSubmit={onCheckout}
             showDiscountsForm={false}
             currentStep="cart"
