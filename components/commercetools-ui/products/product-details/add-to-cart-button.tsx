@@ -14,15 +14,8 @@ type Props = {
   onAddedToCart?: () => void;
 };
 
-const AddToCartButton: React.FC<Props> = ({
-  selectedSubscriptions,
-  selectedConfigurableComponents,
-  quantity = 1,
-  variant,
-  disabled,
-  onAddedToCart,
-}) => {
-  const { addItem, data: cart } = useCart();
+const AddToCartButton: React.FC<Props> = ({ quantity = 1, variant, disabled, onAddedToCart }) => {
+  const { addItems, data: cart } = useCart();
   const { formatMessage: formatProductMessage } = useFormat({ name: 'product' });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -30,7 +23,7 @@ const AddToCartButton: React.FC<Props> = ({
 
   const handleAddToCart = async (variant: Variant) => {
     setIsLoading(true);
-    await addItem(variant, quantity, selectedSubscriptions, selectedConfigurableComponents);
+    await addItems([{ variant, quantity }]);
     setIsLoading(false);
     setAdded(true);
     if (onAddedToCart) {

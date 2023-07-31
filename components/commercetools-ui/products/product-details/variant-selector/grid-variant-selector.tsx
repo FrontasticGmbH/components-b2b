@@ -103,7 +103,7 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
   const handleAddToCart = async () => {
     setIsLoading(true);
     const lineitems = grouped.flat().filter((lineitem) => lineitem.quantity > 0);
-    await addItems(lineitems, selectedBundles);
+    await addItems(lineitems);
     setGrouped(groupedVariants(product.variants, variantSelectors));
     setAdded(true);
     setIsLoading(false);

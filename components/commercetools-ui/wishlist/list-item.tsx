@@ -19,7 +19,7 @@ export const WishlistItem = ({ wishlistId, onUpdateList, item }) => {
   const [isLargerThanMobile] = useMediaQuery(mobile);
 
   const { removeLineItem, updateLineItem } = useWishlist();
-  const { addItem } = useCart();
+  const { addItems } = useCart();
   const router = useRouter();
   const { formatMessage } = useFormat({ name: 'common' });
 
@@ -34,7 +34,7 @@ export const WishlistItem = ({ wishlistId, onUpdateList, item }) => {
 
   const handleAddToCart = async (item: LineItem) => {
     setIsAdding(true);
-    await addItem(item.variant as Variant, 1);
+    await addItems([{ variant: item.variant as Variant, quantity: 1 }]);
     setIsAdding(false);
   };
 

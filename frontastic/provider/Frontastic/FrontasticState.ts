@@ -2,7 +2,6 @@ import { createSession, adyenCheckout } from '../../actions/adyen';
 import {
   cartItems,
   getCart,
-  addItem,
   addItems,
   orderCart,
   orderHistory,
@@ -52,7 +51,6 @@ import { UseCart } from './UseCart';
 import { UseProducts } from './UseProducts';
 import { UseQuotes } from './UseQuotes';
 import { UseStores } from './UseStores';
-import { UseSubscriptions } from './UseSubscriptions';
 import { UseWishlist } from './UseWishlist';
 
 export interface FrontasticState {
@@ -74,7 +72,6 @@ export const getFrontasticState = (): FrontasticState => {
     useCart: {
       ...cartItems(),
       getCart,
-      addItem,
       addItems,
       updateCart,
       setShippingMethod,

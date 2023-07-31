@@ -69,53 +69,15 @@ export const reassignCart = async (customerId: string, email: string) => {
   mutate('/action/cart/getCart', undefined);
 };
 
-export const addItem = async (
-  variant: Variant,
-  quantity: number,
-  subscriptions?: Variant[],
-  selectedConfigurableComponents?: Variant[],
-) => {
+export const addItems = async (lineItems: any[]) => {
   const payload = {
-    variant: {
-      sku: variant.sku,
-      count: quantity,
-    },
-    subscriptions: subscriptions
-      ?.filter((subscription) => subscription)
-      ?.map((subscription) => ({ sku: subscription.sku, count: 1 })),
-    configurableComponents: selectedConfigurableComponents
-      ?.filter((component) => component)
-      ?.map((component) => ({ sku: component.sku, count: 1 })),
-  };
-  try {
-    const res = await fetchApiHub(
-      '/action/cart/addToCart',
-      {
-        method: 'POST',
-      },
-      payload,
-    );
-    if (!res.cartId) {
-      throw new Error('Failed adding to cart');
-    }
-    mutate('/action/cart/getCart', res);
-  } catch (e) {
-    toast.error(e.message, { duration: 10000 });
-  }
-};
-
-export const addItems = async (lineItems: any[], subscriptions?: { sku?: string; count?: number }[]) => {
-  const payload = {
-    list: lineItems.map((lineItem) => ({
+    variants: lineItems.map((lineItem) => ({
       sku: lineItem.variant.sku,
       count: lineItem.quantity,
     })),
-    subscriptions: subscriptions
-      ?.filter((subscription) => subscription)
-      ?.map((subscription) => ({ sku: subscription.sku, count: 1 })),
   };
   const res = await fetchApiHub(
-    '/action/cart/addItemsToCart',
+    '/action/cart/addToCart',
     {
       method: 'POST',
     },

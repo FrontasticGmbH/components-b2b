@@ -13,13 +13,7 @@ export interface UseCart {
   data?: Cart;
   getCart: () => Promise<void>;
   reassignCart: (customerId: string, email: string) => Promise<void>;
-  addItem: (
-    variant: Variant,
-    quantity: number,
-    subscriptions?: Variant[],
-    selectedConfigurableComponents?: Variant[],
-  ) => Promise<void>;
-  addItems: (lineItems: { variant: Variant; quantity: number }[], subscriptions?: Variant[]) => Promise<void>;
+  addItems: (variants: { variant: Variant; quantity: number }[]) => Promise<void>;
   updateCart: (payload: CartDetails) => Promise<Cart>;
   setShippingMethod: (shippingMethodId: string) => Promise<void>;
   getShippingMethods: () => Promise<ShippingMethod[]>;

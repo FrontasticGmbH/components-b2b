@@ -23,7 +23,7 @@ interface Props {
 
 const AddToCartItem: React.FC<Props> = ({ goToProductPage }) => {
   const { query } = useProducts();
-  const { addItem } = useCart();
+  const { addItems } = useCart();
   const { formatMessage } = useFormat({ name: 'cart' });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -98,7 +98,7 @@ const AddToCartItem: React.FC<Props> = ({ goToProductPage }) => {
   const addItemToCart = async () => {
     setIsLoading(true);
 
-    await addItem(lineItem.selectedVariant, lineItem.selectedQuantity);
+    await addItems([{ variant: lineItem.selectedVariant, quantity: lineItem.selectedQuantity }]);
     setLineItem(getInitialLineItem());
     setIsLoading(false);
   };
