@@ -1,6 +1,3 @@
-import { FlattenedShippingMethod } from '@Types/cart/FlattenedShippingMethod';
-import { ShippingMethod } from '@Types/cart/ShippingMethod';
-
 export const countryBasedShippingRateIndex = {
   SI: 0,
   SK: 0,
@@ -15,13 +12,4 @@ export const countryBasedShippingRateIndex = {
   PT: 1,
   US: 2,
   CA: 2,
-};
-
-export const flattenShippingMethod = (method: ShippingMethod, country: string) => {
-  const updatedMethod: FlattenedShippingMethod = {
-    ...method,
-    price: method?.rates[countryBasedShippingRateIndex[country]]?.price,
-  };
-
-  return updatedMethod;
 };
