@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/outline';
 import { LineItem } from '@Types/cart/LineItem';
-import { ReturnInfo, ReturnInfoItem } from '@Types/cart/Order';
+import { ReturnInfo, ReturnLineItem as BaseReturnLineItem } from '@Types/cart/Order';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import Image from 'frontastic/lib/image';
 
@@ -12,7 +12,7 @@ type Props = {
   lineItems: LineItem[];
 };
 
-interface ReturnLineItem extends ReturnInfoItem {
+interface ReturnLineItem extends BaseReturnLineItem {
   variant: {
     images?: string[];
   };
@@ -26,20 +26,20 @@ const OrderReturns: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({ 
     const discountValue = lineItem.discountedPrice?.centAmount || lineItem.discounts?.[0]?.discountedAmount?.centAmount;
     return !discountValue ? lineItem.price?.centAmount : lineItem.price?.centAmount - discountValue;
   };
-  const getReturnLineitems = (returnLineItems: ReturnInfoItem[]): ReturnLineItem[] => {
+  const getReturnLineItems = (returnLineItems: BaseReturnLineItem[]): ReturnLineItem[] => {
     return lineItems
-      .map((lineitem) => {
+      .map((lineItem) => {
         const returnLineItemIdx = returnLineItems.findIndex(
-          (returnLineitem) => returnLineitem.lineItemId === lineitem.lineItemId,
+          (returnLineItem) => returnLineItem.lineItemId === lineItem.lineItemId,
         );
         if (returnLineItemIdx === -1) {
           return null;
         }
         return {
           ...returnLineItems[returnLineItemIdx],
-          variant: lineitem.variant,
-          name: lineitem.name,
-          price: price(lineitem),
+          variant: lineItem.variant,
+          name: lineItem.name,
+          price: price(lineItem),
         };
       })
       .filter((item) => item);
@@ -55,7 +55,10 @@ const OrderReturns: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({ 
             </Disclosure.Button>
             <Disclosure.Panel className="rounded-b-md border-x-2 border-b-2 p-4 text-sm text-gray-500">
               {returnInfo.map((item, i) => (
-                <div key={item.items?.[0]?.returnInfoId} className={i > 0 ? 'mt-4 border-t border-black pt-4' : ''}>
+                <div
+                  key={item.lineItems?.[0]?.returnLineItemId}
+                  className={i > 0 ? 'mt-4 border-t border-black pt-4' : ''}
+                >
                   {(!!item.returnDate || !!item.returnTrackingId) && (
                     <div className="rounded-md bg-gray-100 p-2">
                       {!!item.returnDate && (
@@ -105,29 +108,31 @@ const OrderReturns: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({ 
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 border-b border-gray-200 text-sm sm:border-t">
-                      {getReturnLineitems(item.items).map((product) => (
-                        <tr key={product.lineItemId}>
+                      {getReturnLineItems(item.lineItems).map((returnLineItem) => (
+                        <tr key={returnLineItem.lineItemId}>
                           <td className="py-2 pr-8">
                             <Image
-                              src={product.variant.images[0]}
-                              alt={product.name}
+                              src={returnLineItem.variant.images[0]}
+                              alt={returnLineItem.name}
                               className="mr-6 h-12 w-12 rounded object-cover object-center"
                             />
                           </td>
                           <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">
-                            <span>{CurrencyHelpers.formatForCurrency(product.price)}</span>
+                            <span>{CurrencyHelpers.formatForCurrency(returnLineItem.price)}</span>
                           </td>
                           <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">
-                            {new Date(product.createdAt).toLocaleDateString()}
+                            {new Date(returnLineItem.createdAt).toLocaleDateString()}
                           </td>
-                          <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">{product.count}</td>
-                          <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">{product.comment}</td>
+                          <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">{returnLineItem.count}</td>
+                          <td className="hidden py-2 pr-8 dark:text-light-100 sm:table-cell">
+                            {returnLineItem.comment}
+                          </td>
 
                           <td className="whitespace-nowrap py-2 text-right font-medium dark:text-light-100">
-                            <Link href={product._url || ''}>
+                            <Link href={returnLineItem._url || ''}>
                               <a className="text-accent-400">
                                 View product
-                                <span className="sr-only">, {product.name}</span>
+                                <span className="sr-only">, {returnLineItem.name}</span>
                               </a>
                             </Link>
                           </td>

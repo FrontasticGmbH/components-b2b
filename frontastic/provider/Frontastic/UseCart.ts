@@ -1,7 +1,7 @@
 import { Address } from '@Types/account/Address';
 import { Cart } from '@Types/cart/Cart';
 import { Discount } from '@Types/cart/Discount';
-import { ReturnLineItem } from '@Types/cart/LineItem';
+import { ReturnLineItem } from '@Types/cart/Order';
 import { Order } from '@Types/cart/Order';
 import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { Variant } from '@Types/product/Variant';

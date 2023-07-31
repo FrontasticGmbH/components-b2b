@@ -125,7 +125,7 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
           <p>{order.billingAddress.country}</p>
         </div>
       </div>
-      {!!order.returnInfo?.[0]?.items?.length && (
+      {!!order.returnInfo?.[0]?.lineItems?.length && (
         <OrderReturns lineItems={order.lineItems} returnInfo={order.returnInfo} className="mt-4" />
       )}
       <OrderItems lineItems={order.lineItems}></OrderItems>

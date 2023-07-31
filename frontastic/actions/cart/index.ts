@@ -1,11 +1,8 @@
 import { Address } from '@Types/account/Address';
 import { Cart } from '@Types/cart/Cart';
 import { Discount } from '@Types/cart/Discount';
-import { ReturnLineItem } from '@Types/cart/LineItem';
-import { Order } from '@Types/cart/Order';
-import { Variant } from '@Types/product/Variant';
+import { Order, ReturnLineItem } from '@Types/cart/Order';
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';
-import toast from 'react-hot-toast';
 import useSWR, { mutate } from 'swr';
 import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
 import { fetchApiHub, revalidateOptions } from 'frontastic';

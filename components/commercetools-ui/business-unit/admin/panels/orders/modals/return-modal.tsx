@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { LineItem, ReturnLineItem } from '@Types/cart/LineItem';
-import { Order } from '@Types/cart/Order';
+import { LineItem } from '@Types/cart/LineItem';
+import { Order, ReturnLineItem } from '@Types/cart/Order';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { useCart, useDarkMode } from 'frontastic';
 import Image from 'frontastic/lib/image';
@@ -32,7 +32,7 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
 
   const { returnItems } = useCart();
 
-  const orderWithAvailableQuantities: Order = !order.returnInfo?.some((returnItem) => returnItem?.items?.[0])
+  const orderWithAvailableQuantities: Order = !order.returnInfo?.some((returnItem) => returnItem?.lineItems?.[0])
     ? order
     : {
         ...order,
@@ -42,7 +42,7 @@ const OrderReturnModal: React.FC<Props> = ({ open, onClose, order }) => {
             lineitem.count -
             order.returnInfo.reduce(
               (prev, curr) =>
-                prev + curr.items.reduce((p, c) => p + (c.lineItemId === lineitem.lineItemId ? c.count : 0), 0),
+                prev + curr.lineItems.reduce((p, c) => p + (c.lineItemId === lineitem.lineItemId ? c.count : 0), 0),
               0,
             ),
         })),
