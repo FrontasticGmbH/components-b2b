@@ -30,7 +30,6 @@ export interface UseCart {
   splitLineItem?: (lineItemId: string, shippingAddresses: { address: Address; count: number }[]) => Promise<any>;
   returnItems: (orderId: string, returnLineItems: ReturnLineItem[]) => Promise<Order>;
   cancelOrder: (orderId: string) => Promise<Order>;
-  transitionOrderState: (orderId: string, stateKey: string) => Promise<Order>;
   allSuperUserCarts: Cart[];
   getAllSuperUserCarts: () => void;
 }

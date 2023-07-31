@@ -266,12 +266,3 @@ export const cancelOrder = async (orderId: string): Promise<Order> => {
     throw e;
   }
 };
-
-export const transitionOrderState = async (orderId: string, stateKey: string): Promise<Order> => {
-  try {
-    const res = fetchApiHub('/action/cart/transitionOrderState', { method: 'POST' }, { orderId, stateKey });
-    return res;
-  } catch (e) {
-    throw e;
-  }
-};

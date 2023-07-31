@@ -20,7 +20,6 @@ import {
   returnItems,
   cancelOrder,
   reassignCart,
-  transitionOrderState,
   allSuperUserCarts,
   getAllSuperUserCarts,
 } from '../../actions/cart';
@@ -90,7 +89,6 @@ export const getFrontasticState = (): FrontasticState => {
       returnItems,
       cancelOrder,
       reassignCart,
-      transitionOrderState,
       allSuperUserCarts: allSuperUserCarts(),
       getAllSuperUserCarts,
     },

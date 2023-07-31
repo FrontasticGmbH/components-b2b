@@ -22,16 +22,7 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { transitionOrderState } = useCart();
   const { reloadTree, selectedBusinessUnit } = useBusinessUnitDetailsStateContext();
-
-  const handleUpdateOrderState = async (state: string) => {
-    setIsLoading(true);
-    await transitionOrderState(order.orderId, state);
-    setIsLoading(false);
-    reloadTree();
-    onClose();
-  };
 
   if (!order) {
     return null;
