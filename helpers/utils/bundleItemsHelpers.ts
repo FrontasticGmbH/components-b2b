@@ -49,16 +49,11 @@ export const getSelectedBundleLabel = (variant?: Variant, name?: string) => {
 
 export const bundleItems = (lineItems?: LineItem[]): LineItem[] => {
   if (lineItems?.length) {
-    const bundles = lineItems?.filter((item) => !!item.parentId);
-    const items = lineItems?.filter((item) => !item.parentId);
+    const items = lineItems;
 
     return items?.map((item) => {
-      const itemBundles = bundles?.filter((bundle) => bundle.parentId === item.lineItemId);
       // @ts-ignore
       item.variant?.attributes[BUNDLE_ATTRIBUTE_NAME] = [];
-      itemBundles?.forEach((bundle) => {
-        item.variant?.attributes[BUNDLE_ATTRIBUTE_NAME].push(bundle);
-      });
       return item;
     });
   }
