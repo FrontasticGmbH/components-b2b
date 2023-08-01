@@ -1,4 +1,4 @@
-import { Quote } from '@Types/quotes/Quote';
+import { DeprecatedQuote } from '@Types/quotes/DeprecatedQuote';
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 
@@ -15,7 +15,7 @@ export const getBusinessUserQuoteRequests = async (keys: string[]): Promise<Quot
   );
 };
 
-export const updateQuoteState = async (id: string, state: string): Promise<Quote> => {
+export const updateQuoteState = async (id: string, state: string): Promise<DeprecatedQuote> => {
   return await fetchApiHub(`/action/quote/updateQuoteState?id=${id}`, { method: 'POST' }, { state });
 };
 

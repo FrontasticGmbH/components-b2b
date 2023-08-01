@@ -8,6 +8,7 @@ import { Variant } from '@Types/product/Variant';
 import { ProjectSettings } from '@Types/ProjectSettings';
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { CartDetails } from 'frontastic/actions/cart';
+import { QuoteDraft } from '@Types/quotes/QuoteDraft';
 
 export interface UseCart {
   data?: Cart;
@@ -26,7 +27,7 @@ export interface UseCart {
   replicateCart: (orderId: string) => Promise<void>;
   orderHistory?: () => Promise<Order[]>;
   getProjectSettings?: () => Promise<ProjectSettings>;
-  createQuoteRequestFromCurrentCart?: (comment: string) => Promise<QuoteRequest>;
+  createQuoteRequestFromCurrentCart?: (comment: string) => Promise<QuoteDraft>;
   splitLineItem?: (lineItemId: string, shippingAddresses: { address: Address; count: number }[]) => Promise<any>;
   returnItems: (orderId: string, returnLineItems: ReturnLineItem[]) => Promise<Order>;
   cancelOrder: (orderId: string) => Promise<Order>;

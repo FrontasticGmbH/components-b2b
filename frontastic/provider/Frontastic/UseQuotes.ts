@@ -1,9 +1,9 @@
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';
-import { Quote } from '@Types/quotes/Quote';
+import { DeprecatedQuote } from '@Types/quotes/DeprecatedQuote';
 
 export interface UseQuotes {
   getMyQuoteRequests: () => Promise<QuoteRequest[]>;
   getBusinessUserQuoteRequests: (keys: string[]) => Promise<QuoteRequest[]>;
-  updateQuoteState: (id: string, state: string) => Promise<Quote>;
+  updateQuoteState: (id: string, state: string) => Promise<DeprecatedQuote>;
   updateQuoteRequestState: (id: string, state: string) => Promise<QuoteRequest>;
 }

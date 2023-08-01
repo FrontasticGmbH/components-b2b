@@ -6,6 +6,7 @@ import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import useSWR, { mutate } from 'swr';
 import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
 import { fetchApiHub, revalidateOptions } from 'frontastic';
+import { QuoteDraft } from '@Types/quotes/QuoteDraft';
 
 export type CartDetails = {
   account?: { email: string };
@@ -242,8 +243,8 @@ export const removeDiscountCode = async (discount: Discount) => {
   mutate('/action/cart/getCart', res);
 };
 
-export const createQuoteRequestFromCurrentCart = async (comment: string): Promise<QuoteRequest> => {
-  return fetchApiHub('/action/quote/createQuoteRequest', { method: 'POST' }, { comment });
+export const createQuoteRequestFromCurrentCart = async (comment: string): Promise<QuoteDraft> => {
+  return fetchApiHub('/action/quote/createQuote', { method: 'POST' }, { comment });
 };
 
 export const returnItems = async (orderId: string, returnLineItems: ReturnLineItem[]): Promise<Order> => {
