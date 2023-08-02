@@ -3,7 +3,6 @@ import AddressesSection from 'components/commercetools-ui/business-unit/admin/pa
 import BusinessUnitSection from 'components/commercetools-ui/business-unit/admin/panels/business-unit';
 import GeneralSection from 'components/commercetools-ui/business-unit/admin/panels/general';
 import OrderSection from 'components/commercetools-ui/business-unit/admin/panels/orders';
-import QuotesSection from 'components/commercetools-ui/business-unit/admin/panels/quotes';
 import UsersSection from 'components/commercetools-ui/business-unit/admin/panels/users';
 import { useFormat } from 'helpers/hooks/useFormat';
 import useHash from 'helpers/hooks/useHash';
@@ -21,8 +20,7 @@ export const BusinessUnitPanels: React.FC = () => {
     { name: formatAccountMessage({ id: 'addresses', defaultMessage: 'Addresses' }), href: '#addresses' },
     { name: formatAccountMessage({ id: 'users', defaultMessage: 'Associates' }), href: '#users' },
     { name: formatAccountMessage({ id: 'business-unit', defaultMessage: 'Business unit' }), href: '#business-unit' },
-    { name: formatAccountMessage({ id: 'quotes', defaultMessage: 'Quotes' }), href: '#quotes' },
-    { name: formatAccountMessage({ id: 'quotes', defaultMessage: 'Orders' }), href: '#orders' },
+    { name: formatAccountMessage({ id: 'orders', defaultMessage: 'Orders' }), href: '#orders' },
   ];
 
   const mapping = {
@@ -30,7 +28,6 @@ export const BusinessUnitPanels: React.FC = () => {
     '#addresses': AddressesSection,
     '#users': UsersSection,
     '#business-unit': BusinessUnitSection,
-    '#quotes': QuotesSection,
     '#orders': OrderSection,
   };
 

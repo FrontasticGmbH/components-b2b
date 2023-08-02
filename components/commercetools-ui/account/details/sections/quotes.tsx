@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { Quote } from '@Types/quote/Quote';
 import { QuoteRequest } from '@Types/quote/QuoteRequest';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import QuoteList from 'components/commercetools-ui/quotes/quote-list';
@@ -14,38 +15,38 @@ const QuotesHistory: FC = () => {
   const { formatMessage: formatAccountMessage } = useFormat({ name: 'account' });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [quoteList, setQuoteList] = useState<QuoteRequest[]>([]);
-  const { FiltersUI, filteredItems } = useFilters<QuoteRequest>(
+  const [quoteList, setQuoteList] = useState<Quote[]>([]);
+  const { FiltersUI, filteredItems } = useFilters<Quote>(
     [
       {
         label: formatAccountMessage({ id: 'submitted', defaultMessage: 'Submitted' }),
         key: 'submitted',
         value: false,
-        predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'Submitted',
+        predicate: (quote: Quote) => quote.quoteDraftState === 'Submitted',
       },
       {
         label: formatAccountMessage({ id: 'in.progress', defaultMessage: 'In progress' }),
         key: 'in-progress',
         value: false,
-        predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'InProgress',
+        predicate: (quote: Quote) => quote.quoteDraftState === 'InProgress',
       },
       {
         label: formatAccountMessage({ id: 'sent', defaultMessage: 'Sent' }),
         key: 'sent',
         value: false,
-        predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'Sent',
+        predicate: (quote: Quote) => quote.quoteDraftState === 'Sent',
       },
       {
         label: formatAccountMessage({ id: 'accepted', defaultMessage: 'Accepted' }),
         key: 'accepted',
         value: false,
-        predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'Accepted',
+        predicate: (quote: Quote) => quote.quoteState === 'Accepted',
       },
       {
         label: formatAccountMessage({ id: 'declined', defaultMessage: 'Declined' }),
         key: 'declined',
         value: false,
-        predicate: (quote: QuoteRequest) => quote.quoteRequestState === 'Declined',
+        predicate: (quote: Quote) => quote.quoteState === 'Declined',
       },
     ],
     quoteList,
@@ -61,7 +62,7 @@ const QuotesHistory: FC = () => {
           setQuoteList(
             results.map((quote) => ({
               ...quote,
-              highlight: quote.id === highlightId,
+              highlight: quote.quoteDraftId === highlightId,
             })),
           );
         } else {
@@ -103,7 +104,7 @@ const QuotesHistory: FC = () => {
                 <FiltersUI className="flex flex-row flex-wrap gap-0.5" />
               </div>
             </div>
-            <QuoteList quoteRequestList={filteredItems} />
+            <QuoteList quoteList={filteredItems} />
           </div>
         )}
       </div>

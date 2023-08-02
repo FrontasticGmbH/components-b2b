@@ -2,19 +2,11 @@ import { Address } from '@Types/account/Address';
 import { Cart } from '@Types/cart/Cart';
 import { Discount } from '@Types/cart/Discount';
 import { Order, ReturnLineItem } from '@Types/cart/Order';
-<<<<<<< Updated upstream
-import { QuoteRequest } from '@Types/quotes/QuoteRequest';
-import useSWR, { mutate } from 'swr';
-import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
-import { fetchApiHub, revalidateOptions } from 'frontastic';
-import { QuoteDraft } from '@Types/quotes/QuoteDraft';
-=======
 import { QuoteRequest } from '@Types/quote/QuoteRequest';
 import useSWR, { mutate } from 'swr';
 import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
 import { fetchApiHub, revalidateOptions } from 'frontastic';
 import { QuoteDraft } from '@Types/quote/QuoteDraft';
->>>>>>> Stashed changes
 
 export type CartDetails = {
   account?: { email: string };
