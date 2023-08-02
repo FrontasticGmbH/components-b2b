@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 import { DeprecatedQuote } from '@Types/quotes/DeprecatedQuote';
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';
+=======
+import { DeprecatedQuote } from '@Types/quote/DeprecatedQuote';
+import { QuoteRequest } from '@Types/quote/QuoteRequest';
+>>>>>>> Stashed changes
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 
 export const getMyQuoteRequests = async (): Promise<QuoteRequest[]> => {

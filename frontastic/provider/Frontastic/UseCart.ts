@@ -6,9 +6,15 @@ import { Order } from '@Types/cart/Order';
 import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { Variant } from '@Types/product/Variant';
 import { ProjectSettings } from '@Types/ProjectSettings';
+<<<<<<< Updated upstream
 import { QuoteRequest } from '@Types/quotes/QuoteRequest';
 import { CartDetails } from 'frontastic/actions/cart';
 import { QuoteDraft } from '@Types/quotes/QuoteDraft';
+=======
+import { QuoteRequest } from '@Types/quote/QuoteRequest';
+import { CartDetails } from 'frontastic/actions/cart';
+import { QuoteDraft } from '@Types/quote/QuoteDraft';
+>>>>>>> Stashed changes
 
 export interface UseCart {
   data?: Cart;
