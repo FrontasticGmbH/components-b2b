@@ -2,20 +2,20 @@ import React, { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Transition, Dialog } from '@headlessui/react';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
-import { QuoteRequest } from '@Types/quote/QuoteRequest';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useCart, useDarkMode, useQuotes } from 'frontastic';
 import { QuoteHistory } from '../history';
 import { QuoteItems } from '../quote-items';
+import { Quote } from '@Types/quote/Quote';
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  data: QuoteRequest;
+  quote: Quote;
 }
 
-const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
+const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
   const { mode } = useDarkMode();
   const { updateQuoteState, updateQuoteRequestState } = useQuotes();
   const router = useRouter();
@@ -41,24 +41,20 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
 
   const quoteHistoryData = {
     quoteRequest: {
-      createdAt: data?.lastModifiedAt || data?.createdAt,
       isAvailable: true,
-      status: data?.quoteRequestState,
-    },
-    stagedQuote: {
-      isAvailable: !!data?.staged,
-      createdAt: data?.staged?.lastModifiedAt || data?.staged?.createdAt,
-      status: data?.staged?.stagedQuoteState,
+      createdAt:
+        new Date(quote?.quoteDraftLastModifiedAt).toDateString() || new Date(quote?.quoteDraftCreatedAt).toDateString(),
+      status: quote?.quoteDraftState,
     },
     quote: {
-      isAvailable: !!data?.quoted,
-      createdAt: data?.quoted?.lastModifiedAt || data?.quoted?.createdAt,
-      status: data?.quoted?.quoteState,
+      isAvailable: !!quote?.quoteId,
+      createdAt: new Date(quote?.quoteLastModifiedAt).toDateString() || new Date(quote?.quoteCreatedAt).toDateString(),
+      status: quote?.quoteState,
     },
   };
 
   const hasAnyComments = () => {
-    return !!data?.comment || !!data?.quoted?.buyerComment || !!data?.quoted?.sellerComment;
+    return !!quote?.buyerComment || !!quote?.sellerComment;
   };
 
   const handleClose = async () => {
@@ -83,9 +79,10 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
     onClose();
   };
 
-  if (!data) {
+  if (!quote) {
     return null;
   }
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog className={`${mode} default fixed inset-0 z-10 overflow-y-auto`} onClose={onClose}>
@@ -133,7 +130,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                       <div className="mt-12">
                         <QuoteHistory data={quoteHistoryData} />
                       </div>
-                      {!!data?.quoted && data.quoted.quoteState === 'Pending' && (
+                      {!!quote && quote.quoteState === 'Pending' && (
                         <div>
                           <h3 className="mt-4 text-xl font-extrabold tracking-tight text-gray-900 dark:text-light-100">
                             Actions
@@ -141,7 +138,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                           <div className="flex flex-row justify-between">
                             <button
                               className="button button-secondary flex flex-row"
-                              onClick={() => handleUpdateQuote(data?.quoted.id, 'Declined')}
+                              onClick={() => handleUpdateQuote(quote?.quoteId, 'Declined')}
                             >
                               {!isLoading && <XIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
@@ -149,7 +146,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                             </button>
                             <button
                               className="button button-primary flex flex-row"
-                              onClick={() => handleUpdateQuote(data?.quoted.id, 'Accepted')}
+                              onClick={() => handleUpdateQuote(quote?.quoteId, 'Accepted')}
                             >
                               {!isLoading && <CheckIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
@@ -158,7 +155,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                           </div>
                         </div>
                       )}
-                      {data?.quoteRequestState === 'Submitted' && (
+                      {quote?.quoteDraftState === 'Submitted' && (
                         <div>
                           <h3 className="mt-4 text-xl font-extrabold tracking-tight text-gray-900 dark:text-light-100">
                             Actions
@@ -166,7 +163,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                           <div className="flex flex-row justify-center">
                             <button
                               className="button button-secondary flex flex-row"
-                              onClick={() => handleUpdateQuoteRequest(data?.id, 'Cancelled')}
+                              onClick={() => handleUpdateQuoteRequest(quote?.quoteDraftId, 'Cancelled')}
                             >
                               {!isLoading && <XIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
@@ -182,16 +179,16 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                               Comments:
                             </h3>
                             <div>
-                              {data?.quoted?.buyerComment && (
+                              {quote?.buyerComment && (
                                 <>
                                   <strong>You:</strong>
-                                  <span>{data?.comment || data?.quoted?.buyerComment}</span>
+                                  <span>{quote?.sellerComment || quote?.buyerComment}</span>
                                 </>
                               )}
-                              {data?.quoted?.sellerComment && (
+                              {quote?.sellerComment && (
                                 <>
                                   <strong>Seller:</strong>
-                                  <span>{data?.quoted?.sellerComment}</span>
+                                  <span>{quote?.sellerComment}</span>
                                 </>
                               )}
                             </div>
@@ -203,20 +200,23 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, data }) => {
                         <dl className="flex-auto space-y-6 divide-y divide-gray-200 text-sm text-gray-600 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:space-y-0 sm:divide-y-0 lg:flex-none lg:gap-x-8">
                           <div className="flex justify-between pt-6 sm:block sm:pt-0">
                             <dt className="font-medium text-gray-900">Quote request ID</dt>
-                            <dd className="sm:mt-1">{data?.id}</dd>
+                            <dd className="sm:mt-1">{quote?.quoteId}</dd>
                           </div>
                           <div className="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
                             <dt>Requested total amount</dt>
-                            <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(data?.totalPrice)}</dd>
+                            <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(quote?.quoteDraftSum)}</dd>
                           </div>
-                          {!!data?.quoted && (
+                          {!!quote?.quoteId && (
                             <div className="flex justify-between pt-6 font-medium text-green-400 sm:block sm:pt-0">
                               <dt>Suggested total amount</dt>
-                              <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(data?.quoted?.totalPrice)}</dd>
+                              <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(quote?.quoteDraftSum)}</dd>
                             </div>
                           )}
                         </dl>
-                        <QuoteItems quoteRequestLineItems={data?.lineItems} quoteLineItems={data?.quoted?.lineItems} />
+                        <QuoteItems
+                          quoteRequestLineItems={quote?.quoteDraftLineItems}
+                          quoteLineItems={quote?.quoteDraftLineItems}
+                        />
                       </div>
                     </div>
                   )}

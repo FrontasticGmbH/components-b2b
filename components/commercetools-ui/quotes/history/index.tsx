@@ -10,7 +10,6 @@ interface QuoteData {
 interface Props {
   data: {
     quoteRequest: QuoteData;
-    stagedQuote: QuoteData;
     quote: QuoteData;
   };
 }
@@ -20,8 +19,8 @@ export const QuoteHistory: React.FC<Props> = ({ data }) => {
     <div className="flex flex-col">
       <div className="flex flex-row items-center">
         <div className={`h-8 w-8 rounded-full ${data.quoteRequest.isAvailable ? 'bg-accent-400' : 'bg-gray-200'}`} />
-        <div className={`h-2 grow border-y-4 ${data.stagedQuote.isAvailable ? 'border-accent-400' : 'bg-gray-200'}`} />
-        <div className={`h-8 w-8 rounded-full ${data.stagedQuote.isAvailable ? 'bg-accent-400' : 'bg-gray-200'}`} />
+        {/*<div className={`h-2 grow border-y-4 ${data.stagedQuote.isAvailable ? 'border-accent-400' : 'bg-gray-200'}`} />*/}
+        {/*<div className={`h-8 w-8 rounded-full ${data.stagedQuote.isAvailable ? 'bg-accent-400' : 'bg-gray-200'}`} />*/}
         <div className={`h-2 grow border-y-4 ${data.quote.isAvailable ? 'border-accent-400' : 'bg-gray-200'}`} />
         <div className={`h-8 w-8 rounded-full ${data.quote.isAvailable ? 'bg-accent-400' : 'bg-gray-200'}`}>
           {data.quote.isAvailable && data.quote.status === 'Accepted' && (
@@ -40,14 +39,14 @@ export const QuoteHistory: React.FC<Props> = ({ data }) => {
           <div className="text-xs text-gray-400">{new Date(data.quoteRequest.createdAt).toLocaleString()}</div>
         </div>
         <div className="h-4 grow" />
-        <div className="text-center">
-          <div className={`${data.stagedQuote.isAvailable ? 'text-black' : 'text-gray-400'}`}>
-            {data.stagedQuote?.status || 'In progress'}
-          </div>
-          {data.stagedQuote.isAvailable && (
-            <div className="text-xs text-gray-400">{new Date(data.stagedQuote.createdAt).toLocaleString()}</div>
-          )}
-        </div>
+        {/*<div className="text-center">*/}
+        {/*  <div className={`${data.stagedQuote.isAvailable ? 'text-black' : 'text-gray-400'}`}>*/}
+        {/*    {data.stagedQuote?.status || 'In progress'}*/}
+        {/*  </div>*/}
+        {/*  {data.stagedQuote.isAvailable && (*/}
+        {/*    <div className="text-xs text-gray-400">{new Date(data.stagedQuote.createdAt).toLocaleString()}</div>*/}
+        {/*  )}*/}
+        {/*</div>*/}
         <div className="h-4 grow" />
         <div className="text-right">
           <div className={`${data.quote.isAvailable ? 'text-black' : 'text-gray-400'}`}>

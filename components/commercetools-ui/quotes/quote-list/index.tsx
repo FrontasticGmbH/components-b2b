@@ -55,15 +55,15 @@ const QuoteList: React.FC<Props> = ({ quoteList }) => {
         <tbody>
           {quoteList.map((quote: Quote) => (
             <tr className={`${styles.row}`} key={quote.quoteDraftId}>
-              <td>{new Date(quote.createdAt).toLocaleString()}</td>
+              <td>{new Date(quote.quoteDraftCreatedAt).toLocaleString()}</td>
               {/* @ts-ignore */}
               <td className={styles.trim}>{quote.account.email}</td>
               {/* @ts-ignore */}
               <td className={styles.trim}>{quote.businessUnit.key}</td>
               <td className={styles.trim}>{quote.store.key}</td>
-              <td>{getTotalLineItems(quote.lineItems)}</td>
+              <td>{getTotalLineItems(quote.quoteDraftLineItems)}</td>
               <td className={styles.trim}>{quote.buyerComment}</td>
-              <td>{CurrencyHelpers.formatForCurrency(quote.sum)}</td>
+              <td>{CurrencyHelpers.formatForCurrency(quote.quoteDraftSum)}</td>
               <td className="text-green-300">{quote.quoteState ?? quote.quoteDraftState}</td>
               <td>
                 <button type="button" onClick={() => openQuoteRequestDetails(quote)}>
@@ -76,7 +76,7 @@ const QuoteList: React.FC<Props> = ({ quoteList }) => {
       </table>
       <QuoteDetails
         open={isQuoteRequestDetailsOpen}
-        data={currentSelectedQuoteRequest}
+        quote={currentSelectedQuoteRequest}
         onClose={() => setIsQuoteRequestDetailsOpen(false)}
       />
     </>
