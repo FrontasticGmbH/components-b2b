@@ -11,6 +11,6 @@ export const updateQuoteState = async (id: string, state: string): Promise<Depre
   return await fetchApiHub(`/action/quote/updateQuoteState?id=${id}`, { method: 'POST' }, { state });
 };
 
-export const updateQuoteRequestState = async (id: string, state: string): Promise<DeprecatedQuoteRequest> => {
-  return await fetchApiHub(`/action/quote/updateQuoteRequestState?id=${id}`, { method: 'POST' }, { state });
+export const cancelQuoteRequest = async (quoteRequestId: string): Promise<Quote> => {
+  return await fetchApiHub(`/action/quote/cancelQuoteRequest?id=${quoteRequestId}`, { method: 'POST' });
 };

@@ -24,7 +24,7 @@ import {
   getAllSuperUserCarts,
 } from '../../actions/cart';
 import { query, getAttributeGroup, getCategories } from '../../actions/product';
-import { getMyQuoteRequests, updateQuoteState, updateQuoteRequestState } from '../../actions/quotes';
+import { getMyQuoteRequests, updateQuoteState, cancelQuoteRequest } from '../../actions/quotes';
 import { getStoresByKey } from '../../actions/stores';
 import {
   addToWishlist,
@@ -108,7 +108,7 @@ export const getFrontasticState = (): FrontasticState => {
     useQuotes: {
       getMyQuoteRequests,
       updateQuoteState,
-      updateQuoteRequestState,
+      cancelQuoteRequest,
     },
     useStores: {
       getStoresByKey,

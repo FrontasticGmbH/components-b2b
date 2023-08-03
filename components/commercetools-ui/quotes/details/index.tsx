@@ -17,7 +17,7 @@ interface Props {
 
 const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
   const { mode } = useDarkMode();
-  const { updateQuoteState, updateQuoteRequestState } = useQuotes();
+  const { updateQuoteState, cancelQuoteRequest } = useQuotes();
   const router = useRouter();
   const { getCart } = useCart();
 
@@ -32,9 +32,9 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
     setIsConfirmationDisplayed(true);
   };
 
-  const handleUpdateQuoteRequest = async (id, state) => {
+  const handleCancelQuoteRequest = async (id) => {
     setIsLoading(true);
-    await updateQuoteRequestState(id, state);
+    await cancelQuoteRequest(id);
     setIsLoading(false);
     setIsCancellationDisplayed(true);
   };
@@ -164,9 +164,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                           <div className="flex flex-row justify-center">
                             <button
                               className="button button-secondary flex flex-row"
-                              onClick={() =>
-                                handleUpdateQuoteRequest(quote?.quotedRequested.quoteRequestId, 'Cancelled')
-                              }
+                              onClick={() => handleCancelQuoteRequest(quote?.quotedRequested.quoteRequestId)}
                             >
                               {!isLoading && <XIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
