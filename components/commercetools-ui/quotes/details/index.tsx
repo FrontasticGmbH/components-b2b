@@ -17,7 +17,7 @@ interface Props {
 
 const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
   const { mode } = useDarkMode();
-  const { updateQuoteState, cancelQuoteRequest } = useQuotes();
+  const { acceptQuote, declineQuote, cancelQuoteRequest } = useQuotes();
   const router = useRouter();
   const { getCart } = useCart();
 
@@ -25,9 +25,16 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
   const [isConfirmationDisplayed, setIsConfirmationDisplayed] = useState(false);
   const [isCancellationDisplayed, setIsCancellationDisplayed] = useState(false);
 
-  const handleUpdateQuote = async (id, state) => {
+  const handleAcceptQuote = async (id) => {
     setIsLoading(true);
-    await updateQuoteState(id, state);
+    await acceptQuote(id);
+    setIsLoading(false);
+    setIsConfirmationDisplayed(true);
+  };
+
+  const handleDeclineQuote = async (id) => {
+    setIsLoading(true);
+    await declineQuote(id);
     setIsLoading(false);
     setIsConfirmationDisplayed(true);
   };
@@ -139,7 +146,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                           <div className="flex flex-row justify-between">
                             <button
                               className="button button-secondary flex flex-row"
-                              onClick={() => handleUpdateQuote(quote?.quoteId, 'Declined')}
+                              onClick={() => handleDeclineQuote(quote?.quoteId)}
                             >
                               {!isLoading && <XIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
@@ -147,7 +154,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                             </button>
                             <button
                               className="button button-primary flex flex-row"
-                              onClick={() => handleUpdateQuote(quote?.quoteId, 'Accepted')}
+                              onClick={() => handleAcceptQuote(quote?.quoteId)}
                             >
                               {!isLoading && <CheckIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}

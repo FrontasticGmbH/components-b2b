@@ -244,7 +244,7 @@ export const removeDiscountCode = async (discount: Discount) => {
 };
 
 export const createQuoteRequestFromCurrentCart = async (comment: string): Promise<QuoteRequest> => {
-  return fetchApiHub('/action/quote/createQuote', { method: 'POST' }, { comment });
+  return fetchApiHub('/action/quote/createQuoteRequest', { method: 'POST' }, { comment });
 };
 
 export const returnItems = async (orderId: string, returnLineItems: ReturnLineItem[]): Promise<Order> => {
