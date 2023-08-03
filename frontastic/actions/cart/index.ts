@@ -2,11 +2,11 @@ import { Address } from '@Types/account/Address';
 import { Cart } from '@Types/cart/Cart';
 import { Discount } from '@Types/cart/Discount';
 import { Order, ReturnLineItem } from '@Types/cart/Order';
-import { QuoteRequest } from '@Types/quote/QuoteRequest';
+import { DeprecatedQuoteRequest } from '@Types/quote/DeprecatedQuoteRequest';
 import useSWR, { mutate } from 'swr';
 import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
 import { fetchApiHub, revalidateOptions } from 'frontastic';
-import { QuoteDraft } from '@Types/quote/QuoteDraft';
+import { QuoteRequest } from '@Types/quote/QuoteRequest';
 
 export type CartDetails = {
   account?: { email: string };
@@ -243,7 +243,7 @@ export const removeDiscountCode = async (discount: Discount) => {
   mutate('/action/cart/getCart', res);
 };
 
-export const createQuoteRequestFromCurrentCart = async (comment: string): Promise<QuoteDraft> => {
+export const createQuoteRequestFromCurrentCart = async (comment: string): Promise<QuoteRequest> => {
   return fetchApiHub('/action/quote/createQuote', { method: 'POST' }, { comment });
 };
 

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { EyeIcon } from '@heroicons/react/outline';
 import { LineItem } from '@Types/cart/LineItem';
 import { Quote } from '@Types/quote/Quote';
-import { QuoteRequest as B2BQuoteRequest } from '@Types/quote/QuoteRequest';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useFormat } from 'helpers/hooks/useFormat';
 import QuoteDetails from '../details';
@@ -13,15 +12,11 @@ interface Props {
   quoteList: Quote[];
 }
 
-interface QuoteRequest extends B2BQuoteRequest {
-  highlight?: boolean;
-}
-
 const QuoteList: React.FC<Props> = ({ quoteList }) => {
   const { formatMessage: formatAccountMessage } = useFormat({ name: 'account' });
 
   const [isQuoteRequestDetailsOpen, setIsQuoteRequestDetailsOpen] = useState(false);
-  const [currentSelectedQuoteRequest, setCurrentSelectedQuoteRequest] = useState<QuoteRequest>(null);
+  const [currentSelectedQuoteRequest, setCurrentSelectedQuoteRequest] = useState<Quote>(null);
   const openQuoteRequestDetails = (quoteRequest) => {
     setCurrentSelectedQuoteRequest(quoteRequest);
     setIsQuoteRequestDetailsOpen(true);
@@ -54,17 +49,17 @@ const QuoteList: React.FC<Props> = ({ quoteList }) => {
         </thead>
         <tbody>
           {quoteList.map((quote: Quote) => (
-            <tr className={`${styles.row}`} key={quote.quoteDraftId}>
-              <td>{new Date(quote.quoteDraftCreatedAt).toLocaleString()}</td>
+            <tr className={`${styles.row}`} key={quote.quoteRequestId}>
+              <td>{new Date(quote.createdAt).toLocaleString()}</td>
               {/* @ts-ignore */}
               <td className={styles.trim}>{quote.account.email}</td>
               {/* @ts-ignore */}
               <td className={styles.trim}>{quote.businessUnit.key}</td>
               <td className={styles.trim}>{quote.store.key}</td>
-              <td>{getTotalLineItems(quote.quoteDraftLineItems)}</td>
+              <td>{getTotalLineItems(quote.lineItems)}</td>
               <td className={styles.trim}>{quote.buyerComment}</td>
-              <td>{CurrencyHelpers.formatForCurrency(quote.quoteDraftSum)}</td>
-              <td className="text-green-300">{quote.quoteState ?? quote.quoteDraftState}</td>
+              <td>{CurrencyHelpers.formatForCurrency(quote.sum)}</td>
+              <td className="text-green-300">{quote.quoteState ?? quote.state}</td>
               <td>
                 <button type="button" onClick={() => openQuoteRequestDetails(quote)}>
                   <EyeIcon className="h-4 w-4 text-black" />

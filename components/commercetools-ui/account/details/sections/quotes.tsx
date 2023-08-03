@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { DeprecatedQuoteRequest } from '@Types/quote/DeprecatedQuoteRequest';
 import { Quote } from '@Types/quote/Quote';
-import { QuoteRequest } from '@Types/quote/QuoteRequest';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import QuoteList from 'components/commercetools-ui/quotes/quote-list';
 import useFilters from 'helpers/hooks/useFilters';
@@ -22,19 +22,19 @@ const QuotesHistory: FC = () => {
         label: formatAccountMessage({ id: 'submitted', defaultMessage: 'Submitted' }),
         key: 'submitted',
         value: false,
-        predicate: (quote: Quote) => quote.quoteDraftState === 'Submitted',
+        predicate: (quote: Quote) => quote.state === 'Submitted',
       },
       {
         label: formatAccountMessage({ id: 'in.progress', defaultMessage: 'In progress' }),
         key: 'in-progress',
         value: false,
-        predicate: (quote: Quote) => quote.quoteDraftState === 'InProgress',
+        predicate: (quote: Quote) => quote.state === 'InProgress',
       },
       {
         label: formatAccountMessage({ id: 'sent', defaultMessage: 'Sent' }),
         key: 'sent',
         value: false,
-        predicate: (quote: Quote) => quote.quoteDraftState === 'Sent',
+        predicate: (quote: Quote) => quote.state === 'Sent',
       },
       {
         label: formatAccountMessage({ id: 'accepted', defaultMessage: 'Accepted' }),
@@ -62,7 +62,7 @@ const QuotesHistory: FC = () => {
           setQuoteList(
             results.map((quote) => ({
               ...quote,
-              highlight: quote.quoteDraftId === highlightId,
+              highlight: quote.quoteRequestId === highlightId,
             })),
           );
         } else {

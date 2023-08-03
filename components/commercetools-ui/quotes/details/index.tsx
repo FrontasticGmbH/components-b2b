@@ -2,12 +2,12 @@ import React, { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Transition, Dialog } from '@headlessui/react';
 import { CheckIcon, XIcon } from '@heroicons/react/outline';
+import { Quote } from '@Types/quote/Quote';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
 import { useCart, useDarkMode, useQuotes } from 'frontastic';
 import { QuoteHistory } from '../history';
 import { QuoteItems } from '../quote-items';
-import { Quote } from '@Types/quote/Quote';
 
 interface Props {
   open: boolean;
@@ -42,9 +42,8 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
   const quoteHistoryData = {
     quoteRequest: {
       isAvailable: true,
-      createdAt:
-        new Date(quote?.quoteDraftLastModifiedAt).toDateString() || new Date(quote?.quoteDraftCreatedAt).toDateString(),
-      status: quote?.quoteDraftState,
+      createdAt: new Date(quote?.lastModifiedAt).toDateString() || new Date(quote?.createdAt).toDateString(),
+      status: quote?.state,
     },
     quote: {
       isAvailable: !!quote?.quoteId,
@@ -155,7 +154,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                           </div>
                         </div>
                       )}
-                      {quote?.quoteDraftState === 'Submitted' && (
+                      {quote?.state === 'Submitted' && (
                         <div>
                           <h3 className="mt-4 text-xl font-extrabold tracking-tight text-gray-900 dark:text-light-100">
                             Actions
@@ -163,7 +162,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                           <div className="flex flex-row justify-center">
                             <button
                               className="button button-secondary flex flex-row"
-                              onClick={() => handleUpdateQuoteRequest(quote?.quoteDraftId, 'Cancelled')}
+                              onClick={() => handleUpdateQuoteRequest(quote?.quoteRequestId, 'Cancelled')}
                             >
                               {!isLoading && <XIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
@@ -204,19 +203,16 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                           </div>
                           <div className="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
                             <dt>Requested total amount</dt>
-                            <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(quote?.quoteDraftSum)}</dd>
+                            <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(quote?.sum)}</dd>
                           </div>
                           {!!quote?.quoteId && (
                             <div className="flex justify-between pt-6 font-medium text-green-400 sm:block sm:pt-0">
                               <dt>Suggested total amount</dt>
-                              <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(quote?.quoteDraftSum)}</dd>
+                              <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(quote?.sum)}</dd>
                             </div>
                           )}
                         </dl>
-                        <QuoteItems
-                          quoteRequestLineItems={quote?.quoteDraftLineItems}
-                          quoteLineItems={quote?.quoteDraftLineItems}
-                        />
+                        <QuoteItems quoteRequestLineItems={quote?.lineItems} quoteLineItems={quote?.lineItems} />
                       </div>
                     </div>
                   )}
