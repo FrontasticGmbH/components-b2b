@@ -49,17 +49,15 @@ const QuoteList: React.FC<Props> = ({ quoteList }) => {
         </thead>
         <tbody>
           {quoteList.map((quote: Quote) => (
-            <tr className={`${styles.row}`} key={quote.quoteRequestId}>
-              <td>{new Date(quote.createdAt).toLocaleString()}</td>
-              {/* @ts-ignore */}
-              <td className={styles.trim}>{quote.account.email}</td>
-              {/* @ts-ignore */}
-              <td className={styles.trim}>{quote.businessUnit.key}</td>
-              <td className={styles.trim}>{quote.store.key}</td>
-              <td>{getTotalLineItems(quote.lineItems)}</td>
-              <td className={styles.trim}>{quote.buyerComment}</td>
-              <td>{CurrencyHelpers.formatForCurrency(quote.sum)}</td>
-              <td className="text-green-300">{quote.quoteState ?? quote.state}</td>
+            <tr className={`${styles.row}`} key={quote.quotedRequested.quoteRequestId}>
+              <td>{new Date(quote.quotedRequested.createdAt).toLocaleString()}</td>
+              <td className={styles.trim}>{quote.quotedRequested?.account?.email}</td>
+              <td className={styles.trim}>{quote.quotedRequested?.businessUnit?.key}</td>
+              <td className={styles.trim}>{quote.quotedRequested?.store?.key}</td>
+              <td>{getTotalLineItems(quote.quotedRequested.lineItems)}</td>
+              <td className={styles.trim}>{quote.quotedRequested.buyerComment}</td>
+              <td>{CurrencyHelpers.formatForCurrency(quote.quotedRequested.sum)}</td>
+              <td className="text-green-300">{quote.quoteState ?? quote.quotedRequested.quoteRequestState}</td>
               <td>
                 <button type="button" onClick={() => openQuoteRequestDetails(quote)}>
                   <EyeIcon className="h-4 w-4 text-black" />

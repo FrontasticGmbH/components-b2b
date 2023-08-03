@@ -22,19 +22,19 @@ const QuotesHistory: FC = () => {
         label: formatAccountMessage({ id: 'submitted', defaultMessage: 'Submitted' }),
         key: 'submitted',
         value: false,
-        predicate: (quote: Quote) => quote.state === 'Submitted',
+        predicate: (quote: Quote) => quote.quotedRequested.quoteRequestState === 'Submitted',
       },
       {
         label: formatAccountMessage({ id: 'in.progress', defaultMessage: 'In progress' }),
         key: 'in-progress',
         value: false,
-        predicate: (quote: Quote) => quote.state === 'InProgress',
+        predicate: (quote: Quote) => quote.quotedRequested.quoteRequestState === 'InProgress',
       },
       {
         label: formatAccountMessage({ id: 'sent', defaultMessage: 'Sent' }),
         key: 'sent',
         value: false,
-        predicate: (quote: Quote) => quote.state === 'Sent',
+        predicate: (quote: Quote) => quote.quotedRequested.quoteRequestState === 'Sent',
       },
       {
         label: formatAccountMessage({ id: 'accepted', defaultMessage: 'Accepted' }),
@@ -62,7 +62,7 @@ const QuotesHistory: FC = () => {
           setQuoteList(
             results.map((quote) => ({
               ...quote,
-              highlight: quote.quoteRequestId === highlightId,
+              highlight: quote.quotedRequested.quoteRequestId === highlightId,
             })),
           );
         } else {
