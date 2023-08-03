@@ -2,7 +2,6 @@ import { Address } from '@Types/account/Address';
 import { Cart } from '@Types/cart/Cart';
 import { Discount } from '@Types/cart/Discount';
 import { Order, ReturnLineItem } from '@Types/cart/Order';
-import { DeprecatedQuoteRequest } from '@Types/quote/DeprecatedQuoteRequest';
 import useSWR, { mutate } from 'swr';
 import { bundleItems } from 'helpers/utils/bundleItemsHelpers';
 import { fetchApiHub, revalidateOptions } from 'frontastic';

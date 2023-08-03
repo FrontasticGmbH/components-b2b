@@ -6,7 +6,6 @@ import { Order } from '@Types/cart/Order';
 import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { Variant } from '@Types/product/Variant';
 import { ProjectSettings } from '@Types/ProjectSettings';
-import { DeprecatedQuoteRequest } from '@Types/quote/DeprecatedQuoteRequest';
 import { CartDetails } from 'frontastic/actions/cart';
 import { QuoteRequest } from '@Types/quote/QuoteRequest';
 

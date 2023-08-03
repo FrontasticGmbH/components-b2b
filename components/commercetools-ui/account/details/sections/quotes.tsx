@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { DeprecatedQuoteRequest } from '@Types/quote/DeprecatedQuoteRequest';
 import { Quote } from '@Types/quote/Quote';
 import { LoadingIcon } from 'components/commercetools-ui/icons/loading';
 import QuoteList from 'components/commercetools-ui/quotes/quote-list';

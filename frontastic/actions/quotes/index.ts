@@ -1,4 +1,3 @@
-import { DeprecatedQuote } from '@Types/quote/DeprecatedQuote';
 import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 import { Quote } from '@Types/quote/Quote';
 import { QuoteRequest } from '@Types/quote/QuoteRequest';
