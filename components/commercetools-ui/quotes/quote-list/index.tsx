@@ -64,7 +64,7 @@ const QuoteList: React.FC<Props> = ({ quoteList }) => {
               <td>{getTotalLineItems(quote.lineItems)}</td>
               <td className={styles.trim}>{quote.buyerComment}</td>
               <td>{CurrencyHelpers.formatForCurrency(quote.sum)}</td>
-              <td className="text-green-300">{quote.quoteDraftState}</td>
+              <td className="text-green-300">{quote.quoteState ?? quote.quoteDraftState}</td>
               <td>
                 <button type="button" onClick={() => openQuoteRequestDetails(quote)}>
                   <EyeIcon className="h-4 w-4 text-black" />
