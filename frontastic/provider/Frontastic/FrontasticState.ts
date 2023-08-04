@@ -24,7 +24,7 @@ import {
   getAllSuperUserCarts,
 } from '../../actions/cart';
 import { query, getAttributeGroup, getCategories } from '../../actions/product';
-import { getMyQuoteRequests, acceptQuote, declineQuote, cancelQuoteRequest } from '../../actions/quotes';
+import { getQuotes, acceptQuote, declineQuote, cancelQuoteRequest } from '../../actions/quotes';
 import { getStoresByKey } from '../../actions/stores';
 import {
   addToWishlist,
@@ -106,7 +106,7 @@ export const getFrontasticState = (): FrontasticState => {
       adyenCheckout,
     },
     useQuotes: {
-      getMyQuoteRequests,
+      getQuotes: getQuotes,
       acceptQuote,
       declineQuote,
       cancelQuoteRequest,

@@ -2,7 +2,7 @@ import { fetchApiHub } from 'frontastic/lib/fetch-api-hub';
 import { Quote } from '@Types/quote/Quote';
 import { QuoteRequest } from '@Types/quote/QuoteRequest';
 
-export const getMyQuoteRequests = async (): Promise<Quote[]> => {
+export const getQuotes = async (): Promise<Quote[]> => {
   return await fetchApiHub('/action/quote/getQuotes', { method: 'GET' });
 };
 

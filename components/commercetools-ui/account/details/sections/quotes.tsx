@@ -10,7 +10,7 @@ import { useQuotes, useAccount } from 'frontastic';
 const QuotesHistory: FC = () => {
   const { account } = useAccount();
   const router = useRouter();
-  const { getMyQuoteRequests } = useQuotes();
+  const { getQuotes } = useQuotes();
   const { formatMessage: formatAccountMessage } = useFormat({ name: 'account' });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +56,7 @@ const QuotesHistory: FC = () => {
     if (account?.accountId) {
       (async () => {
         setIsLoading(true);
-        const results = await getMyQuoteRequests();
+        const results = await getQuotes();
         if (highlightId) {
           setQuoteList(
             results.map((quote) => ({
