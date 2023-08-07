@@ -3,7 +3,7 @@ import { Wishlist, WishlistDraft } from '@Types/wishlist/Wishlist';
 export interface UseWishlist {
   storeWishlists: Wishlist[];
   fetchStoreWishlists: () => Promise<void>;
-  getAllWishlists: () => Promise<Wishlist[]>;
+  getWishlists: () => Promise<Wishlist[]>;
   getSharedWishlists: () => Promise<Wishlist[]>;
   getWishlist: (wishlistId: string) => Promise<Wishlist>;
   addToNewWishlist: (wishlist: WishlistDraft, sku: string, count?: number) => Promise<void>;

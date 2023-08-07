@@ -1,44 +1,44 @@
-import { createSession, adyenCheckout } from '../../actions/adyen';
+import { adyenCheckout, createSession } from '../../actions/adyen';
 import {
-  cartItems,
-  getCart,
   addItems,
+  allSuperUserCarts,
+  cancelOrder,
+  cartItems,
+  createQuoteRequestFromCurrentCart,
+  getAllSuperUserCarts,
+  getCart,
+  getProjectSettings,
+  getShippingMethods,
   orderCart,
   orderHistory,
-  removeItem,
-  shippingMethods,
-  setShippingMethod,
-  getShippingMethods,
-  updateCart,
-  updateItem,
+  reassignCart,
   redeemDiscountCode,
   removeDiscountCode,
-  getProjectSettings,
-  createQuoteRequestFromCurrentCart,
-  splitLineItem,
+  removeItem,
   replicateCart,
   returnItems,
-  cancelOrder,
-  reassignCart,
-  allSuperUserCarts,
-  getAllSuperUserCarts,
+  setShippingMethod,
+  shippingMethods,
+  splitLineItem,
+  updateCart,
+  updateItem,
 } from '../../actions/cart';
-import { query, getAttributeGroup, getCategories } from '../../actions/product';
-import { getQuotes, acceptQuote, declineQuote, cancelQuoteRequest } from '../../actions/quotes';
+import { getAttributeGroup, getCategories, query } from '../../actions/product';
+import { acceptQuote, cancelQuoteRequest, declineQuote, getQuotes } from '../../actions/quotes';
 import { getStoresByKey } from '../../actions/stores';
 import {
-  addToWishlist,
-  removeLineItem,
-  updateLineItem,
-  getWishlist,
-  getAllWishlists,
-  getSharedWishlists,
-  fetchStoreWishlists,
-  storeWishlists,
-  share,
   addToNewWishlist,
+  addToWishlist,
   deleteWishlist,
+  fetchStoreWishlists,
+  getSharedWishlists,
+  getWishlist,
+  getWishlists,
+  removeLineItem,
   renameWishlist,
+  share,
+  storeWishlists,
+  updateLineItem,
 } from '../../actions/wishlist';
 import { UseAdyen } from './UseAdyen';
 import { UseCart } from './UseCart';
@@ -89,7 +89,7 @@ export const getFrontasticState = (): FrontasticState => {
     },
     useWishlist: {
       getWishlist,
-      getAllWishlists,
+      getWishlists,
       getSharedWishlists,
       storeWishlists: storeWishlists(),
       fetchStoreWishlists,

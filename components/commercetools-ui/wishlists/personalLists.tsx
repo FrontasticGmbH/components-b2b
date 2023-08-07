@@ -29,8 +29,8 @@ const PersonalLists: React.FC<Props> = ({
   emptyStateCTALink,
   associations,
 }) => {
-  const { getAllWishlists } = useWishlist();
-  const { isLoading, isAdding, isDisabled, addItemsToCart, wishlists, reload } = useLists(getAllWishlists);
+  const { getWishlists } = useWishlist();
+  const { isLoading, isAdding, isDisabled, addItemsToCart, wishlists, reload } = useLists(getWishlists);
 
   if (isLoading) {
     return (

@@ -2,8 +2,8 @@ import { Wishlist, WishlistDraft } from '@Types/wishlist/Wishlist';
 import { fetchApiHub, revalidateOptions } from 'frontastic';
 import useSWR, { mutate } from 'swr';
 
-export const getAllWishlists = async () => {
-  return fetchApiHub(`/action/wishlist/getAllWishlists`, { method: 'GET' });
+export const getWishlists = async () => {
+  return fetchApiHub(`/action/wishlist/getWishlists`, { method: 'GET' });
 };
 
 export const getSharedWishlists = async () => {
