@@ -60,9 +60,7 @@ const Cart = ({
       setLoading(false);
     }
     setIsQuoteRequestDisabled(cart?.origin === 'Quote');
-    setIsOverStock(
-      cart?.lineItems?.some((lineItem) => lineItem.count > lineItem.variant?.availability?.availableQuantity),
-    );
+    setIsOverStock(false);
   }, [cart]);
 
   if (loading) {

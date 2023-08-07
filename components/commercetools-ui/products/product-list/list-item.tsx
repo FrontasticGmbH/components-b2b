@@ -4,7 +4,6 @@ import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/react/solid';
 import { Product } from '@Types/product/Product';
 import WishlistButton from 'components/commercetools-ui/wishlist-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
-import { useAvailability } from 'helpers/hooks/useAvailability';
 import { useFormat } from 'helpers/hooks/useFormat';
 import { useCart } from 'frontastic';
 import Image from 'frontastic/lib/image';
@@ -19,7 +18,6 @@ interface Props {
 const ListItem: React.FC<Props> = ({ product, isPreview, previewURL }) => {
   const { formatMessage: formatProductMessage } = useFormat({ name: 'product' });
   const { data: cart } = useCart();
-  const { availableQuantity } = useAvailability(product?.variants?.[0]);
 
   const [count, setCount] = useState(1);
 
@@ -43,13 +41,7 @@ const ListItem: React.FC<Props> = ({ product, isPreview, previewURL }) => {
         </a>
       </NextLink>
       <div className="flex flex-row justify-between">
-        {availableQuantity > 0 && (
-          <div className="text-sm text-gray-400">
-            {formatProductMessage({ id: 'available-quantity', defaultMessage: 'Available qty: ' })}
-            <span>{availableQuantity}</span>
-          </div>
-        )}
-        {(!availableQuantity || availableQuantity <= 0) && (
+        {!product.variants?.[0]?.isOnStock && (
           <div className="text-sm text-gray-400">
             {formatProductMessage({ id: 'outOfStock', defaultMessage: 'Out of stock' })}
           </div>
@@ -77,18 +69,16 @@ const ListItem: React.FC<Props> = ({ product, isPreview, previewURL }) => {
             type="button"
             className="ml-2 items-center rounded-md border border-transparent bg-transparent text-center text-sm font-medium text-white transition-colors duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2"
             onClick={() => setCount(count + 1)}
-            disabled={count >= availableQuantity || !product.variants?.[0].isOnStock}
+            disabled={!product.variants?.[0].isOnStock}
           >
             <PlusCircleIcon
-              className={`h-4 w-4 ${
-                count >= availableQuantity || !product.variants?.[0].isOnStock ? 'text-gray-300' : 'text-accent-400'
-              }`}
+              className={`h-4 w-4 ${!product.variants?.[0].isOnStock ? 'text-gray-300' : 'text-accent-400'}`}
             />
           </button>
         </div>
       </div>
       <AddToCartButton
-        disabled={count > availableQuantity || availableQuantity <= 0 || !product.variants?.[0].isOnStock}
+        disabled={!product.variants?.[0].isOnStock}
         quantity={count}
         variant={product.variants[0]}
         onAddedToCart={addedToCart}
