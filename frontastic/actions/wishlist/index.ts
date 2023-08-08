@@ -7,14 +7,14 @@ export const getWishlists = async () => {
 };
 
 export const storeWishlists = (): Wishlist[] => {
-  const result = useSWR('/action/wishlist/getStoreWishlists', fetchApiHub, revalidateOptions);
+  const result = useSWR('/action/wishlist/getWishlists', fetchApiHub, revalidateOptions);
 
   return result.data;
 };
 
 export const fetchStoreWishlists = async () => {
-  const lists = await fetchApiHub(`/action/wishlist/getStoreWishlists`);
-  mutate('/action/wishlist/getStoreWishlists', lists);
+  const lists = await fetchApiHub(`/action/wishlist/getWishlists`);
+  mutate('/action/wishlist/getWishlists', lists);
 };
 
 export const addToNewWishlist = async (wishlist: WishlistDraft, sku: string, count = 1) => {
