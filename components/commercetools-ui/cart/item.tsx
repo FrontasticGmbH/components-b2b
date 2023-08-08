@@ -34,7 +34,7 @@ const Item = ({ lineItem, goToProductPage, editItemQuantity, removeItem, isModif
   };
   const handleChange = (value) => {
     const newCount = parseInt(value, 10);
-    if (lineItem.variant?.availability?.availableQuantity - newCount >= 0) {
+    if (!lineItem.variant?.isOnStock) {
       setCount(newCount || 0);
     }
   };
@@ -129,17 +129,9 @@ const Item = ({ lineItem, goToProductPage, editItemQuantity, removeItem, isModif
             className="input input-primary"
           />
 
-          <p
-            className={`td-other-details td-details__availability ${
-              count > lineItem.variant.availability?.availableQuantity && 'text-red-500'
-            }`}
-          >
-            {lineItem.variant.availability?.availableQuantity > 0 && (
-              <>
-                <label>In Stock:</label> {lineItem.variant.availability?.availableQuantity}
-              </>
-            )}
-            {lineItem.variant.availability?.availableQuantity <= 0 && <label>Out of stock</label>}
+          <p className="td-other-details td-details__availability">
+            {lineItem.variant?.isOnStock && <label>In Stock</label>}
+            {!lineItem.variant?.isOnStock && <label>Out of stock</label>}
           </p>
         </td>
 

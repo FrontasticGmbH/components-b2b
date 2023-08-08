@@ -180,9 +180,6 @@ const GridVariantSelector: React.FC<Props & React.HTMLAttributes<HTMLDivElement>
                     {CurrencyHelpers.formatForCurrency(item.variant.price)}
                     <span className="ml-2 text-xs font-light">Each</span>
                   </div>
-                  <p className="text-sm text-gray-400">{`Available Qty: ${
-                    item.variant.availability?.availableQuantity || 0
-                  }`}</p>
                 </div>
 
                 <div className="basis-1/2">

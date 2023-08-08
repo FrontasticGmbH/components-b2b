@@ -99,7 +99,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ open, setOpen, navigation, link
                             {!!category.children?.length &&
                               category.children.map((item) => (
                                 <li key={item.name} className="flex">
-                                  <NextLink href={item.path}>
+                                  <NextLink href={item._url}>
                                     <a className="text-gray-500 dark:text-light-100" onClick={closeMenu}>
                                       <Typography>{item.name}</Typography>
                                     </a>
