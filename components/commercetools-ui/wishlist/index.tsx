@@ -7,7 +7,6 @@ import { useFormat } from 'helpers/hooks/useFormat';
 import { Reference } from 'helpers/reference';
 import { useCart, useWishlist } from 'frontastic';
 import { LoadingIcon } from '../icons/loading';
-import ShareButton from '../wishlists/shareButton';
 import EmptyWishlist from './empty_wishlist';
 import List from './list';
 
@@ -187,7 +186,6 @@ const WishList: React.FC<Props> = ({
             Delete purchase list
             {isRemoving && <LoadingIcon className="ml-4 h-4 w-4 animate-spin" />}
           </button>
-          <ShareButton associations={associations} wishlist={wishlist} reload={fecthWishlist} />
         </div>
       </div>
 

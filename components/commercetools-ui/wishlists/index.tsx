@@ -3,7 +3,6 @@ import { BusinessUnit } from '@Types/business-unit/BusinessUnit';
 import useHash from 'helpers/hooks/useHash';
 import { Reference } from 'helpers/reference';
 import PersonalLists from './personalLists';
-import SharedLists from './sharedLists';
 export interface Props {
   pageTitle?: string;
   emptyStateImage?: { media: any } | any;
@@ -29,14 +28,10 @@ const Wishlists: React.FC<Props> = ({
 }) => {
   const hash = useHash();
 
-  const tabs = [
-    { name: 'Personal purchase lists', href: '#' },
-    { name: 'Shared purchase lists with me', href: '#shared' },
-  ];
+  const tabs = [{ name: 'Personal purchase lists', href: '#' }];
 
   const mapping = {
     '#': PersonalLists,
-    '#shared': SharedLists,
   };
 
   //tabs change (mobile only)

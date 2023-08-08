@@ -7,7 +7,6 @@ import { Reference } from 'helpers/reference';
 import { useWishlist } from 'frontastic';
 import { LoadingIcon } from '../icons/loading';
 import EmptyWishlist from '../wishlist/empty_wishlist';
-import ShareButton from './shareButton';
 import { useLists } from './useLists';
 
 interface Props {
@@ -102,7 +101,6 @@ const PersonalLists: React.FC<Props> = ({
                       Order
                       {isAdding[i] && <LoadingIcon className="ml-4 h-4 w-4 animate-spin" />}
                     </button>
-                    <ShareButton wishlist={wishlist} associations={associations} reload={reload}></ShareButton>
                   </div>
                 </Disclosure.Panel>
               </>
