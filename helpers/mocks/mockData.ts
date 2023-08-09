@@ -3,7 +3,7 @@ import { Address } from '@Types/account/Address';
 import { Group } from '@Types/account/Group';
 import { Cart } from '@Types/cart/Cart';
 import { LineItem as CartLineItem } from '@Types/cart/LineItem';
-import { Order } from '@Types/cart/Order';
+import { Order, OrderState } from '@Types/cart/Order';
 import { ShippingMethod } from '@Types/cart/ShippingMethod';
 import { Product } from '@Types/product/Product';
 import { Variant } from '@Types/product/Variant';
@@ -93,7 +93,7 @@ export const orderHistoryMock: Order[] = [
     cartId: '4981a058-d32d-4120-bac9-c7b2ff862e36',
     orderId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
     accountId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
-    orderState: 'Open',
+    orderState: OrderState.Open,
     orderVersion: '1',
     billingAddress: billingAddress,
     shippingAddress: shippingAddress,
@@ -104,7 +104,7 @@ export const orderHistoryMock: Order[] = [
     cartId: '4981a058-d32d-4120-bac9-c7b2ff862e36',
     accountId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
     orderId: 'a480b136-db0c-40d7-111d-d4a1f98fcfba',
-    orderState: 'Open',
+    orderState: OrderState.Open,
     orderVersion: '1',
     billingAddress: billingAddress,
     shippingAddress: shippingAddress,
@@ -314,14 +314,14 @@ export const orders: Order[] = [
   {
     orderId: 'ord-101',
     orderVersion: '25',
-    orderState: 'ORDER STATE',
+    orderState: OrderState.Open,
     createdAt: new Date(),
     ...cart,
   },
   {
     orderId: 'ord-102',
     orderVersion: '26',
-    orderState: 'ORDER STATE',
+    orderState: OrderState.Open,
     createdAt: new Date(),
     ...cart,
   },

@@ -5,7 +5,6 @@ import { OrderItems } from 'components/commercetools-ui/account/details/sections
 import OrderReturns from 'components/commercetools-ui/account/details/sections/order-returns';
 import InvoiceButton from 'components/commercetools-ui/invoice-button';
 import { CurrencyHelpers } from 'helpers/currencyHelpers';
-import { useCart } from 'frontastic';
 import { useBusinessUnitDetailsStateContext } from '../../provider';
 import CancelModal from './modals/cancel-modal';
 import ReorderModal from './modals/reorder-modal';
@@ -37,7 +36,7 @@ const OrderDetails: React.FC<Props> = ({ order, onClose }) => {
             <dt className="font-medium text-gray-900">Total amount</dt>
             <dd className="mb-4 sm:mt-1">{CurrencyHelpers.formatForCurrency(order.sum.centAmount)}</dd>
             <dt className="font-medium text-gray-900">Order status</dt>
-            <dd className="mb-4 sm:mt-1">{order.state?.name || order.orderState}</dd>
+            <dd className="mb-4 sm:mt-1">{order.orderState}</dd>
           </div>
           <div className="flex pt-6 sm:block sm:pt-0">
             <dt className="font-medium text-gray-900">Order date</dt>

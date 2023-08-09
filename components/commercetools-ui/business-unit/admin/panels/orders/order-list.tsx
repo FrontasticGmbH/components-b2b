@@ -65,7 +65,7 @@ const OrderList: React.FC<Props> = ({ orders }) => {
                   {order.businessUnitKey}
                 </td>
                 <td className="text-ellipsis-150">{mapAddressToString(order.shippingAddress)}</td>
-                <td className="text-ellipsis-150">{order.state?.name || order.orderState}</td>
+                <td className="text-ellipsis-150">{order.orderState}</td>
                 <td>{order.lineItems?.reduce((prev, curr) => prev + curr.count, 0)}</td>
                 <td>{CurrencyHelpers.formatForCurrency(order.sum)}</td>
                 <td className="mt-1 flex flex-row">

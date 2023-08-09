@@ -66,7 +66,7 @@ const AdyenOneStepCheckout = ({ termsLink, cancellationLink, privacyLink }) => {
       router.replace(
         {
           pathname: '/thank-you',
-          query: !!order.state ? { requireApproval: true } : {},
+          query: {},
         },
         undefined,
         {

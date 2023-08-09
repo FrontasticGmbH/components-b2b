@@ -36,18 +36,6 @@ const OrdersPanel = () => {
         predicate: (order: Order) => order.origin === 'Merchant',
       },
       {
-        label: 'Under Review',
-        key: 'review-orders',
-        value: false,
-        predicate: (order: Order) => order.state?.key === 'review',
-      },
-      {
-        label: 'Rejected',
-        key: 'rejected-orders',
-        value: false,
-        predicate: (order: Order) => order.state?.key === 'rejected',
-      },
-      {
         label: 'Created before',
         key: 'order-date-before',
         extraType: 'date',
