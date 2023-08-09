@@ -1,4 +1,4 @@
-import { Wishlist, WishlistDraft } from '@Types/wishlist/Wishlist';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { fetchApiHub, revalidateOptions } from 'frontastic';
 import useSWR, { mutate } from 'swr';
 
@@ -17,7 +17,7 @@ export const fetchStoreWishlists = async () => {
   mutate('/action/wishlist/getWishlists', lists);
 };
 
-export const addToNewWishlist = async (wishlist: WishlistDraft, sku: string, count = 1) => {
+export const addToNewWishlist = async (wishlist: Wishlist, sku: string, count = 1) => {
   const res: Wishlist = await fetchApiHub(`/action/wishlist/createWishlist`, { method: 'POST' }, { wishlist });
   return addToWishlist(res.wishlistId, sku, count);
 };

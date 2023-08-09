@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PlusIcon } from '@heroicons/react/outline';
 import { CheckIcon } from '@heroicons/react/solid';
-import { WishlistDraft } from '@Types/wishlist/Wishlist';
+import { Wishlist } from '@Types/wishlist/Wishlist';
 import { useWishlist } from 'frontastic';
 import { LoadingIcon } from '../icons/loading';
 
@@ -14,7 +14,7 @@ const WishlistNewButton: React.FC<Props> = ({ sku, onCreatedNewList }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [data, setData] = useState<WishlistDraft>({
+  const [data, setData] = useState<Wishlist>({
     name: '',
     description: '',
   });
