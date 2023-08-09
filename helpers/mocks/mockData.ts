@@ -153,7 +153,6 @@ const lineItems: LineItem[] = [
 ];
 export const wishlist: Wishlist = {
   wishlistId: '0',
-  anonymousId: 'an',
   name: 'Wishlist Items',
   accountId: 'Acc-12-43',
   wishlistVersion: 'v 1.0',
