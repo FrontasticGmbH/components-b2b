@@ -60,5 +60,5 @@ export const deleteWishlist = async (wishlistId: string) => {
 };
 
 export const renameWishlist = async (wishlistId: string, name: string) => {
-  return fetchApiHub(`/action/wishlist/renameWishlist?id=${wishlistId}`, { method: 'POST' }, { name });
+  return fetchApiHub(`/action/wishlist/updateWishlist?id=${wishlistId}`, { method: 'POST' }, { name });
 };
