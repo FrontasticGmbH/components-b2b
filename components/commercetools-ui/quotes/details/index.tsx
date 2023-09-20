@@ -50,9 +50,9 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
     quoteRequest: {
       isAvailable: true,
       createdAt:
-        new Date(quote?.quotedRequested.lastModifiedAt).toDateString() ||
-        new Date(quote?.quotedRequested.createdAt).toDateString(),
-      status: quote?.quotedRequested.quoteRequestState,
+        new Date(quote?.quoteRequest.lastModifiedAt).toDateString() ||
+        new Date(quote?.quoteRequest.createdAt).toDateString(),
+      status: quote?.quoteRequest.quoteRequestState,
     },
     quote: {
       isAvailable: !!quote?.quoteId,
@@ -62,7 +62,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
   };
 
   const hasAnyComments = () => {
-    return !!quote?.quotedRequested.buyerComment || !!quote?.quotedRequested.sellerComment;
+    return !!quote?.quoteRequest.buyerComment || !!quote?.quoteRequest.sellerComment;
   };
 
   const handleClose = async () => {
@@ -163,7 +163,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                           </div>
                         </div>
                       )}
-                      {quote?.quotedRequested.quoteRequestState === 'Submitted' && (
+                      {quote?.quoteRequest.quoteRequestState === 'Submitted' && (
                         <div>
                           <h3 className="mt-4 text-xl font-extrabold tracking-tight text-gray-900 dark:text-light-100">
                             Actions
@@ -171,7 +171,7 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                           <div className="flex flex-row justify-center">
                             <button
                               className="button button-secondary flex flex-row"
-                              onClick={() => handleCancelQuoteRequest(quote?.quotedRequested.quoteRequestId)}
+                              onClick={() => handleCancelQuoteRequest(quote?.quoteRequest.quoteRequestId)}
                             >
                               {!isLoading && <XIcon className="h-4 w-4 text-white" />}
                               {isLoading && <LoadingIcon className="h-4 w-4 animate-spin text-white" />}
@@ -208,11 +208,11 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                         <dl className="flex-auto space-y-6 divide-y divide-gray-200 text-sm text-gray-600 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:space-y-0 sm:divide-y-0 lg:flex-none lg:gap-x-8">
                           <div className="flex justify-between pt-6 sm:block sm:pt-0">
                             <dt className="font-medium text-gray-900">Quote request ID</dt>
-                            <dd className="sm:mt-1">{quote?.quotedRequested.quoteRequestId}</dd>
+                            <dd className="sm:mt-1">{quote?.quoteRequest.quoteRequestId}</dd>
                           </div>
                           <div className="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
                             <dt>Requested total amount</dt>
-                            <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(quote?.quotedRequested.sum)}</dd>
+                            <dd className="sm:mt-1">{CurrencyHelpers.formatForCurrency(quote?.quoteRequest.sum)}</dd>
                           </div>
                           {!!quote?.quoteId && (
                             <div className="flex justify-between pt-6 font-medium text-green-400 sm:block sm:pt-0">
@@ -222,8 +222,8 @@ const QuoteDetails: React.FC<Props> = ({ open, onClose, quote }) => {
                           )}
                         </dl>
                         <QuoteItems
-                          quoteRequestLineItems={quote?.quotedRequested?.lineItems}
-                          quoteLineItems={quote?.quotedRequested?.lineItems}
+                          quoteRequestLineItems={quote?.quoteRequest?.lineItems}
+                          quoteLineItems={quote?.quoteRequest?.lineItems}
                         />
                       </div>
                     </div>
