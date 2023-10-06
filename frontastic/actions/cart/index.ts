@@ -68,8 +68,10 @@ export const reassignCart = async (accountId: string, email: string) => {
 
 export const addItems = async (lineItems: any[]) => {
   const payload = {
-    variants: lineItems.map((lineItem) => ({
-      sku: lineItem.variant.sku,
+    lineItems: lineItems.map((lineItem) => ({
+      variant: {
+        sku: lineItem.variant.sku,
+      },
       count: lineItem.quantity,
     })),
   };
