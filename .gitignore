@@ -1,19 +1,47 @@
-.next
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-.env
-.env.build
-.env.local
-.env.production
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-node_modules/
+# testing
+/coverage
 
+# storybook
+/public/storybook
+
+# next.js
+/.next
+/out
+
+# next-sitemap
+public/robots.txt
+public/sitemap.xml
+public/sitemap-*.xml
+
+# cache
+.swc/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+Thumbs.db
+
+# debug
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-tsconfig.tsbuildinfo
+# local env files
+.env*.local
 
-/public/sw.js
-/public/sw.js.map
-/public/workbox-*.js
-/public/workbox-*.js.map
+# local folder
+local
+
+# vercel
+.vercel
