@@ -93,17 +93,10 @@ export const tastics = {
 
 ## Linting
 
-This project uses linting rules that improve the Core Web Vitals of frontastic storefront which are also the recommended rules by Next.js.
-
-In addition, the following
-rules are included as well to get reasonable defaults:
-
-`eslint:recommended`
-`plugin:react/recommended` see [eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
-`plugin:react-hooks/recommended` see [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
+This project uses linting rules that improve the Core Web Vitals of frontastic storefront which are also the recommended rules by Next.js in addition to some other rules for react hooks, typescript, jest, etc...
 
 If you want more fine-grained configuration, all of the above can be configured,
-deactivated and/or extended in the `.eslintrc.json` in the project root folder.
+deactivated and/or extended in the `.eslintrc` in the project root folder.
 
 To run the linter, just run
 
@@ -114,7 +107,7 @@ yarn lint
 To fix erros that can be automatically fixed, run
 
 ```
-yarn lint --fix
+yarn lint:fix
 ```
 
 We recommend to add linting directly to your code editor or development environment,
@@ -152,7 +145,5 @@ yarn prettify
 To run linter with `--fix` flag and also prettify your code, you can run
 
 ```
-yarn fix
+yarn lint:fix
 ```
-
-This is typically equivalent to running `yarn lint --fix` and `yarn prettify`

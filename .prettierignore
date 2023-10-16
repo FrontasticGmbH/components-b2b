@@ -1,5 +1,3 @@
-node_modules
-**/.next/**
-**/_next/**
-**/dist/**
-**/__tmp__/**
+node_modules/
+.next/
+
