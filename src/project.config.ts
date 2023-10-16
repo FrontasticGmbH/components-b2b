@@ -10,10 +10,10 @@ interface LocalizationMapping {
 
 const localizationMapper = {
   en: {
-    locale: 'en_US',
-    currency: 'USD',
-    currencyCode: '$',
-    countryCode: 'US',
+    locale: 'en_GB',
+    currency: 'GBP',
+    currencyCode: '£',
+    countryCode: 'UK',
     countryKey: 'us',
   },
   sv: {
