@@ -1,30 +1,37 @@
-const withPlugins = require('next-compose-plugins');
+const withPWA = require('next-pwa');
+const { i18n, localePath } = require('./next-i18next.config');
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
-/**@type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
+module.exports = withPWA({
   productionBrowserSourceMaps: true,
-  trailingSlash: true,
-
+  pwa: {
+    dest: 'public',
+    disable: process.env.NODE_ENV === 'development',
+  },
+  i18n,
+  localePath,
   images: {
+    // loader: 'cloudinary',
     loader: 'custom',
     domains: ['res.cloudinary.com', 's3-eu-west-1.amazonaws.com'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 2280, 2460, 2640, 2820, 3000],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    // path: `https://res.cloudinary.com/dlwdq84ig/image/upload/`,
   },
+  webpack(config, { webpack, buildId }) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
 
-  async redirects() {
-    return [
-      {
-        source: '/storybook',
-        destination: '/storybook/index.html',
-        permanent: true,
-      },
-    ];
+    if (buildId !== 'development') {
+      config.plugins.push(
+        new webpack.DefinePlugin({
+          'process.env': {
+            NEXT_PUBLIC_EXT_BUILD_ID: JSON.stringify(process.env.NEXT_PUBLIC_EXT_BUILD_ID),
+          },
+        }),
+      );
+    }
+
+    return config;
   },
-};
-
-module.exports = withPlugins([withBundleAnalyzer], nextConfig);
+});

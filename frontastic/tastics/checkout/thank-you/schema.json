@@ -1,0 +1,31 @@
+{
+  "tasticType": "commercetools/ui/thank-you",
+  "name": "commercetools UI thank you",
+  "icon": "done",
+  "category": "Checkout",
+  "schema": [
+    {
+      "name": "Content",
+      "fields": [
+        {
+          "label": "Image",
+          "field": "image",
+          "type": "media",
+          "required": true
+        },
+        {
+          "label": "Title",
+          "field": "title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "label": "Text",
+          "field": "text",
+          "type": "text",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

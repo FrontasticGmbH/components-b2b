@@ -1,9 +1,0 @@
-{
-    "name": "Verify",
-    "category": "Account",
-    "icon": "group",
-    "isMultiple": true,
-    "dynamicPageType": "frontastic/verify",
-    "dataSourceType": "frontastic/empty"
-  }
-  

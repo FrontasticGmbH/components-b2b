@@ -1,8 +1,0 @@
-{
-  "name": "Register",
-  "category": "Account",
-  "icon": "group",
-  "isMultiple": true,
-  "dynamicPageType": "frontastic/register",
-  "dataSourceType": "frontastic/empty"
-}

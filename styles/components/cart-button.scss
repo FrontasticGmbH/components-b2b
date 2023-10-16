@@ -1,0 +1,8 @@
+.cart-button {
+    &--disabled::after {
+        content: "";
+        height: 2px;
+        transform: translateX(-4px) rotate(45deg);
+        @apply absolute w-10 bg-red-400;
+    }
+}

@@ -1,7 +1,0 @@
-thead td {
-  @apply font-semibold text-gray-500;
-}
-
-table tbody td {
-  @apply text-gray-600;
-}

@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: #2d3748;
+}
+
+@layer utilities {
+  .relative-width {
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .fixed-screen-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .markdown {
+    @apply max-w-none overflow-x-hidden;
+    @apply mx-auto pb-10 text-neutral-800 prose-h1:text-neutral-800 prose-h2:text-neutral-800 prose-h3:text-neutral-800 prose-h4:text-neutral-800 lg:prose-lg;
+    @apply prose-a:text-accent-600 prose-blockquote:text-neutral-700;
+    @apply prose-code:rounded prose-code:bg-neutral-200 prose-code:p-1 prose-code:text-accent-600 prose-pre:bg-neutral-200;
+    @apply prose-img:rounded-sm;
+    @apply prose-strong:font-bold prose-strong:text-neutral-800;
+    @apply prose-ol:list-decimal;
+    @apply prose-ul:list-disc;
+    @apply prose-li:text-neutral-800;
+  }
+}

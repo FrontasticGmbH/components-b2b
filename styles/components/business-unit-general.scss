@@ -1,0 +1,5 @@
+.business-unit-general {
+    & > div:nth-child(n + 3) {
+        @apply mt-4;
+    }
+}

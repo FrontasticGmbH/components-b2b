@@ -1,0 +1,11 @@
+.button {
+  &.button-primary {
+    @apply mt-4 w-full items-center rounded-md border border-transparent bg-accent-400 px-0 py-2 text-center text-sm font-medium text-white shadow-sm transition-colors duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 disabled:bg-gray-300 sm:w-fit sm:px-24;
+  }
+  &.button-primary--small {
+    @apply w-full items-center rounded-md border border-transparent bg-accent-400 px-0 py-2 text-center text-sm font-medium text-white shadow-sm transition-colors duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2 disabled:bg-gray-300 sm:w-fit sm:px-4;
+  }
+  &.button-secondary {
+    @apply mt-4 w-full items-center rounded-md border border-transparent bg-gray-400 px-0 py-2 text-center text-sm font-medium text-white shadow-sm transition-colors duration-150 ease-out focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:bg-gray-300 sm:w-fit sm:px-24;
+  }
+}
