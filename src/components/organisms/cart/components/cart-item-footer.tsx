@@ -8,7 +8,7 @@ import { CartItemFooterProps } from '../types';
 
 const CartItemFooter = ({ className, onRemove }: CartItemFooterProps) => {
   const { translate } = useTranslation();
-  const ClassNames = classnames('mt-5 flex items-center gap-3 md:mt-8', className);
+  const ClassNames = classnames('mt-5 flex items-center gap-3 py-5 md:mt-8 md:gap-5 md:py-0', className);
 
   return (
     <div className={ClassNames}>
@@ -16,7 +16,12 @@ const CartItemFooter = ({ className, onRemove }: CartItemFooterProps) => {
 
       <Typography className="text-neutral-400">|</Typography>
 
-      <Button variant="ghost" size="fit" className="text-14 font-medium" onClick={onRemove}>
+      <Button
+        variant="ghost"
+        size="fit"
+        className="grow text-center text-14 font-medium md:grow-0 md:text-start"
+        onClick={onRemove}
+      >
         {translate('common.remove')}
       </Button>
     </div>

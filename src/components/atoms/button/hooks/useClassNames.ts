@@ -25,7 +25,7 @@ const useClassNames: UseClassNames = ({
         'hover:shadow-[0px_0px_3px_rgba(71,71,1)]',
         'active:shadow-button active:outline-2 active:outline-offset-0 active:outline-gray-300 active:disabled:shadow-none',
         'focus-visible:border focus-visible:outline focus-visible:outline-offset-[3px]',
-        'disabled:bg-neutral-400 disabled:text-neutral-100',
+        'disabled:border-neutral-400 disabled:bg-transparent disabled:text-neutral-400',
       ],
       warning: [
         'bg-red-500 text-neutral-100 outline-offset-0',
@@ -54,7 +54,7 @@ const useClassNames: UseClassNames = ({
     { 'flex items-center gap-1': includesIcon },
     { 'flex-row-reverse': includesIcon && iconPosition === 'left' },
     { 'cursor-not-allowed': !!loading },
-    'relative overflow-hidden font-medium leading-4 transition',
+    'relative overflow-hidden font-medium leading-4 transition disabled:pointer-events-none',
     asSkeleton ? 'relative' : (resolveVariant(`intent.${variant}`) as string),
     className,
   );

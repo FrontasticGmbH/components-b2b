@@ -20,7 +20,7 @@ const Dashboard = ({ title, href, children }: React.PropsWithChildren<DashboardP
         />
       </div>
 
-      <div className="min-h-[calc(100vh-131px)] grow px-4 pb-6 md:px-5 md:pb-7 lg:min-h-[calc(100vh-83px)] lg:px-12 lg:pb-9 2xl:min-h-[unset]">
+      <div className="box-border min-h-[calc(100vh-131px)] max-w-full grow px-4 pb-6 md:px-5 md:pb-7 lg:min-h-[calc(100vh-83px)] lg:px-12 lg:pb-9 2xl:min-h-[unset]">
         {title && (
           <h1 className="py-6 text-18 font-extrabold text-gray-800 md:py-7 md:text-20 lg:py-9 lg:text-24">
             {translate(title)}

@@ -23,7 +23,12 @@ const MoveToList = ({ lists }: MoveToListProps) => {
 
   return (
     <>
-      <Button size="fit" variant="ghost" className="text-14 font-medium" onClick={onOpen}>
+      <Button
+        size="fit"
+        variant="ghost"
+        className="grow text-center text-14 font-medium md:grow-0 md:text-start"
+        onClick={onOpen}
+      >
         {translate('wishlist.move.to.list')}
       </Button>
       <ResponsiveModal isOpen={isOpen} onRequestClose={onClose} closeButton className="md:w-[400px] lg:w-[600px]">

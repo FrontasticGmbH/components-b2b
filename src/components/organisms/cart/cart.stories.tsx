@@ -10,9 +10,10 @@ export default {
 const Template: StoryFn<typeof Cart> = () => (
   <Cart
     {...cart}
+    account={{ email: 'madilyn@commercetools.com' }}
     onRemove={async () => {}}
     onUpdateQuantity={async () => {}}
-    onRequestQuote={async () => {}}
+    onRequestQuote={async () => ({})}
     paymentMethods={[]}
   />
 );

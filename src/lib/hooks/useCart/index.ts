@@ -3,6 +3,7 @@ import { Cart } from '@shared/types/cart/Cart';
 import { sdk } from '@/sdk';
 import useSWR from 'swr';
 import { Address } from '@shared/types/account/Address';
+import { QuoteRequest } from '@shared/types/quote/QuoteRequest';
 import { calculateTransaction } from './utils';
 
 const useCart = (businessUnitKey?: string, storeKey?: string) => {
@@ -70,7 +71,7 @@ const useCart = (businessUnitKey?: string, storeKey?: string) => {
 
   const requestQuote = useCallback(
     async (payload: { buyerComment: string }) => {
-      const result = await sdk.callAction<Cart>({
+      const result = await sdk.callAction<QuoteRequest>({
         actionName: 'quote/createQuoteRequest',
         payload,
         query: { businessUnitKey: businessUnitKey as string, storeKey: storeKey as string },

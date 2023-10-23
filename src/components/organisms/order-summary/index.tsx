@@ -49,7 +49,7 @@ const OrderSummary = ({
             totalAmount: 'text-18 md:pb-5',
             subCostsContainer: 'pt-3 md:pt-4 mb-5 lg:py-6 lg:mb-4 lg:border-b border-neutral-400',
           }}
-          paymentMethods={paymentMethods}
+          paymentMethods={[]}
           {...props}
         />
       )}

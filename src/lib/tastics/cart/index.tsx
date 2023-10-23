@@ -12,6 +12,8 @@ import { Props } from './types';
 const CartTastic = ({ data }: TasticProps<Props>) => {
   const { defaultBusinessUnit } = useBusinessUnits();
 
+  const { account } = useAccount();
+
   const { defaultStore } = useStores();
 
   const { cart, updateItem, removeItem, requestQuote, updateCart } = useCart(
@@ -31,6 +33,7 @@ const CartTastic = ({ data }: TasticProps<Props>) => {
 
   return (
     <Cart
+      account={{ email: account?.email ?? '' }}
       paymentMethods={data.paymentMethods}
       {...cart}
       onUpdateQuantity={async (id, count) => {
@@ -39,8 +42,10 @@ const CartTastic = ({ data }: TasticProps<Props>) => {
       onRemove={async (id) => {
         removeItem(id);
       }}
-      onRequestQuote={async () => {
-        requestQuote({ buyerComment: '' });
+      onRequestQuote={async ({ buyerComment }) => {
+        const quote = await requestQuote({ buyerComment: buyerComment ?? '' });
+
+        return quote.quoteRequestId ? { id: quote.quoteRequestId } : {};
       }}
     />
   );

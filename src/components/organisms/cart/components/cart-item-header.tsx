@@ -1,8 +1,11 @@
 import StockIndicator from '@/components/atoms/stock-indicator';
 import Typography from '@/components/atoms/typography';
+import useTranslation from '@/providers/I18n/hooks/useTranslation';
 import { CartItemHeaderProps } from '../types';
 
 const CartItemHeader = ({ item, className }: CartItemHeaderProps) => {
+  const { translate } = useTranslation();
+
   return (
     <div className={className}>
       {/* Product Name */}
@@ -12,10 +15,10 @@ const CartItemHeader = ({ item, className }: CartItemHeaderProps) => {
 
       {/* Product Model and availability */}
       <div className="mt-3 flex items-center gap-3 md:mt-2 md:grid md:gap-5">
-        {item.variant?.attributes?.model && (
-          <Typography fontSize={12} lineHeight="loose" className="text-gray-600">
-            {item.variant?.attributes.model}
-          </Typography>
+        {item.variant?.sku && (
+          <p className="truncate text-12 leading-loose text-gray-600">{`${translate('common.model')}# ${
+            item.variant?.sku
+          }`}</p>
         )}
 
         <StockIndicator inStock={item.variant?.isOnStock} />

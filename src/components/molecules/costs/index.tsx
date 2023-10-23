@@ -19,7 +19,7 @@ const Costs = ({
   const { formatCurrency } = useFormat();
 
   const totalAmountClassNames = classnames(
-    'mt-6 flex items-center justify-between font-medium',
+    'mt-6 flex items-center justify-between border-t border-neutral-400 pt-4 font-medium',
     classNames.totalAmount,
   );
 
@@ -57,15 +57,23 @@ const Costs = ({
       <div className={subCostsContainerClassNames}>
         {costs.map(({ key, label, value }) => (
           <div key={key} className={subCostsClassNames}>
-            <Typography asSkeleton={loading}>{label}</Typography>
-            <Typography asSkeleton={loading}>{formatCurrency(value, currency)}</Typography>
+            <Typography className="text-14 md:text-16" asSkeleton={loading}>
+              {label}
+            </Typography>
+            <Typography className="text-14 md:text-16" asSkeleton={loading}>
+              {formatCurrency(value, currency)}
+            </Typography>
           </div>
         ))}
       </div>
 
       <div className={totalAmountClassNames}>
-        <Typography asSkeleton={loading}>{translate('cart.total')}</Typography>
-        <Typography asSkeleton={loading}>{formatCurrency(total, currency)}</Typography>
+        <Typography className="text-16 md:text-18" fontWeight="medium" asSkeleton={loading}>
+          {`${translate('cart.total')}:`}
+        </Typography>
+        <Typography className="text-16 md:text-18" fontWeight="medium" asSkeleton={loading}>
+          {formatCurrency(total, currency)}
+        </Typography>
       </div>
     </div>
   );

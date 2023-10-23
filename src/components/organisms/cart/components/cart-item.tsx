@@ -12,19 +12,20 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
   const { locale } = useParams();
 
   return (
-    <div className="py-5 md:py-8 lg:gap-12">
+    <div className="pt-5 md:py-8 lg:gap-12">
       <CartItemHeader className="md:hidden" item={item} />
 
       <div className="mt-10 flex max-w-full items-stretch justify-start md:mt-0 md:gap-10">
         <Image
-          className="object-cover md:h-[124px] md:w-[124px] lg:h-[132px] lg:w-[132px]"
+          className="md:h-[124px] md:w-[124px] lg:h-[132px] lg:w-[132px]"
           src={item.variant?.images?.[0]}
+          style={{ objectFit: 'contain' }}
           width={108}
           height={108}
           suffix="small"
           alt="product image"
         />
-        <div className="flex w-full justify-between">
+        <div className="flex w-full justify-between md:items-end">
           <div>
             <CartItemHeader className="hidden md:block" item={item} />
 
@@ -32,9 +33,11 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
           </div>
 
           <div className="flex flex-col items-center justify-center gap-2 lg:gap-3">
-            <Typography lineHeight="loose" fontSize={12} className="text-gray-600">
-              {`${CurrencyHelpers.formatForCurrency(item.price ?? 0, locale)}/ea`}
-            </Typography>
+            {(item.count ?? 0) > 1 && (
+              <Typography lineHeight="loose" fontSize={12} className="text-gray-600">
+                {`${CurrencyHelpers.formatForCurrency(item.discountedPrice ?? item.price ?? 0, locale)}/ea`}
+              </Typography>
+            )}
 
             <QuantityWidget showLabel={false} defaultValue={1} value={item.count} onChange={onUpdateQuantity} />
 
@@ -42,7 +45,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
               {item.discountedPrice ? (
                 <div className="flex items-center gap-1">
                   <Typography lineHeight="tight" fontSize={14} className="font-normal text-gray-600 line-through">
-                    {CurrencyHelpers.formatForCurrency(item.price ?? 0, locale)}
+                    {CurrencyHelpers.formatForCurrency((item.price?.centAmount ?? 0) * (item.count ?? 1), locale)}
                   </Typography>
                   <Typography
                     lineHeight="loose"
@@ -50,12 +53,12 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
                     fontWeight="semibold"
                     className="text-red-500 md:text-18"
                   >
-                    {CurrencyHelpers.formatForCurrency(item.discountedPrice, locale)}
+                    {CurrencyHelpers.formatForCurrency(item.totalPrice ?? 0, locale)}
                   </Typography>
                 </div>
               ) : (
                 <Typography lineHeight="loose" fontSize={16} fontWeight="semibold" className="text-gray-700 md:text-18">
-                  {CurrencyHelpers.formatForCurrency(item.price ?? 0, locale)}
+                  {CurrencyHelpers.formatForCurrency(item.totalPrice ?? 0, locale)}
                 </Typography>
               )}
             </div>

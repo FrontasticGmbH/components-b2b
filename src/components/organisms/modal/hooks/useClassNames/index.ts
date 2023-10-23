@@ -22,7 +22,7 @@ const useClassNames = ({ className, size, centered, variant }: Partial<Props>) =
 
   const modalClassNames = classnames(
     className as string,
-    'fixed h-[260px] w-full bg-white',
+    'fixed h-[260px] w-full bg-white outline-none',
     resolveVariant(`intent.${variant}`) as string,
     resolveVariant(`size.${size}`) as string,
   );

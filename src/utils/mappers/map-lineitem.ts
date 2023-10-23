@@ -10,6 +10,7 @@ export const mapLineItem = (lineItem: LineItem): Product => {
     name: lineItem.name,
     description: variant?.attributes?.['Product-Specifications'],
     image: variant?.images?.[0],
+    quantity: lineItem.count,
     price:
       (variant?.discountedPrice?.centAmount ?? variant?.price?.centAmount ?? 0) /
       Math.pow(10, variant?.price?.fractionDigits ?? 2),

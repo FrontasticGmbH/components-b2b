@@ -10,7 +10,7 @@ const QuotesRequestStatusModal = (props: React.ComponentProps<typeof ResponsiveM
   const statuses = ['submitted', 'cancelled', 'rejected', 'accepted'] as Array<QuoteStatus>;
 
   return (
-    <ResponsiveModal {...props} closeButton className="md:max-w-[400px]">
+    <ResponsiveModal {...props} closeButton className="md:max-w-[400px] lg:max-w-[800px]">
       <div className="p-4 md:p-6 lg:px-12">
         <h5 className="font-semibold text-gray-700 md:text-20">{translate('dashboard.quote.request.status')}</h5>
         <div className="mt-4 grid grid-cols-1 gap-4 md:mt-5 md:gap-5 lg:mt-6">

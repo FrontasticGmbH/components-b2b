@@ -16,7 +16,7 @@ export const mapAddress = ({
 }: Partial<Address>): EntityAddress => {
   return {
     id: addressId as string,
-    name: `${firstName ?? ''} ${lastName ?? ''}`,
+    name: firstName && lastName ? `${firstName} ${lastName}` : firstName || lastName,
     line1: streetName ?? '',
     line2: additionalStreetInfo ?? '',
     city,
@@ -43,7 +43,7 @@ export const mapCoCoAddress = ({
   const firstSpaceIndex = name.indexOf(' ');
 
   const [firstName, lastName] =
-    firstSpaceIndex === -1 ? ['', ''] : [name.slice(0, firstSpaceIndex), name.slice(firstSpaceIndex + 1)];
+    firstSpaceIndex === -1 ? [name, ''] : [name.slice(0, firstSpaceIndex), name.slice(firstSpaceIndex + 1)];
 
   return {
     addressId: id,

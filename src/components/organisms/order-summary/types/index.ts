@@ -11,7 +11,7 @@ export type CheckoutCTAProps = {
   disabled?: boolean;
   text: string;
   onCheckout?: () => void;
-  onRequestQuote?: () => void;
+  onRequestQuote: (args: { buyerComment?: string }) => Promise<void>;
 };
 
 export interface ClassNames {

@@ -29,7 +29,7 @@ const StockIndicator = ({ inStock, restockableInDays }: StockIndicatorProps) => 
   }, [restockableInDays, translate]);
 
   return (
-    <div className="flex items-center gap-2 text-14 text-gray-700">
+    <div className="flex items-center gap-2 whitespace-pre text-14 text-gray-700">
       {inStock ? (
         <>
           <InStockIcon className="text-primary" width={20} />

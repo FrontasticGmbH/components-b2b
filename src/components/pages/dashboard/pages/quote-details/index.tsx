@@ -62,37 +62,39 @@ const QuoteDetailsPage = ({
           {translate('dashboard.items.quoted')} <span className="text-gray-600">({quote.items.length})</span>
         </h5>
 
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-neutral-400 p-4 text-12 uppercase text-gray-500">
-              <th className="p-4 text-left font-semibold">{translate('common.product')}</th>
-              <th className="hidden p-4 text-left font-semibold md:table-cell">{translate('common.sku')}</th>
-              <th className="hidden p-4 text-right font-semibold md:table-cell">{translate('common.qty')}</th>
-              <th className="hidden p-4 text-right font-semibold lg:table-cell">{translate('common.price')}</th>
-              <th className="hidden p-4 text-right font-semibold lg:table-cell">{translate('common.total')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {quote.items.map(({ id, image, name, sku, quantity, price, currency }) => (
-              <tr key={id} className="border-b border-neutral-400 p-4 text-14 text-gray-600">
-                <td className="p-4 text-left">
-                  <div className="flex items-center gap-3">
-                    <span className="relative block h-[40px] w-[40px]">
-                      <Image src={image} fill alt={name ?? ''} />
-                    </span>
-                    <span>{name}</span>
-                  </div>
-                </td>
-                <td className="hidden p-4 text-left md:table-cell">{sku}</td>
-                <td className="hidden p-4 text-right md:table-cell">{quantity}</td>
-                <td className="hidden p-4 text-right lg:table-cell">{formatCurrency(price ?? 0, currency ?? 'USD')}</td>
-                <td className="hidden p-4 text-right lg:table-cell">
-                  {formatCurrency((price ?? 0) * (quantity ?? 1), currency ?? 'USD')}
-                </td>
+        <div className="overflow-x-auto scrollbar-hide">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-neutral-400 p-4 text-12 uppercase text-gray-500">
+                <th className="p-4 text-left font-semibold">{translate('common.product')}</th>
+                <th className="p-4 text-left font-semibold">{translate('common.sku')}</th>
+                <th className="p-4 text-right font-semibold">{translate('common.qty')}</th>
+                <th className="p-4 text-right font-semibold">{translate('common.price')}</th>
+                <th className="p-4 text-right font-semibold">{translate('common.total')}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {quote.items.map(({ id, image, name, sku, quantity, price, currency }) => (
+                <tr key={id} className="border-b border-neutral-400 p-4 text-14 text-gray-600">
+                  <td className="whitespace-pre p-4 text-left">
+                    <div className="flex items-center gap-3">
+                      <span className="relative block h-[40px] w-[40px]">
+                        <Image src={image} fill alt={name ?? ''} />
+                      </span>
+                      <span>{name}</span>
+                    </div>
+                  </td>
+                  <td className="whitespace-pre p-4 text-left">{sku}</td>
+                  <td className="p-4 text-right">{quantity}</td>
+                  <td className="p-4 text-right">{formatCurrency(price ?? 0, currency ?? 'USD')}</td>
+                  <td className="p-4 text-right lg:table-cell">
+                    {formatCurrency((price ?? 0) * (quantity ?? 1), currency ?? 'USD')}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="flex justify-end border-neutral-400 pb-7 pt-6">

@@ -1,3 +1,5 @@
+import { Account } from '@/types/entity/account';
+import { Quote } from '@/types/entity/quote';
 import { Transaction } from '@/types/transaction';
 import { Cart } from '@shared/types/cart/Cart';
 import { LineItem } from '@shared/types/cart/LineItem';
@@ -23,10 +25,11 @@ export interface PaymentMethod {
 }
 
 export type CartProps = {
+  account: Pick<Account, 'email'>;
   paymentMethods: Array<PaymentMethod>;
   onRemove: (id: string) => Promise<void>;
   onUpdateQuantity: (id: string, qty: number) => Promise<void>;
-  onRequestQuote: () => Promise<void>;
+  onRequestQuote: (args: { buyerComment?: string }) => Promise<Partial<Quote>>;
 } & Cart & { transaction: Transaction };
 
 export type CartContentProps = Pick<Cart, 'lineItems'> &

@@ -50,6 +50,7 @@ const CompanyAdminPage = ({
           className="w-[280px]"
           label={translate('common.business.unit')}
           placeholder={translate('common.select')}
+          enableSearch
           options={businessUnitOptions}
           defaultValue={initialBusinessUnit}
           onChange={onBusinessUnitChange}
@@ -58,6 +59,7 @@ const CompanyAdminPage = ({
           className="w-[280px]"
           label={translate('common.store')}
           placeholder={translate('common.select')}
+          enableSearch
           options={storeOptions}
           defaultValue={initialStore}
           onChange={onStoreChange}

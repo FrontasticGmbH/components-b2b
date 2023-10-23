@@ -17,13 +17,13 @@ const FacetsDrawer = () => {
 
   return (
     <div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <button
-          className="flex grow cursor-pointer items-center justify-center gap-2 rounded-md border border-gray-300 p-2 text-14 leading-[14px] text-gray-600 transition hover:bg-gray-50 md:w-fit md:grow-0"
+          className="flex grow cursor-pointer items-center justify-center gap-2 rounded-md border border-gray-300 p-2 leading-[16px] text-gray-600 transition hover:bg-gray-50 md:w-fit md:grow-0"
           onClick={onOpen}
         >
           <span>{translate('product.sortAndFilter')}</span>
-          <FiltersIcon width={14} />
+          <FiltersIcon width={20} />
         </button>
         <ViewToggle />
       </div>

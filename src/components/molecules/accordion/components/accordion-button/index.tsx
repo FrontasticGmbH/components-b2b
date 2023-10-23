@@ -7,7 +7,7 @@ import { Props } from './types';
 const AccordionButton = ({ children, className = '', defaultSpacing = true }: React.PropsWithChildren<Props>) => {
   const { isExpanded, toggle } = useAccordion();
 
-  const arrowClassName = classnames('text-primary', isExpanded ? 'rotate-180' : '');
+  const arrowClassName = classnames('text-gray-700', isExpanded ? 'rotate-180' : '');
 
   return (
     <div

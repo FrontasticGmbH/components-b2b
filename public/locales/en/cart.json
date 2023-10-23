@@ -61,5 +61,9 @@
   "items": "Items",
   "we.accept": "We accept",
   "empty.ask": "Your cart is empty. Continue shopping?",
-  "continue.shopping": "Continue shopping"
+  "continue.shopping": "Continue shopping",
+  "submit.quote": "Submit quote",
+  "quote.submitted": "Your Quote has been submitted!",
+  "quote.submitted.desc": "A Sales Representative will provide you with a quote as soon as possible. You will be notified of quote updates on {email}",
+  "view.quote": "View quote"
 }
