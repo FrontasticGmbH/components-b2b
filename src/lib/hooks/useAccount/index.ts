@@ -156,7 +156,10 @@ const useAccount = () => {
   }, []);
 
   const removeAddress = useCallback(async (addressId: string) => {
-    const res = await sdk.callAction<Account>({ actionName: 'account/removeAddress', payload: { addressId } });
+    const res = await sdk.callAction<Account>({
+      actionName: 'account/removeAddress',
+      payload: { address: { id: addressId } },
+    });
 
     mutate('/action/account/getAccount');
 
