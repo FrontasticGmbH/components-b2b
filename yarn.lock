@@ -1404,10 +1404,10 @@
     dotenv "^16.0.3"
     node-fetch "^3.3.1"
 
-"@commercetools/frontend-sdk@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.npmjs.org/@commercetools/frontend-sdk/-/frontend-sdk-1.8.1.tgz"
-  integrity sha512-nmfK6o7wdMIQ7W9KKBzPUZsVqoRX8ygkg5csDXF1iUoIhcg68bpQNbx4/58qSO6p70UEXCnK8degW2OGonQvfw==
+"@commercetools/frontend-sdk@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@commercetools/frontend-sdk/-/frontend-sdk-1.8.2.tgz#a55cb4c7cef42a24a4f3a9cd008aa357ac368f6c"
+  integrity sha512-ghHacYw5zU4dJL9rooZbl8SK1Hc+HuFfS/pVSHJsurtig/2yjJnY6vQSlKpKi+P7TEGGOmuOiBVAB/1TLDinvw==
   dependencies:
     "@frontastic/extension-types" "^0.0.11"
     cookie "^0.5.0"
@@ -1583,7 +1583,7 @@
 
 "@frontastic/extension-types@^0.0.11":
   version "0.0.11"
-  resolved "https://registry.npmjs.org/@frontastic/extension-types/-/extension-types-0.0.11.tgz"
+  resolved "https://registry.yarnpkg.com/@frontastic/extension-types/-/extension-types-0.0.11.tgz#2b4919cbe0a05e18d817424da454c65a84d7852c"
   integrity sha512-Qme7FALn7JHZooiKmuqWdNsK4u+leLY4dzt+ctLWfRES5/zvpsZiErh7MuE+ftfbc/mXByNcULUeaOL5MsUEAw==
 
 "@frontastic/extension-types@^0.0.12":

@@ -8,6 +8,7 @@ import { HeaderContext } from '../../../context';
 const AccountSection = () => {
   const { translate } = useTranslation();
   const { navigationLevel, insertCategory, myAccount, businessUnits, stores } = useContext(HeaderContext);
+
   return (
     <>
       <div className="block border-t lg:hidden">

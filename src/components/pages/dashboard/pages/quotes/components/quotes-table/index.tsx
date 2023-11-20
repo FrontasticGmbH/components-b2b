@@ -47,7 +47,7 @@ const QuotesTable = ({
                   </div>
                 </Table.Cell>
                 <Table.Cell>
-                  <span className="block max-w-full truncate">{id}</span>
+                  <span className="block max-w-full truncate text-12 md:text-14">{id}</span>
                 </Table.Cell>
                 <Table.Cell className="hidden md:table-cell">{creationDate}</Table.Cell>
                 <Table.Cell className="hidden lg:table-cell">{businessUnit}</Table.Cell>

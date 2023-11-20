@@ -6,10 +6,13 @@ import Input from '@/components/atoms/input';
 import Select from '@/components/atoms/select';
 import Checkbox from '@/components/atoms/checkbox';
 import { Address } from '@/types/entity/address';
+import useEntityToasters from '@/hooks/useEntityToasters';
 import { CompanyAdminPageProps } from '../../types';
 
 const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions }: CompanyAdminPageProps) => {
   const { translate } = useTranslation();
+
+  const { showSavedMessage, showFailedMessage } = useEntityToasters('address');
 
   const router = useRouter();
 
@@ -33,10 +36,13 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
   );
 
   const handleSubmit = useCallback(async () => {
-    await (id ? onUpdateAddress?.(data) : onAddAddress?.(data as Address));
+    const success = await (id ? onUpdateAddress?.(data) : onAddAddress?.(data as Address));
+
+    if (success) showSavedMessage();
+    else showFailedMessage();
 
     router.back();
-  }, [onUpdateAddress, onAddAddress, data, id, router]);
+  }, [onUpdateAddress, onAddAddress, data, id, router, showSavedMessage, showFailedMessage]);
 
   return (
     <EntityForm
@@ -49,7 +55,7 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
           name="name"
           label={translate('common.company.name')}
           required
-          value={data.name}
+          value={data.name ?? ''}
           onChange={handleChange}
           containerClassName="max-w-[400px]"
         />
@@ -58,7 +64,7 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
           name="careOf"
           label={translate('common.care.of')}
           showOptionalLabel
-          value={data.careOf}
+          value={data.careOf ?? ''}
           onChange={handleChange}
           containerClassName="max-w-[400px]"
         />
@@ -68,7 +74,7 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
           required
           className="max-w-[400px]"
           placeholder={translate('common.select')}
-          value={data.country}
+          value={data.country ?? ''}
           onChange={(country) => setData({ ...data, country })}
           options={countryOptions}
         />
@@ -77,7 +83,7 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
           name="line1"
           label={translate('common.address')}
           required
-          value={data.line1}
+          value={data.line1 ?? ''}
           onChange={handleChange}
           containerClassName="max-w-[400px]"
         />
@@ -87,7 +93,7 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
             name="line2"
             label={`${translate('common.address')} 2`}
             showOptionalLabel
-            value={data.line2}
+            value={data.line2 ?? ''}
             onChange={handleChange}
             containerClassName="max-w-[400px]"
           />
@@ -102,12 +108,18 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
             name="zip"
             label={translate('common.zipCode')}
             required
-            value={data.zip}
+            value={data.zip ?? ''}
             onChange={handleChange}
             containerClassName="w-[100px] min-w-[100px]"
           />
           <div className="grow">
-            <Input name="city" label={translate('common.city')} required value={data.city} onChange={handleChange} />
+            <Input
+              name="city"
+              label={translate('common.city')}
+              required
+              value={data.city ?? ''}
+              onChange={handleChange}
+            />
           </div>
         </div>
 
@@ -117,7 +129,7 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
             required
             className="max-w-[400px]"
             placeholder={translate('common.state')}
-            value={data.state}
+            value={data.state ?? ''}
             onChange={(state) => setData({ ...data, state })}
             options={selectedCountry.states}
           />
@@ -127,12 +139,12 @@ const AddressForm = ({ onAddAddress, onUpdateAddress, addresses, countryOptions 
 
         <div className="flex items-center gap-5">
           <Checkbox
-            checked={data.isDefaultShipping}
+            checked={!!data.isDefaultShipping}
             label={translate('common.address.shipping')}
             onChecked={(checked) => setData({ ...data, isDefaultShipping: checked })}
           />
           <Checkbox
-            checked={data.isDefaultBilling}
+            checked={!!data.isDefaultBilling}
             label={translate('common.address.billing')}
             onChecked={(checked) => setData({ ...data, isDefaultBilling: checked })}
           />

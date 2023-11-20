@@ -20,7 +20,7 @@ const AuthForm = ({
   return (
     <>
       <div className="grid h-fit gap-5">
-        <Typography as="h1" fontSize={18} fontWeight="extrabold" className="text-gray-700">
+        <Typography as="h1" fontSize={18} fontWeight="bold" className="text-gray-700 md:text-20 lg:text-24">
           {title}
         </Typography>
 
@@ -30,7 +30,10 @@ const AuthForm = ({
               {subtitle}
             </Typography>
             {subtitleLink && subtitleLinkLabel && (
-              <Link className="text-14 font-medium leading-loose text-gray-600 underline" href={subtitleLink}>
+              <Link
+                className="text-14 font-medium leading-loose text-gray-600 underline hover:text-gray-500"
+                href={subtitleLink}
+              >
                 {subtitleLinkLabel}
               </Link>
             )}
@@ -40,7 +43,7 @@ const AuthForm = ({
 
       <div className="mt-6 grid gap-3 md:mt-9">{children}</div>
 
-      <Button className="mt-6 text-14 md:mt-9" onClick={onSubmit}>
+      <Button size="m" className="mt-6 text-14 md:mt-9" onClick={onSubmit}>
         {buttonLabel}
       </Button>
 
@@ -51,7 +54,11 @@ const AuthForm = ({
           </Typography>
         )}
         {footerLink && footerLinkLabel && (
-          <Link href={footerLink} onClick={footerOnClick} className="text-14 leading-loose text-gray-600 underline">
+          <Link
+            href={footerLink}
+            onClick={footerOnClick}
+            className="text-14 leading-loose text-gray-600 underline hover:text-gray-500"
+          >
             {footerLinkLabel}
           </Link>
         )}

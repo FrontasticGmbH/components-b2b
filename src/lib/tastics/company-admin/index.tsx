@@ -63,31 +63,44 @@ const CompanyAdminTastic = () => {
     associates: searchedAssociates.map(mapAssociate),
     onSearchAssociates: handleSearch('associates'),
     onAddAssociate: async (associate) => {
-      await addAssociate({ ...associate, businessUnit: activeBusinessUnit?.key as string });
+      const associateRes = await addAssociate({ ...associate, businessUnit: activeBusinessUnit?.key as string });
+      return !!associateRes.businessUnitId;
     },
     onUpdateAssociate: async (associate) => {
-      await updateAssociate({ ...associate, businessUnit: activeBusinessUnit?.key as string });
+      const associateRes = await updateAssociate({ ...associate, businessUnit: activeBusinessUnit?.key as string });
+      return !!associateRes.businessUnitId;
     },
     onDeleteAssociate: async (id) => {
-      await removeAssociate({ id, businessUnit: activeBusinessUnit?.key as string });
+      const associate = await removeAssociate({ id, businessUnit: activeBusinessUnit?.key as string });
+      return !!associate.businessUnitId;
     },
     businessUnits: searchedBusinessUnits.map(mapBusinessUnit),
     onSearchBusinessUnits: handleSearch('businessUnits'),
     onAddBusinessUnit: async ({ email, name }) => {
-      if (!selectedStore) return;
-      await addBusinessUnit({ account: { ...account, companyName: name, email }, store: selectedStore });
+      if (!selectedStore) return false;
+
+      const businessUnit = await addBusinessUnit({
+        account: { companyName: name, email },
+        store: selectedStore,
+      });
+      return !!businessUnit.businessUnitId;
     },
     onDeleteBusinessUnit: async (id) => {
       const target = businessUnits.find((businessUnit) => businessUnit.businessUnitId === id);
-      if (target) await removeBusinessUnit(target.key as string);
+      const businessUnit = await removeBusinessUnit(target?.key as string);
+      return !!businessUnit.businessUnitId;
     },
     canAddBusinessUnit: !!selectedStore,
   } as CompanyAdminPageProps;
 
-  const { ActiveSubPath } = useSubPath(companyAdminProps);
+  const { ActiveSubPath } = useSubPath({ ...companyAdminProps, selectedStore });
 
   return (
-    <Dashboard title={ActiveSubPath?.title ?? 'common.company.admin'} href={DashboardLinks.companyAdmin}>
+    <Dashboard
+      title={ActiveSubPath?.title ?? 'common.company.admin'}
+      href={DashboardLinks.companyAdmin}
+      userName={account?.firstName}
+    >
       {ActiveSubPath?.Component ?? <CompanyAdminPage {...companyAdminProps} />}
     </Dashboard>
   );

@@ -1,14 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect, useRef, useState } from 'react';
 import Typography from '@/components/atoms/typography';
 import FlagIcons from '@/components/atoms/icons/flag-icons';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
 import Dropdown from '@/components/atoms/dropdown';
 import { ShipAndLanguageContext } from '@/providers/ship-and-language';
+import { HeaderContext } from '@/components/organisms/header/context';
 import { Location } from '../../types';
 
 const ShippingSelect = () => {
   const { locations, selectedLocation, onLocationSelect } = useContext(ShipAndLanguageContext);
+  const { showMenu } = useContext(HeaderContext);
   const { translate } = useTranslation();
+  const [shippingMenuTop, setShippingMenuTop] = useState(false);
+  const locationButtonRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (locationButtonRef.current) {
+      if (window.innerHeight - locationButtonRef.current.getBoundingClientRect().bottom < 70) setShippingMenuTop(true);
+      else setShippingMenuTop(false);
+    }
+  }, [showMenu]);
+
+  const menuClassName = shippingMenuTop ? 'bottom-12 shadow-500-reverse' : '';
 
   const getOptionDisplay = (location: Location) => {
     return (
@@ -20,8 +33,9 @@ const ShippingSelect = () => {
       </div>
     );
   };
+
   return (
-    <div className="pt-2">
+    <div className="pt-2" ref={locationButtonRef}>
       <Typography fontSize={14} fontWeight="semibold" className="text-gray-800">
         {translate('common.shop.ship.title')}
       </Typography>
@@ -36,7 +50,7 @@ const ShippingSelect = () => {
               </span>
             )}
           </Dropdown.Button>
-          <Dropdown.Options>
+          <Dropdown.Options className={menuClassName}>
             {locations.map((location) => (
               <Dropdown.Option key={location.label} value={location.value}>
                 {getOptionDisplay(location)}

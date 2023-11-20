@@ -11,15 +11,19 @@ const CategorySection = () => {
   const { categoryLinks, navigationLevel, hideHeaderMenu, insertCategory } = useContext(HeaderContext);
   const categorySectionClassNames = classnames(
     'py-6',
-    navigationLevel.length === 0 || navigationLevel[navigationLevel.length - 1]?.name !== 'My Account'
-      ? 'border-t'
-      : '',
+    navigationLevel.length === 0 ? 'border-t' : '',
+    navigationLevel[navigationLevel.length - 1]?.name !== 'My Account' ? 'lg:border-t' : '',
   );
+
   return (
     <div className={categorySectionClassNames}>
       {navigationLevel && navigationLevel?.length > 0 && (
         <div className="pb-6" onClick={hideHeaderMenu}>
-          <Link openInNewTab={false} href={navigationLevel[navigationLevel.length - 1]?.path as string}>
+          <Link
+            openInNewTab={false}
+            underlineOnHover={false}
+            href={navigationLevel[navigationLevel.length - 1]?.path as string}
+          >
             <Typography fontSize={16} fontWeight="semibold" className="text-gray-700">
               {navigationLevel[navigationLevel.length - 1].name}
             </Typography>

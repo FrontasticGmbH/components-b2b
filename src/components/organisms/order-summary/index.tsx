@@ -12,7 +12,6 @@ const OrderSummary = ({
   title,
   className,
   includeSummaryAccordion,
-  paymentMethods,
   includeItemsList,
   transaction,
   ...props
@@ -24,7 +23,7 @@ const OrderSummary = ({
   return (
     <div className={className}>
       {title && (
-        <div className="py-4 md:py-6 lg:pb-6 lg:pt-0">
+        <div className="hidden py-4 md:py-6 lg:block lg:pb-6 lg:pt-0">
           <Typography fontSize={16} className="md:text-18">
             {title}
           </Typography>
@@ -49,7 +48,6 @@ const OrderSummary = ({
             totalAmount: 'text-18 md:pb-5',
             subCostsContainer: 'pt-3 md:pt-4 mb-5 lg:py-6 lg:mb-4 lg:border-b border-neutral-400',
           }}
-          paymentMethods={[]}
           {...props}
         />
       )}
