@@ -36,7 +36,6 @@ import {
 	CheckoutCartQuery,
 	ReturnOrderItemsQuery,
 	CancelOrderQuery,
-	GetOrderHistoryQuery,
 	QueryOrdersQuery,
 } from "../queries/CartQueries";
 
@@ -180,13 +179,6 @@ type CancelOrderAction = (
 	}
 ) => Promise<SDKResponse<Order>>;
 
-type GetOrderHistoryAction = (
-	query?: GetOrderHistoryQuery,
-	options?: {
-		serverOptions?: ServerOptions;
-	}
-) => Promise<SDKResponse<Order[]>>;
-
 type QueryOrdersAction = (
 	query?: QueryOrdersQuery,
 	options?: {
@@ -213,6 +205,5 @@ export {
 	type CheckoutCartAction,
 	type ReturnOrderItemsAction,
 	type CancelOrderAction,
-	type GetOrderHistoryAction,
 	type QueryOrdersAction,
 };

@@ -19,7 +19,6 @@ import {
 	CheckoutCartAction,
 	ReturnOrderItemsAction,
 	CancelOrderAction,
-	GetOrderHistoryAction,
 	QueryOrdersAction,
 } from "../../types/actions/CartActions";
 import { Cart, Order, Payment, ShippingMethod } from "@shared/types/cart";
@@ -58,7 +57,6 @@ import {
 	CheckoutCartQuery,
 	ReturnOrderItemsQuery,
 	CancelOrderQuery,
-	GetOrderHistoryQuery,
 	QueryOrdersQuery,
 } from "../../types/queries/CartQueries";
 import { PaginatedResult } from "@shared/types/result";
@@ -82,7 +80,6 @@ export type CartActions = {
 	checkout: CheckoutCartAction;
 	returnOrderItems: ReturnOrderItemsAction;
 	cancelOrder: CancelOrderAction;
-	getOrderHistory: GetOrderHistoryAction;
 	queryOrders: QueryOrdersAction;
 };
 
@@ -345,19 +342,6 @@ export const getCartActions = (
 				payload,
 				query,
 				serverOptions: options?.serverOptions,
-			});
-			return response;
-		},
-		getOrderHistory: async (
-			query?: GetOrderHistoryQuery,
-			options: {
-				serverOptions?: ServerOptions;
-			} = {}
-		) => {
-			const response = await sdk.callAction<Order[]>({
-				actionName: "cart/getOrders",
-				query,
-				serverOptions: options.serverOptions,
 			});
 			return response;
 		},

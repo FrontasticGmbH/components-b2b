@@ -91,11 +91,6 @@ type CancelOrderQuery = {
 	storeKey?: string;
 };
 
-type GetOrderHistoryQuery = {
-	businessUnitKey?: string;
-	storeKey?: string;
-};
-
 type QueryOrdersQuery = {
 	limit?: number;
 	cursor?: string;
@@ -126,6 +121,5 @@ export {
 	type CheckoutCartQuery,
 	type ReturnOrderItemsQuery,
 	type CancelOrderQuery,
-	type GetOrderHistoryQuery,
 	type QueryOrdersQuery,
 };
