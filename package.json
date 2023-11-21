@@ -18,7 +18,7 @@
     "postbuild": "rimraf ./public/storybook && yarn storybook:build"
   },
   "dependencies": {
-    "@commercetools/frontend-sdk": "^1.8.1",
+    "@commercetools/frontend-sdk": "^1.8.2",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
     "date-fns": "^2.30.0",

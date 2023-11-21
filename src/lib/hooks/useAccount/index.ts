@@ -103,7 +103,7 @@ const useAccount = () => {
       email,
     };
 
-    await sdk.callAction({ actionName: 'account/requestResetPassword', payload });
+    await sdk.callAction({ actionName: 'account/requestReset', payload });
   }, []);
 
   const resetPassword = useCallback(async (token: string, newPassword: string): Promise<Account> => {
@@ -112,7 +112,7 @@ const useAccount = () => {
       newPassword,
     };
 
-    const res = await sdk.callAction({ actionName: 'account/requestResetPassword', payload });
+    const res = await sdk.callAction({ actionName: 'account/reset', payload });
 
     mutate('/action/account/getAccount');
 

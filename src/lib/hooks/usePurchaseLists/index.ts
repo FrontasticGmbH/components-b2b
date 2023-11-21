@@ -27,7 +27,7 @@ const usePurchaseLists = () => {
     [mutate],
   );
 
-  const updateWishlist = useCallback(
+  const updatePurchaseList = useCallback(
     async ({ wishlistId, name, description }: Partial<Wishlist>) => {
       const res = await sdk.callAction({
         actionName: `wishlist/updateWishlist?id=${wishlistId}`,
@@ -41,7 +41,25 @@ const usePurchaseLists = () => {
     [mutate],
   );
 
-  return { purchaseLists: response.data?.isError ? [] : response.data?.data ?? [], createPurchaseList, updateWishlist };
+  const deletePurchaseList = useCallback(
+    async ({ wishlistId, store }: Partial<Wishlist>) => {
+      const res = await sdk.callAction({
+        actionName: `wishlist/deleteWishlist?id=${wishlistId}&storeKey=${store?.key ?? ''}`,
+      });
+
+      mutate();
+
+      return res.isError ? null : res.data;
+    },
+    [mutate],
+  );
+
+  return {
+    purchaseLists: response.data?.isError ? [] : response.data?.data ?? [],
+    createPurchaseList,
+    updatePurchaseList,
+    deletePurchaseList,
+  };
 };
 
 export default usePurchaseLists;

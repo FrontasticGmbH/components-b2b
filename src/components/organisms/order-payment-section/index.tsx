@@ -9,10 +9,8 @@ const OrderPaymentSection: FC<OrderSummaryProps> = ({
   className,
   paymentMethods = [],
   button,
-  dataReference = 'cart',
   classNames,
   order,
-  cart,
   transaction,
   ...props
 }) => {
@@ -24,7 +22,7 @@ const OrderPaymentSection: FC<OrderSummaryProps> = ({
 
       <div className={infoContainerClassName}>
         <Costs
-          classNames={{ container: 'py-4 md:py-6 lg:py-11' }}
+          classNames={{ container: 'py-4 md:py-6 lg:pb-11' }}
           subtotal={transaction.subtotal.centAmount}
           shipping={transaction.shipping.centAmount}
           discount={transaction.discount.centAmount}

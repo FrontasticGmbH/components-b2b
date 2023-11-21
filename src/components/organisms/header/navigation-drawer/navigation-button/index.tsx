@@ -25,7 +25,7 @@ const NavigationButton = ({ lastIndex, link, onClick }: NavigationButtonProps) =
         </div>
       ) : (
         <div onClick={hideHeaderMenu} className="flex items-center justify-between pb-8 lg:pb-7">
-          <Link href={link?.path as string}>
+          <Link href={link?.path ?? '/'}>
             <Typography fontSize={16} className="text-gray-700">
               {link.name}
             </Typography>

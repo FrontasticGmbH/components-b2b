@@ -22,9 +22,6 @@ const ContentSlider = ({ title, link, items }: ContentSliderProps) => {
         {items.map((item, index) => (
           <ContentTile key={index} {...item} />
         ))}
-        {items.map((item, index) => (
-          <ContentTile key={index * 10} {...item} />
-        ))}
       </Slider>
     </div>
   );

@@ -13,11 +13,15 @@ const useBusinessUnits = () => {
 
   const addBusinessUnit = useCallback(
     async (payload: { account: Account; store: Store }) => {
-      const response = await sdk.callAction<BusinessUnit>({ actionName: 'business-unit/create', payload });
+      const response = await sdk.callAction<BusinessUnit>({
+        actionName: 'business-unit/create',
+        payload,
+        query: { storeKey: payload.store.key as string },
+      });
 
       mutateBusinessUnits();
 
-      return !response.isError && response.data;
+      return response.isError ? {} : response.data;
     },
     [mutateBusinessUnits],
   );
@@ -28,14 +32,14 @@ const useBusinessUnits = () => {
 
       mutateBusinessUnits();
 
-      return !response.isError && response.data;
+      return response.isError ? {} : response.data;
     },
     [mutateBusinessUnits],
   );
 
   const addAssociate = useCallback(
     async ({ email, role, businessUnit }: Partial<Associate> & { businessUnit: string }) => {
-      const response = await sdk.callAction({
+      const response = await sdk.callAction<BusinessUnit>({
         actionName: 'business-unit/addAssociate',
         payload: { email, roleKeys: [role] },
         query: { key: businessUnit },
@@ -43,14 +47,14 @@ const useBusinessUnits = () => {
 
       mutateBusinessUnits();
 
-      return !response.isError && response.data;
+      return response.isError ? {} : response.data;
     },
     [mutateBusinessUnits],
   );
 
   const updateAssociate = useCallback(
     async ({ id, role, businessUnit }: Partial<Associate> & { businessUnit: string }) => {
-      const response = await sdk.callAction({
+      const response = await sdk.callAction<BusinessUnit>({
         actionName: 'business-unit/updateAssociate',
         payload: { accountId: id, roleKeys: [role] },
         query: { key: businessUnit },
@@ -58,14 +62,14 @@ const useBusinessUnits = () => {
 
       mutateBusinessUnits();
 
-      return !response.isError && response.data;
+      return response.isError ? {} : response.data;
     },
     [mutateBusinessUnits],
   );
 
   const removeAssociate = useCallback(
     async ({ id, businessUnit }: Partial<Associate> & { businessUnit: string }) => {
-      const response = await sdk.callAction({
+      const response = await sdk.callAction<BusinessUnit>({
         actionName: 'business-unit/removeAssociate',
         payload: { accountId: id },
         query: { key: businessUnit },
@@ -73,7 +77,7 @@ const useBusinessUnits = () => {
 
       mutateBusinessUnits();
 
-      return !response.isError && response.data;
+      return response.isError ? {} : response.data;
     },
     [mutateBusinessUnits],
   );

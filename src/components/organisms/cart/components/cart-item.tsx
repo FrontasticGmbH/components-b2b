@@ -4,12 +4,38 @@ import Image from '@/components/atoms/Image';
 import Typography from '@/components/atoms/typography';
 import QuantityWidget from '@/components/atoms/quantity-widget';
 import { CurrencyHelpers } from '@/utils/currency-helpers';
+import Link from '@/components/atoms/link';
+import useTranslation from '@/providers/I18n/hooks/useTranslation';
+import { ArrowUturnLeftIcon as UndoIcon } from '@heroicons/react/24/outline';
+import Button from '@/components/atoms/button';
 import CartItemHeader from './cart-item-header';
 import CartItemFooter from './cart-item-footer';
 import { CartItemProps } from '../types';
 
-const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove }) => {
+const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove, onUndoRemove }) => {
   const { locale } = useParams();
+
+  const { translate } = useTranslation();
+
+  if (item.deleted)
+    return (
+      <div className="flex flex-col items-center px-4 py-8">
+        <p className="pb-8 text-center text-gray-600">
+          <Link href={item._url ?? '#'} className="inline text-primary underline">
+            {item.name}
+          </Link>{' '}
+          {translate('cart.item.was.removed')}
+        </p>
+        <Button
+          variant="secondary"
+          size="s"
+          icon={<UndoIcon className="thick-svg text-gray-700" width={16} height={16} />}
+          onClick={onUndoRemove}
+        >
+          {translate('common.undo')}
+        </Button>
+      </div>
+    );
 
   return (
     <div className="pt-5 md:py-8 lg:gap-12">
@@ -25,7 +51,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
           suffix="small"
           alt="product image"
         />
-        <div className="flex w-full justify-between md:items-end">
+        <div className="flex w-full justify-center md:items-end md:justify-between md:gap-6 lg:gap-12">
           <div>
             <CartItemHeader className="hidden md:block" item={item} />
 
@@ -66,7 +92,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove })
         </div>
       </div>
 
-      <CartItemFooter className="justify-between px-4 md:hidden" onRemove={onRemove} />
+      <CartItemFooter className="justify-between md:hidden" onRemove={onRemove} />
     </div>
   );
 };

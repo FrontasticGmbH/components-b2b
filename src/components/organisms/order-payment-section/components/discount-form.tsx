@@ -53,7 +53,7 @@ const DiscountForm = ({ className }: DiscountFormProps) => {
           <form className="pt-6" onSubmit={handleSubmit}>
             <Input
               className={inputClassName}
-              value={code}
+              value={code ?? ''}
               placeholder={translate('cart.discount.enter')}
               onChange={handleChange}
               disabled={processing}

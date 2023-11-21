@@ -1,12 +1,11 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
 import Button from '@/components/atoms/button';
 import Confirmation from '@/components/organisms/confirmation';
 import PurchaseListItem from '@/components/molecules/purchase-list-item';
-import Link from '@/components/atoms/link';
 import EditPurchaseListModal from './components/edit-modal';
 import { PurchaseListDetailPageProps } from './types';
+import PreviousPageLink from '../../components/previous-page-link';
 
 const PurchaseListDetailPage = ({
   purchaseList,
@@ -18,8 +17,6 @@ const PurchaseListDetailPage = ({
   onUpdateItem,
 }: PurchaseListDetailPageProps) => {
   const { translate } = useTranslation();
-
-  const router = useRouter();
 
   if (!purchaseList) return <></>;
 
@@ -35,13 +32,7 @@ const PurchaseListDetailPage = ({
           <p className="text-14 leading-[100%] text-gray-600 lg:text-16">{purchaseList.description}</p>
         </div>
         <div className="flex items-center gap-3 md:pt-5 lg:pt-8">
-          <Link
-            className="hidden text-14 leading-normal text-[#274082] md:block"
-            href="#"
-            onClick={() => router.back()}
-          >
-            {translate('common.back.to.previous.page')}
-          </Link>
+          <PreviousPageLink className="hidden md:block" />
           <div className="flex w-full flex-col items-stretch gap-4 md:w-fit md:flex-row md:items-center md:gap-3">
             <Button
               className="w-full px-[0px] py-[8px] md:order-[2] md:w-[75px]"

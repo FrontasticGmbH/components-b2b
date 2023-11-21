@@ -19,65 +19,35 @@ export const myAccount = {
     {
       categoryId: 'orders',
       name: 'Orders',
-      path: '/dashboard/?hash=orders',
+      path: '/orders',
       subCategories: [],
     },
     {
       categoryId: 'quotes',
       name: 'Quotes',
-      path: '/dashboard/?hash=quotes',
+      path: '/quotes',
       subCategories: [],
     },
     {
       categoryId: 'shopping-lists',
       name: 'Shopping Lists',
-      path: '/dashboard/?hash=shopping-lists',
+      path: '/shopping-lists',
       subCategories: [],
     },
     {
       categoryId: 'settings-and-security',
       name: 'Settings & Security',
-      path: '/dashboard/?hash=settings',
+      path: '/settings',
       subCategories: [],
     },
     {
       categoryId: 'addresses',
       name: 'Addresses',
-      path: '/dashboard/?hash=addresses',
+      path: '/addresses',
       subCategories: [],
     },
   ],
 };
-export const categoryLinks = [
-  {
-    categoryId: 'ct-1',
-    name: 'Category-1',
-    path: '/',
-    subCategories: [
-      { categoryId: ' ct-3-sub-1', name: 'Sub-Category-1', path: '/', subCategories: [] },
-      { categoryId: ' ct-3-sub-2', name: 'Sub-Category-2', path: '/', subCategories: [] },
-      { categoryId: ' ct-3-sub-3', name: 'Sub-Category-3', path: '/', subCategories: [] },
-      { categoryId: ' ct-3-sub-4', name: 'Sub-Category-4', path: '/', subCategories: [] },
-    ],
-  },
-  {
-    categoryId: 'ct-2',
-    name: 'Category-2',
-    path: '/',
-    subCategories: [{ categoryId: 'ct-2-sub-1', name: 'Sub-Category-1', path: '/', subCategories: [] }],
-  },
-  {
-    categoryId: 'ct-3',
-    name: 'Category-3',
-    path: '/',
-    subCategories: [
-      { categoryId: 'ct-3-sub-1', name: 'Sub-Category-1', path: '/', subCategories: [] },
-      { categoryId: 'ct-3-sub-2', name: 'Sub-Category-2', path: '/', subCategories: [] },
-      { categoryId: 'ct-3-sub-3', name: 'Sub-Category-3', path: '/', subCategories: [] },
-      { categoryId: 'ct-3-sub-4', name: 'Sub-Category-4', path: '/', subCategories: [] },
-    ],
-  },
-];
 export const logo = { src: '/images/b2b-logo.png', width: 200, height: 100 };
 export const logoLink = resolveReference({ type: 'link', link: '/' }, 'Logo');
 export const accountLink = resolveReference({ type: 'link', link: '/' }, 'Logo');

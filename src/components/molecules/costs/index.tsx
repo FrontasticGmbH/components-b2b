@@ -19,7 +19,7 @@ const Costs = ({
   const { formatCurrency } = useFormat();
 
   const totalAmountClassNames = classnames(
-    'mt-6 flex items-center justify-between border-t border-neutral-400 pt-4 font-medium',
+    'mt-4 flex items-center justify-between border-t border-neutral-400 pt-4 font-medium md:mt-6',
     classNames.totalAmount,
   );
 
@@ -68,10 +68,10 @@ const Costs = ({
       </div>
 
       <div className={totalAmountClassNames}>
-        <Typography className="text-16 md:text-18" fontWeight="medium" asSkeleton={loading}>
+        <Typography className="text-16 text-gray-700 md:text-18" fontWeight="medium" asSkeleton={loading}>
           {`${translate('cart.total')}:`}
         </Typography>
-        <Typography className="text-16 md:text-18" fontWeight="medium" asSkeleton={loading}>
+        <Typography className="text-16 text-gray-700 md:text-18" fontWeight="medium" asSkeleton={loading}>
           {formatCurrency(total, currency)}
         </Typography>
       </div>

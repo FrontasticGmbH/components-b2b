@@ -108,7 +108,7 @@ const ProductTile = ({
           'mt-4 flex flex-col justify-start',
           isDiscounted ? 'gap-[52px] lg:gap-6' : 'gap-[72px] lg:gap-8',
           {
-            'md:mt-0 md:shrink-0 md:self-stretch md:text-end': variant === 'list-item',
+            'ml-4 md:ml-6 md:mt-0 md:shrink-0 md:self-stretch md:text-end lg:ml-12': variant === 'list-item',
           },
         )}
       >

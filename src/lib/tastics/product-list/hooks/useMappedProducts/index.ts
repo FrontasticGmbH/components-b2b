@@ -17,7 +17,9 @@ const useMappedProducts = ({ items }: Partial<DataSourceProps & Props>) => {
       name: item.name,
       description: variant.attributes?.['Product-Specifications'],
       image: variant.images?.[0],
-      price: (variant.discountedPrice?.centAmount ?? variant.price?.centAmount ?? 0) / 100,
+      price:
+        (variant.discountedPrice?.centAmount ?? variant.price?.centAmount ?? 0) /
+        Math.pow(10, variant.price?.fractionDigits ?? 2),
       currency: variant.price?.currencyCode ?? 'USD',
       inStock: variant.isOnStock,
       maxQuantity: variant.isOnStock ? Infinity : 0,
