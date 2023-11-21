@@ -1,49 +1,54 @@
-import { Account, Address } from '@shared/types/account';
-import { Store } from '@shared/types/store/Store';
+import { Account, Address } from "@shared/types/account";
 
 type CreateBusinessUnitPayload = {
-  account: Account;
-  store: Store;
+	account: {
+		accountId: string;
+		email: string;
+		companyName: string;
+	};
+	store: {
+		storeId: string;
+	};
 };
 
 type UpdateBusinessUnitPayload = {
-  name?: string;
-  contactEmail?: string;
+	name?: string;
+	contactEmail?: string;
 };
 
 type AddAssociatePayload = {
-  email: string;
-  roleKeys: string[];
+	email: string;
+	roleKeys: string[];
 };
 
 type UpdateAssociatePayload = {
-  accountId: string;
-  roleKeys: string[];
+	accountId: string;
+	roleKeys: string[];
 };
 
 type RemoveAssociatePayload = {
-  accountId: string;
+	accountId: string;
 };
 
 type AddBusinessUnitAddressPayload = {
-  address: Address;
+	address: Address;
 };
 
 type UpdateBusinessUnitAddressPayload = {
-  address: Address;
+	address: Address;
 };
 
 type RemoveBusinessUnitAddressPayload = {
-  address: Address;
+	address: Address;
 };
 
 export {
-  type CreateBusinessUnitPayload,
-  type UpdateBusinessUnitPayload,
-  type AddAssociatePayload,
-  type UpdateAssociatePayload,
-  type RemoveAssociatePayload,
-  type AddBusinessUnitAddressPayload,
-  type UpdateBusinessUnitAddressPayload,
-  type RemoveBusinessUnitAddressPayload,
+	type CreateBusinessUnitPayload,
+	type UpdateBusinessUnitPayload,
+	type AddAssociatePayload,
+	type UpdateAssociatePayload,
+	type RemoveAssociatePayload,
+	type AddBusinessUnitAddressPayload,
+	type UpdateBusinessUnitAddressPayload,
+	type RemoveBusinessUnitAddressPayload,
 };

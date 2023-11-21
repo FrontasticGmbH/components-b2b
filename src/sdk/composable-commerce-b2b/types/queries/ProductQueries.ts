@@ -1,18 +1,25 @@
-import { CategoryQuery, ProductQuery } from '@shared/types/query';
+import { CategoryQuery, ProductQuery } from "@shared/types/query";
 
 type GetProductQuery = {
-  id?: string;
-  sku?: string;
+	id?: string;
+	sku?: string;
 };
 
-type ProductQueryQuery = Omit<ProductQuery, 'filters' | 'facets' | 'sortAttributes' | 'storeKey'>;
+type ProductQueryQuery = Omit<
+	ProductQuery,
+	"filters" | "facets" | "sortAttributes" | "storeKey"
+>;
 
 type QueryProductCategoriesQuery = {
-  limit?: number;
-  cursor?: string;
-  parentId?: string;
-  slug?: string;
-  format?: string;
+	limit?: number;
+	cursor?: string;
+	parentId?: string;
+	slug?: string;
+	format?: string;
 };
 
-export { type GetProductQuery, type ProductQueryQuery, type QueryProductCategoriesQuery };
+export {
+	type GetProductQuery,
+	type ProductQueryQuery,
+	type QueryProductCategoriesQuery,
+};
