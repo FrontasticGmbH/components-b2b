@@ -5,8 +5,9 @@ import { CompanyAdminPageProps } from '@/components/pages/dashboard/pages/compan
 import AddressForm from '@/components/pages/dashboard/pages/company-admin/forms/address';
 import AssociateForm from '@/components/pages/dashboard/pages/company-admin/forms/associate';
 import BusinessUnitForm from '@/components/pages/dashboard/pages/company-admin/forms/business-unit';
+import { Store } from '@shared/types/store/Store';
 
-const useSubPath = ({ ...props }: CompanyAdminPageProps) => {
+const useSubPath = ({ ...props }: CompanyAdminPageProps & { selectedStore?: Store }) => {
   const searchParams = useSearchParams();
 
   const subPath = searchParams.get('subPath');
@@ -35,7 +36,7 @@ const useSubPath = ({ ...props }: CompanyAdminPageProps) => {
       },
       'add-business-unit': {
         title: 'dashboard.business.unit.add',
-        Component: <BusinessUnitForm {...props}/>,
+        Component: <BusinessUnitForm {...props} />,
       },
       'edit-business-unit': {
         title: 'dashboard.business.unit.edit',
