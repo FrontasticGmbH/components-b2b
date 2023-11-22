@@ -36,7 +36,7 @@ const CompanyAdminTastic = () => {
 
   const companyAdminProps = {
     companyName: account?.companyName,
-    storeName: selectedStore?.name,
+    storeName: activeBusinessUnit?.name ?? activeBusinessUnit?.key,
     businessUnitOptions: businessUnits.map(({ name, key }) => ({ name: name ?? key ?? '', value: key ?? '' })),
     initialBusinessUnit: activeBusinessUnit?.key,
     onBusinessUnitChange: onBusinessUnitSelected,
