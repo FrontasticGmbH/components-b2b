@@ -1,19 +1,17 @@
 
 ## Version 1.2.0 (2023-11-22)
 
-
 ** Features and improvements **
 
-- Update B2B SDK integration
-- Remove husky
-- Add typechecking to dev commands
+- Updated B2B SDK integration
+- Removed husky
+- Added typechecking to dev commands
 
 ** Bug fixes **
 
-- Modify removeAddress action payload
-- Change displayed store name to businessunit name
+- Fixed type error
+- Modified removeAddress action payload
 
-## Version 1.1.0 (2023-10-24)
 
 ** New Features and Improvements **
 
