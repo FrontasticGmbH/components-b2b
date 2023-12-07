@@ -57,7 +57,7 @@ const Cart = ({
         const quote = await onRequestQuote({ buyerComment });
         setSubmittedQuote(quote);
       },
-      disabled: (lineItems ?? []).some((item) => !item.variant?.isOnStock),
+      disabled: (lineItems ?? []).filter((item) => !item.deleted).some((item) => !item.variant?.isOnStock),
     };
   }, [closeFlyouts, translate, onRequestQuote, lineItems]);
 
@@ -90,7 +90,7 @@ const Cart = ({
       <div className="flex flex-col bg-white py-4 md:py-6 lg:flex-row lg:items-start lg:gap-6 lg:bg-transparent lg:px-5 lg:py-12 xl:px-12">
         <CartContent
           lineItems={lineItems}
-          className="bg-white px-4 py-3 md:px-6 lg:w-[70%] lg:rounded-md lg:px-5 lg:py-9 xl:px-12"
+          className="grow bg-white px-4 py-3 md:px-6 lg:rounded-md lg:px-5 lg:py-9 xl:px-12"
           {...props}
         />
 

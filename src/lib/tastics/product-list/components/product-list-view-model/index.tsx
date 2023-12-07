@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import ProductList from '@/components/organisms/product-list';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
 import useBusinessUnits from '@/lib/hooks/useBusinessUnits';
@@ -22,12 +22,11 @@ const ProductListViewModel = ({
   totalItems,
   categories,
   categoryConfiguration,
+  displayIntermediaryPage = false,
 }: Omit<DataSourceProps, 'category'> & ViewModelProps) => {
   const { translate } = useTranslation();
 
   const { slug } = useParams();
-
-  const searchParams = useSearchParams();
 
   const currency = useCurrency();
 
@@ -43,23 +42,23 @@ const ProductListViewModel = ({
 
   const { onSortValueChange, currentSortValue, limit, onLoadMore, onResetAll, onRefine } = useRefinement();
 
-  const isRootCategory = category?.depth === 0;
-
   const categoriesBreadcrumb = [
     { name: translate('common.home'), link: '/' },
-    ...slug.split('/').map((chunk, index, arr) => ({ name: chunk, link: `/${arr.slice(0, index + 1).join('/')}` })),
+    ...slug
+      .split('/')
+      .map((chunk, index, arr) => ({ name: chunk.replace(/-/g, ' '), link: `/${arr.slice(0, index + 1).join('/')}` })),
   ];
 
-  if (category && isRootCategory && !searchParams.get('view')) {
+  if (displayIntermediaryPage) {
     const categoryConfig = categoryConfiguration[category?.slug ?? ''] ?? {};
 
     return (
       <IntermediaryProductList
-        title={category.name ?? ''}
-        link={{ name: translate('common.shop.all'), href: `${category._url}?view=1` }}
+        title={category?.name ?? ''}
+        link={{ name: translate('common.shop.all'), href: `${category?._url}?view=1` }}
         breadcrumb={categoriesBreadcrumb}
         items={[
-          ...category.subCategories.map(({ name, slug, _url }) => ({
+          ...(category?.subCategories ?? []).map(({ name, slug, _url }) => ({
             name: name ?? '',
             image: categoryConfiguration[slug ?? '']?.image,
             url: _url,
@@ -67,7 +66,7 @@ const ProductListViewModel = ({
           {
             name: translate('common.view.all'),
             image: categoryConfig?.image,
-            url: `${category._url}?view=1`,
+            url: `${category?._url}?view=1`,
           },
         ]}
         highlight={{

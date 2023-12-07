@@ -56,4 +56,5 @@ export interface ViewModelProps {
   categories: Array<Category>;
   category?: Category;
   categoryConfiguration: Record<string, CategoryConfiguration>;
+  displayIntermediaryPage?: boolean;
 }

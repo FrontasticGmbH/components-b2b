@@ -1,11 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
 import useControllableState from '@/hooks/useControllableState';
 import { classnames } from '@/utils/classnames/classnames';
 import { Props } from './types';
 import Input from '../input';
 
-const QuantityWidget = ({ value: valueProp, defaultValue = 0, maxValue, onChange, showLabel = true }: Props) => {
+const QuantityWidget = ({
+  value: valueProp,
+  defaultValue = 0,
+  maxValue,
+  onChange,
+  disabled,
+  showLabel = true,
+}: Props) => {
   const { translate } = useTranslation();
 
   const [value, setValue] = useControllableState(valueProp, defaultValue);
@@ -14,16 +21,24 @@ const QuantityWidget = ({ value: valueProp, defaultValue = 0, maxValue, onChange
   const handleDecrement = useCallback(() => {
     if (value === 0) return;
 
-    setValue(value - 1);
-    onChange?.(value - 1);
+    const newValue = value - 1;
+
+    setValue(newValue);
+    onChange?.(newValue);
   }, [value, setValue, onChange]);
 
   const handleIncrement = useCallback(() => {
     if (value === maxValue) return;
 
-    setValue(value + 1);
-    onChange?.(value + 1);
+    const newValue = value + 1;
+
+    setValue(newValue);
+    onChange?.(newValue);
   }, [value, setValue, onChange, maxValue]);
+
+  useEffect(() => {
+    setRawValue(value.toString());
+  }, [value]);
 
   const handleRawValueChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -43,7 +58,7 @@ const QuantityWidget = ({ value: valueProp, defaultValue = 0, maxValue, onChange
   const boxClassName = classnames('flex h-[40px] w-[40px] items-center justify-center p-0');
 
   const buttonClassName = classnames(
-    'border-gray-300 bg-white transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400',
+    'border-gray-300 bg-white transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:hover:bg-white',
   );
 
   return (
@@ -51,7 +66,7 @@ const QuantityWidget = ({ value: valueProp, defaultValue = 0, maxValue, onChange
       {showLabel && <span className="text-14 text-gray-700">{translate('common.quantity.shorthand')}</span>}
       <div className="flex overflow-hidden rounded-md border border-gray-300 text-gray-700">
         <button
-          disabled={value <= 0}
+          disabled={value <= 0 || disabled}
           className={classnames(boxClassName, buttonClassName, 'border-r')}
           onClick={handleDecrement}
         >
@@ -70,10 +85,11 @@ const QuantityWidget = ({ value: valueProp, defaultValue = 0, maxValue, onChange
             value={rawValue}
             onChange={handleRawValueChange}
             onBlur={handleRawValueSubmit}
+            disabled={disabled}
           />
         </form>
         <button
-          disabled={value >= (maxValue ?? Number.MAX_VALUE)}
+          disabled={value >= (maxValue ?? Number.MAX_VALUE) || disabled}
           className={classnames(boxClassName, buttonClassName, 'border-l')}
           onClick={handleIncrement}
         >

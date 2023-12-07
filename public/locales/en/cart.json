@@ -66,5 +66,6 @@
   "quote.submitted": "Your Quote has been submitted!",
   "quote.submitted.desc": "A Sales Representative will provide you with a quote as soon as possible. You will be notified of quote updates on {email}",
   "view.quote": "View quote",
-  "item.was.removed": "was removed from your cart."
+  "item.was.removed": "was removed from your cart.",
+  "attempt.with.outofstock.item": "You have an item that is out of stock, please remove it to proceed."
 }

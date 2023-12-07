@@ -67,24 +67,37 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove, o
 
             <QuantityWidget showLabel={false} defaultValue={1} value={item.count} onChange={onUpdateQuantity} />
 
-            <div className="flex items-center gap-1 md:gap-2">
+            <div className="w-full gap-1 md:gap-2">
               {item.discountedPrice ? (
-                <div className="flex items-center gap-1">
-                  <Typography lineHeight="tight" fontSize={14} className="font-normal text-gray-600 line-through">
-                    {CurrencyHelpers.formatForCurrency((item.price?.centAmount ?? 0) * (item.count ?? 1), locale)}
+                <div className="relative w-full gap-1">
+                  <Typography
+                    lineHeight="tight"
+                    fontSize={14}
+                    className="absolute left-0 top-1/2 -translate-x-full -translate-y-1/2 font-normal text-gray-600 line-through"
+                  >
+                    {CurrencyHelpers.formatForCurrency(
+                      (item.price?.centAmount ?? 0) * (item.count ?? 1),
+                      locale,
+                      item.price?.currencyCode,
+                    )}
                   </Typography>
                   <Typography
                     lineHeight="loose"
                     fontSize={16}
                     fontWeight="semibold"
-                    className="text-red-500 md:text-18"
+                    className="text-center text-red-500 md:text-18"
                   >
-                    {CurrencyHelpers.formatForCurrency(item.totalPrice ?? 0, locale)}
+                    {CurrencyHelpers.formatForCurrency(item.totalPrice ?? 0, locale, item.price?.currencyCode)}
                   </Typography>
                 </div>
               ) : (
-                <Typography lineHeight="loose" fontSize={16} fontWeight="semibold" className="text-gray-700 md:text-18">
-                  {CurrencyHelpers.formatForCurrency(item.totalPrice ?? 0, locale)}
+                <Typography
+                  lineHeight="loose"
+                  fontSize={16}
+                  fontWeight="semibold"
+                  className="text-center text-gray-700 md:text-18"
+                >
+                  {CurrencyHelpers.formatForCurrency(item.totalPrice ?? 0, locale, item.price?.currencyCode)}
                 </Typography>
               )}
             </div>

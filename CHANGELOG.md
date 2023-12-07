@@ -1,4 +1,18 @@
 
+## Version 1.3.0 (2023-12-07)
+
+
+** Features and Improvements **
+
+- Checkout improvements
+- Added thank you component (storybook)
+
+
+** Bug fixes **
+
+- UI & func. bug fixes in PLP
+- UI & func. bug fixes in company admin pages
+
 ## Version 1.2.0 (2023-11-22)
 
 ** Features and improvements **
