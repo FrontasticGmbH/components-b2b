@@ -45,14 +45,7 @@ const Template: StoryFn<typeof Table> = () => (
       </Table.Body>
     </Table.Container>
 
-    <Table.Pagination
-      className="px-4"
-      page={1}
-      limit={25}
-      totalItems={2}
-      disablePrevious
-      onRowsPerPageChange={(value) => console.log(value)}
-    />
+    <Table.Pagination page={1} limit={25} totalItems={2} onRowsPerPageChange={(value) => console.log(value)} />
   </Table>
 );
 

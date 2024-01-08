@@ -13,6 +13,7 @@ const AuthForm = ({
   buttonLabel,
   footerLabel,
   footerLink,
+  error,
   includeCheckIcon,
   footerOnClick,
   footerLinkLabel,
@@ -45,7 +46,16 @@ const AuthForm = ({
         )}
       </div>
 
-      {children && <div className="mt-6 grid gap-3 md:mt-9">{children}</div>}
+      {children && (
+        <div className="mt-6 grid gap-3 md:mt-9">
+          {error && (
+            <Typography fontSize={14} fontWeight="medium" className="text-red-500">
+              {error}
+            </Typography>
+          )}
+          {children}
+        </div>
+      )}
 
       <Button size="l" className="mt-6 text-14 md:mt-9" onClick={onSubmit}>
         {buttonLabel}

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { BusinessUnit } from '@shared/types/business-unit';
 
-const useStore = ({ activeBusinessUnit }: { activeBusinessUnit: BusinessUnit }) => {
+const useStore = ({ activeBusinessUnit }: { activeBusinessUnit?: BusinessUnit }) => {
   const [selectedStoreKey, setSelectedStoreKey] = useState<string>();
 
   const stores = useMemo(() => activeBusinessUnit?.stores ?? [], [activeBusinessUnit?.stores]);

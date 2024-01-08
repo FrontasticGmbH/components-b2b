@@ -41,7 +41,7 @@ Primary.args = {
       price: 115.99,
       currency: 'USD',
       quantity: 4,
-      image: '/brake-pad.png',
+      images: ['/brake-pad.png'],
     },
     {
       id: '2',
@@ -49,7 +49,7 @@ Primary.args = {
       price: 115.99,
       currency: 'USD',
       quantity: 3,
-      image: '/brake-pad.png',
+      images: ['/brake-pad.png'],
     },
   ],
   transaction: {

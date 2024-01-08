@@ -55,7 +55,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove, o
           <div>
             <CartItemHeader className="hidden md:block" item={item} />
 
-            <CartItemFooter className="hidden md:flex" onRemove={onRemove} />
+            <CartItemFooter className="hidden md:flex" onRemove={onRemove} item={item} />
           </div>
 
           <div className="flex flex-col items-center justify-center gap-2 lg:gap-3">
@@ -105,7 +105,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemove, o
         </div>
       </div>
 
-      <CartItemFooter className="justify-between md:hidden" onRemove={onRemove} />
+      <CartItemFooter className="justify-between md:hidden" onRemove={onRemove} item={item} />
     </div>
   );
 };

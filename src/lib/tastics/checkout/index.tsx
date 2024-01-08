@@ -5,15 +5,15 @@ import { useRouter } from 'next/navigation';
 import Checkout from '@/components/organisms/checkout';
 import countries from '@/static/countries.json';
 import { resolveReference } from '@/utils/lib/resolve-reference';
-import useAccount from '@/lib/hooks/useAccount';
 import { mapAddress, mapCoCoAddress } from '@/utils/mappers/map-address';
 import useCart from '@/lib/hooks/useCart';
 import useBusinessUnits from '@/lib/hooks/useBusinessUnits';
-import useStores from '@/lib/hooks/useStores';
 import { mapLineItem } from '@/utils/mappers/map-lineitem';
 import { mapShippingMethod } from '@/utils/mappers/map-shipping-method';
 import toast from '@/components/atoms/toaster/helpers/toast';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
+import { useStoreAndBusinessUnits } from '@/providers/store-and-business-units';
+import useAccount from '@/lib/hooks/useAccount';
 import { Props } from './types';
 import { TasticProps } from '../types';
 import usePaymentMethods from './hooks/usePaymentMethods';
@@ -21,17 +21,17 @@ import usePaymentMethods from './hooks/usePaymentMethods';
 const CheckoutTastic = ({ data }: TasticProps<Props>) => {
   const router = useRouter();
 
+  const { account } = useAccount();
+
   const { translate } = useTranslation();
 
-  const { account, addAddress } = useAccount();
+  const { addAddress } = useBusinessUnits();
 
-  const { defaultBusinessUnit } = useBusinessUnits();
-
-  const { defaultStore } = useStores();
+  const { selectedBusinessUnit, selectedStore } = useStoreAndBusinessUnits();
 
   const { cart, updateCart, setShippingMethod, redeemDiscount, removeDiscount } = useCart(
-    defaultBusinessUnit?.key,
-    defaultStore?.key,
+    selectedBusinessUnit?.key,
+    selectedStore?.key,
   );
 
   const paymentMethods = usePaymentMethods();
@@ -67,7 +67,7 @@ const CheckoutTastic = ({ data }: TasticProps<Props>) => {
         currency: cart?.transaction.total.currencyCode ?? 'USD',
       }}
       products={(cart?.lineItems ?? []).map(mapLineItem)}
-      addresses={(account?.addresses ?? []).map(mapAddress)}
+      addresses={selectedBusinessUnit?.addresses ?? []}
       shippingMethods={(cart?.availableShippingMethods ?? []).map(mapShippingMethod)}
       countryOptions={countries.map(({ name, code, states }) => ({
         name,
@@ -76,15 +76,20 @@ const CheckoutTastic = ({ data }: TasticProps<Props>) => {
       }))}
       termsAndConditionsLink={resolveReference(data.termsAndConditionsLink)}
       onAddAddress={async (address) => {
-        const response = await addAddress(mapCoCoAddress(address));
-        return !!response.accountId;
+        if (!selectedBusinessUnit?.key) return false;
+
+        const response = await addAddress({ ...mapCoCoAddress(address), businessUnit: selectedBusinessUnit?.key });
+        return !!response.businessUnitId;
       }}
       onApplyDiscount={async (code) => {
         const res = await redeemDiscount(code);
         return !!res.cartId;
       }}
       onCompleteAddresses={async (shippingAddress, billingAddress) => {
+        if (!account) return false;
+
         const response = await updateCart({
+          email: account.email,
           shipping: mapCoCoAddress(shippingAddress),
           billing: mapCoCoAddress(billingAddress),
         });

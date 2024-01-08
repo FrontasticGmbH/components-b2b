@@ -13,6 +13,7 @@ const ContentSlider = ({ title, link, items }: ContentSliderProps) => {
 
       <Slider
         dots
+        containerClassName="px-12"
         spaceBetween={{ base: 12, md: 18, lg: 24 }}
         slidesToShow={{ base: 1, md: 2, lg: 3 }}
         arrows

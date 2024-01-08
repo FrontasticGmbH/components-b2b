@@ -20,7 +20,7 @@ const ProductList = (props: ProductListProps) => {
         <CategoriesBreadcrumb {...props} />
       </div>
       <div className="px-4 pb-12 md:px-6 lg:px-12 xl:flex xl:gap-6 xl:pb-[72px]">
-        <div className="xl:max-w-[320px]">
+        <div className="xl:max-w-[340px]">
           <Header />
           <div className="mt-4 xl:hidden">
             <FacetsDrawer />

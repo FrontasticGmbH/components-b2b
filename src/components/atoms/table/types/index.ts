@@ -15,8 +15,6 @@ export type TablePaginationProps = {
   page: number;
   limit: number;
   totalItems: number;
-  disableNext?: boolean;
-  disablePrevious?: boolean;
   onRowsPerPageChange?: SelectProps['onChange'];
   onPrevious?: () => void;
   onNext?: () => void;

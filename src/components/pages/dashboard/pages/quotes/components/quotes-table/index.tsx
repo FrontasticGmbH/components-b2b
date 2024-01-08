@@ -11,7 +11,7 @@ import { QuotesPageProps } from '../../types';
 const QuotesTable = ({
   quotes,
   totalItems = 0,
-  page = 0,
+  page = 1,
   onPageChange,
   onRowsPerPageChange,
   limit = 25,
@@ -50,7 +50,7 @@ const QuotesTable = ({
               </Table.Cell>
               <Table.Cell>{creationDate}</Table.Cell>
               <Table.Cell>{businessUnit}</Table.Cell>
-              <Table.Cell>{formatCurrency(total, currency)}</Table.Cell>
+              <Table.Cell className="text-right">{formatCurrency(total, currency)}</Table.Cell>
               <Table.Cell isButtonsCell>
                 <div className="flex justify-end">
                   <Link href={url} underlineOnHover={false}>

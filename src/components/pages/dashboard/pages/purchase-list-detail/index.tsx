@@ -3,6 +3,7 @@ import useTranslation from '@/providers/I18n/hooks/useTranslation';
 import Button from '@/components/atoms/button';
 import Confirmation from '@/components/organisms/confirmation';
 import PurchaseListItem from '@/components/molecules/purchase-list-item';
+import useEntityToasters from '@/hooks/useEntityToasters';
 import EditPurchaseListModal from './components/edit-modal';
 import { PurchaseListDetailPageProps } from './types';
 import PreviousPageLink from '../../components/previous-page-link';
@@ -17,6 +18,8 @@ const PurchaseListDetailPage = ({
   onUpdateItem,
 }: PurchaseListDetailPageProps) => {
   const { translate } = useTranslation();
+
+  const { showDeletedMessage, showDeletedFailedMessage } = useEntityToasters('purchaselist');
 
   if (!purchaseList) return <></>;
 
@@ -53,7 +56,12 @@ const PurchaseListDetailPage = ({
                 cancel: translate('common.cancel'),
                 confirm: translate('common.delete'),
               }}
-              onConfirm={async () => onDeletePurchaseList?.(purchaseList.id)}
+              onConfirm={async () => {
+                const success = await onDeletePurchaseList?.(purchaseList.id);
+
+                if (success) showDeletedMessage();
+                else showDeletedFailedMessage();
+              }}
             >
               <Button className="w-full px-[0px] py-[8px] md:w-[75px]" size="m" variant="secondary">
                 {translate('common.delete')}
@@ -75,9 +83,9 @@ const PurchaseListDetailPage = ({
           <PurchaseListItem
             key={item.id}
             item={item}
-            onRemove={async () => onRemoveItem?.(item.id)}
-            onAddToCart={async () => onAddItemToCart?.(item)}
-            onQuantityChange={async (quantity) => onUpdateItem?.({ ...item, quantity })}
+            onRemove={async () => !!onRemoveItem?.(item.id)}
+            onAddToCart={async () => !!onAddItemToCart?.(item)}
+            onQuantityChange={async (quantity) => !!onUpdateItem?.({ ...item, quantity })}
           />
         ))}
       </div>

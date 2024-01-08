@@ -33,6 +33,8 @@
   "password.current": "Nuvarande lösenord",
   "password.new": "Nytt lösenord",
   "password.change": "Ändra ditt lösenord",
+  "password.reset.success": "Lösenordet har återställts",
+  "password.reset.success.desc": "Ditt lösenord har återställts. Du kan nu säkert logga in med ditt nya lösenord.",
   "password.confirm": "Bekräfta lösenord",
   "password.forgot": "Glömt lösenord?",
   "sign.in": "Logga in",

@@ -13,8 +13,6 @@ const TablePagination = ({
   page,
   limit,
   totalItems,
-  disableNext,
-  disablePrevious,
   onRowsPerPageChange,
   onPrevious,
   onNext,
@@ -24,11 +22,15 @@ const TablePagination = ({
   const [isTabletSize] = useMediaQuery(tablet);
 
   const { from, to } = useMemo(() => {
-    const from = ((page - 1) * limit + 1).toString();
-    const to = Math.min(page * limit + limit, totalItems).toString();
+    const from = totalItems === 0 ? '0' : ((page - 1) * limit + 1).toString();
+    const to = Math.min(page + limit - 1, totalItems).toString();
 
     return { from, to };
   }, [limit, page, totalItems]);
+
+  const disableNext = useMemo(() => to === totalItems.toString(), [to, totalItems]);
+
+  const disablePrevious = useMemo(() => page === 1, [page]);
 
   const previousIconProps: SVGAttributes<SVGElement> = {
     className: classnames('h-6 w-6', { 'cursor-pointer': !disablePrevious }),
@@ -40,7 +42,7 @@ const TablePagination = ({
     stroke: disableNext ? '#D1D1D1' : '#212121',
   };
 
-  const paginationClassName = classnames('flex w-full gap-4 py-6 md:justify-between md:gap-0', className);
+  const paginationClassName = classnames('flex w-full justify-between py-6 md:gap-0', className);
 
   return (
     <div className={paginationClassName}>

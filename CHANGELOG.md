@@ -1,4 +1,10 @@
 
+## Version 1.4.0 (2024-01-08)
+
+* backporting latest b2b changes
+* feat: added missing fields on query order type for SDK
+* [B2B] Correct cart layout
+
 ## Version 1.3.0 (2023-12-07)
 
 

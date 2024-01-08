@@ -38,7 +38,7 @@ export interface PaymentMethod {
 export interface CheckoutProps {
   addresses: Address[];
   onAddAddress?: (address: Address) => Promise<boolean>;
-  products: Array<Pick<Product, 'id' | 'name' | 'currency' | 'price' | 'quantity' | 'image'>>;
+  products: Array<Pick<Product, 'id' | 'name' | 'currency' | 'price' | 'quantity' | 'images'>>;
   transaction: Transaction;
   discounts: Array<Discount & { onRemove?: () => Promise<boolean> }>;
   onApplyDiscount?: (code: string) => Promise<boolean>;

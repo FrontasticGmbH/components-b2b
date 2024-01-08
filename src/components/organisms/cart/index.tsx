@@ -28,7 +28,7 @@ const Cart = ({
 
   const { translate } = useTranslation();
 
-  const [lineItems, setLineItems] = useState<Array<LineItem & { deleted?: boolean }>>(lineItemsProp ?? []);
+  const [lineItems, setLineItems] = useState<Array<LineItem & { deleted?: boolean }> | undefined>(lineItemsProp);
 
   useEffect(() => {
     if (!lineItemsProp) return;
@@ -37,11 +37,18 @@ const Cart = ({
     setLineItems((lineItems) => {
       if (!lineItems) return lineItemsProp;
 
-      return lineItems.map((lineItem) => {
-        const item = lineItemsProp.find((item) => lineItem.variant?.sku === item.variant?.sku);
+      const newItems = lineItemsProp.filter(
+        (lineItem) => !lineItems.find((item) => lineItem.variant?.sku === item.variant?.sku),
+      );
 
-        return { ...(item ?? lineItem), deleted: !item };
-      });
+      return [
+        ...lineItems.map((lineItem) => {
+          const item = lineItemsProp.find((item) => lineItem.variant?.sku === item.variant?.sku);
+
+          return { ...(item ?? lineItem), deleted: !item };
+        }),
+        ...newItems,
+      ];
     });
   }, [lineItemsProp]);
 
@@ -63,7 +70,7 @@ const Cart = ({
 
   if (submittedQuote && submittedQuote.id) {
     return (
-      <div className="relative min-h-[70vh] bg-neutral-200 p-4 md:px-5 md:py-6 lg:py-12 xl:px-12">
+      <div className="relative min-h-[50vh] bg-neutral-200 p-4 md:px-5 md:py-6 lg:p-12">
         <div className="grid w-full place-items-center gap-12 rounded-lg bg-white py-9">
           <div className="grid place-items-center gap-6">
             <Typography fontSize={20} className="text-gray-700">
@@ -86,18 +93,18 @@ const Cart = ({
   }
 
   return (
-    <div className="relative bg-neutral-200">
-      <div className="flex flex-col bg-white py-4 md:py-6 lg:flex-row lg:items-start lg:gap-6 lg:bg-transparent lg:px-5 lg:py-12 xl:px-12">
+    <div className="relative min-h-[50vh] bg-neutral-200">
+      <div className="flex flex-col bg-white py-4 md:py-6 lg:flex-row lg:items-start lg:gap-6 lg:bg-transparent lg:p-12">
         <CartContent
           lineItems={lineItems}
-          className="grow bg-white px-4 py-3 md:px-6 lg:rounded-md lg:px-5 lg:py-9 xl:px-12"
+          className="grow bg-white px-4 py-3 md:px-6 lg:rounded-lg lg:p-9"
           {...props}
         />
 
         {(lineItems ?? []).length > 0 ? (
           <>
             <OrderSummary
-              className="bg-white px-4 pb-3 md:px-6 md:pt-3 lg:mt-0 lg:w-[30%] lg:rounded-md lg:p-9 lg:pb-11 xl:px-12"
+              className="bg-white px-4 pb-3 md:px-6 md:pt-3 lg:mt-0 lg:rounded-lg lg:p-9 lg:px-12 lg:pb-11 xl:w-[432px] xl:shrink-0"
               title="Order Summary"
               paymentMethods={paymentMethods}
               button={<CheckoutCTA className="hidden w-full md:grid" {...defaultCheckoutCTAProps} />}

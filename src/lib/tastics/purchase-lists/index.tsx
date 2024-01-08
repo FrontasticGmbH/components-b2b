@@ -6,24 +6,26 @@ import { DashboardLinks } from '@/components/pages/dashboard/constants';
 import PurchaseListsPage from '@/components/pages/dashboard/pages/purchase-lists';
 import { PurchaseListsPageProps } from '@/components/pages/dashboard/pages/purchase-lists/types';
 import usePurchaseLists from '@/lib/hooks/usePurchaseLists';
-import useStores from '@/lib/hooks/useStores';
 import { mapPurchaseList } from '@/utils/mappers/map-purchase-list';
 import useAccount from '@/lib/hooks/useAccount';
+import { useStoreAndBusinessUnits } from '@/providers/store-and-business-units';
 import useSubPath from './hooks/useSubPath';
 
 const PurchaseListsTastic = () => {
   const { account } = useAccount();
 
-  const { purchaseLists, createPurchaseList } = usePurchaseLists();
+  const { selectedStore } = useStoreAndBusinessUnits();
 
-  const { defaultStore } = useStores();
+  const { purchaseLists, createPurchaseList } = usePurchaseLists(selectedStore?.key);
 
   const purchaseListProps = {
     purchaseLists: purchaseLists.map(mapPurchaseList),
     onAddPurchaseList: async (purchaseList) => {
-      if (!defaultStore) return;
+      if (!selectedStore) return;
 
-      await createPurchaseList({ ...purchaseList, store: defaultStore });
+      const res = await createPurchaseList({ ...purchaseList, store: selectedStore });
+
+      return !!res?.wishlistId;
     },
   } as PurchaseListsPageProps;
 

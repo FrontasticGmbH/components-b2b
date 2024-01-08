@@ -23,6 +23,8 @@ const ProductListTastic = async ({ data, searchParams }: TasticProps<DataSource<
 
   const isRootCategory = category?.depth === 0;
 
+  const isSearchPage = !!searchParams.query;
+
   const sortValueExists = Array.from(Object.keys(searchParams))
     .find((key) => key.startsWith('sortAttributes'))
     ?.match(/sortAttributes\[0\]\[(.+)\]/)?.[1];
@@ -34,7 +36,16 @@ const ProductListTastic = async ({ data, searchParams }: TasticProps<DataSource<
 
   const isIntermediaryPage = isRootCategory && !searchParams.view && (treeCategory?.subCategories.length ?? 0) >= 3;
 
-  if (!isIntermediaryPage && !sortValueExists) return redirect('?sortAttributes[0][price]=asc&view=1');
+  if (!isIntermediaryPage && !sortValueExists) {
+    const newSearchParams = new URLSearchParams();
+
+    newSearchParams.set('sortAttributes[0][price]', 'asc');
+    newSearchParams.set('view', '1');
+
+    if (isSearchPage) newSearchParams.set('query', searchParams.query as string);
+
+    return redirect(`?${newSearchParams.toString()}`);
+  }
 
   return (
     <ProductListViewModel
@@ -42,7 +53,7 @@ const ProductListTastic = async ({ data, searchParams }: TasticProps<DataSource<
       categoryConfiguration={categoryConfiguration}
       categories={flatCategories}
       category={categories.find((c) => c.slug === slug) ?? category}
-      displayIntermediaryPage={isIntermediaryPage}
+      displayIntermediaryPage={isIntermediaryPage && !isSearchPage}
     />
   );
 };

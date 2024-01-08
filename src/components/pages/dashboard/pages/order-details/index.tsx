@@ -73,12 +73,12 @@ const OrderDetailsPage = ({ order }: OrderDetailsPageProps) => {
             </tr>
           </thead>
           <tbody>
-            {order.items.map(({ id, image, name, sku, quantity, price, currency }) => (
+            {order.items.map(({ id, images, name, sku, quantity, price, currency }) => (
               <tr key={id} className="border-b border-neutral-400 p-4 text-14 text-gray-600">
                 <td className="p-4 text-left">
                   <div className="flex items-center gap-3">
                     <span className="relative block h-[40px] w-[40px]">
-                      <Image src={image} fill alt={name ?? ''} />
+                      <Image src={images?.[0]} fill alt={name ?? ''} />
                     </span>
                     <span>{name}</span>
                   </div>

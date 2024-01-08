@@ -31,7 +31,7 @@ export type CartProps = {
   onRemove: (id: string) => Promise<void>;
   onUpdateQuantity: (id: string, qty: number) => Promise<void>;
   onRequestQuote: (args: { buyerComment?: string }) => Promise<Partial<Quote>>;
-} & Cart & { transaction: Transaction };
+} & Partial<Cart> & { transaction?: Transaction };
 
 export type CartContentProps = Pick<Cart, 'lineItems'> &
   Pick<CartProps, 'onUpdateQuantity' | 'onRemove' | 'onAdd'> & {
@@ -39,6 +39,7 @@ export type CartContentProps = Pick<Cart, 'lineItems'> &
   };
 
 export type CartItemFooterProps = Pick<CartItemProps, 'onRemove'> & {
+  item: LineItem;
   className?: string;
 };
 

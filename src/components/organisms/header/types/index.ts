@@ -2,11 +2,15 @@ import { Link } from '@/types/link';
 import { Image as LogoImage } from '@/types/image';
 import { Option } from '@/components/atoms/select/types';
 import { Category } from '@/types/entity/category';
-import { Suggestion } from '../../search/types';
+import { Product as CsvProduct } from '@/components/organisms/quick-order/types';
+import { ProductSuggestion } from '../../search/types';
 
 export type NavigationCategory = Category;
 
+export type HeaderVariant = 'account' | 'navigation' | 'checkout';
+
 export interface HeaderProps {
+  variant: HeaderVariant;
   isAdmin: boolean;
   myAccountMenu: NavigationCategory;
   cartItems: number;
@@ -18,15 +22,28 @@ export interface HeaderProps {
   logoLink: Link;
   selectedBusinessUnit: string;
   businessUnits: Option[];
-  onBusinessUnitChange?: (businessUnit: string) => void;
   selectedStore: string;
   stores: Option[];
-  onStoreChange?: (store: string) => void;
-  searchSuggestions: Suggestion[];
-  quickOrderProducts: Suggestion[];
+  searchSuggestions: ProductSuggestion[];
+  quickOrderProducts: ProductSuggestion[];
   searchPlaceholder: string;
   quotes: number;
   csvDownloadLink: string;
+  quickOrderSearch: string;
+  headerSearch: string;
+  csvShowProducts: CsvProduct[];
+  onBusinessUnitChange?: (businessUnit: string) => void;
+  onStoreChange?: (store: string) => void;
+  onQuickOrderSearch?: (value: string) => void;
+  onHeaderSearch?: (value: string) => void;
+  onHeaderSearchAction?: () => void;
+  handleSKUsUpdate?: (skus: string[]) => void;
+  addToCart?: (
+    lineItems: {
+      sku: string;
+      count: number;
+    }[],
+  ) => Promise<object>;
 }
 
 export interface ContextProps {
@@ -41,12 +58,21 @@ export interface ContextProps {
   logoLink: Link;
   selectedBusinessUnit: string;
   businessUnits: Option[];
-  onBusinessUnitChange?: (businessUnit: string) => void;
   selectedStore: string;
   stores: Option[];
-  onStoreChange?: (store: string) => void;
   quotes: number;
-  quickOrderProducts: Suggestion[];
+  quickOrderProducts: ProductSuggestion[];
+  quickOrderSearch: string;
+  onBusinessUnitChange?: (businessUnit: string) => void;
+  onStoreChange?: (store: string) => void;
+  onQuickOrderSearch?: (value: string) => void;
+  onHeaderSearch?: (value: string) => void;
+  addToCart?: (
+    lineItems: {
+      sku: string;
+      count: number;
+    }[],
+  ) => Promise<object>;
 }
 
 export interface ContextShape extends ContextProps {
@@ -65,4 +91,8 @@ export interface NavigationButtonProps {
   lastIndex?: boolean;
   link: Category;
   onClick: () => void;
+}
+
+export interface QuickOrderMobileProps {
+  showQuickOrderMenu: () => void;
 }

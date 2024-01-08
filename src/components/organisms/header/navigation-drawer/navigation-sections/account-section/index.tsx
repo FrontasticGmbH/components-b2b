@@ -56,7 +56,7 @@ const AccountSection = () => {
             )}
           </>
         ) : (
-          <div className="flex justify-between py-4" onClick={() => insertCategory(myAccount)}>
+          <div className="flex h-[56px] items-center justify-between" onClick={() => insertCategory(myAccount)}>
             <Typography fontSize={16} fontWeight="semibold" className="text-gray-700">
               {myAccount.name}
             </Typography>

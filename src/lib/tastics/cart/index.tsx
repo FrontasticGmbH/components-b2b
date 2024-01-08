@@ -2,23 +2,20 @@
 
 import { useEffect } from 'react';
 import Cart from '@/components/organisms/cart';
-import useBusinessUnits from '@/lib/hooks/useBusinessUnits';
-import useStores from '@/lib/hooks/useStores';
 import useCart from '@/lib/hooks/useCart';
 import useAccount from '@/lib/hooks/useAccount';
+import { useStoreAndBusinessUnits } from '@/providers/store-and-business-units';
 import { TasticProps } from '../types';
 import { Props } from './types';
 
 const CartTastic = ({}: TasticProps<Props>) => {
-  const { defaultBusinessUnit } = useBusinessUnits();
-
   const { account } = useAccount();
 
-  const { defaultStore } = useStores();
+  const { selectedBusinessUnit, selectedStore } = useStoreAndBusinessUnits();
 
   const { cart, addItem, updateItem, removeItem, requestQuote, updateCart } = useCart(
-    defaultBusinessUnit?.key,
-    defaultStore?.key,
+    selectedBusinessUnit?.key,
+    selectedStore?.key,
   );
 
   const { defaultShippingAddress } = useAccount();
@@ -28,8 +25,6 @@ const CartTastic = ({}: TasticProps<Props>) => {
       updateCart({ shipping: defaultShippingAddress });
     }
   }, [cart?.shippingAddress?.addressId, defaultShippingAddress, updateCart]);
-
-  if (!cart) return <></>;
 
   return (
     <Cart

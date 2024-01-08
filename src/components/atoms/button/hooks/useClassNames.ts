@@ -21,11 +21,11 @@ const useClassNames: UseClassNames = ({
         'disabled:bg-neutral-400 disabled:text-neutral-100',
       ],
       secondary: [
-        'rounded-md border border-gray-700 bg-white text-gray-700',
+        'rounded-md border border-gray-700 text-gray-700',
         'hover:shadow-[0px_0px_3px_rgba(71,71,1)]',
         'active:shadow-button active:outline-2 active:outline-offset-0 active:outline-gray-300 active:disabled:shadow-none',
         'focus-visible:border focus-visible:outline focus-visible:outline-offset-[3px]',
-        'disabled:border-neutral-400 disabled:bg-transparent disabled:text-neutral-400',
+        'disabled:border-neutral-400 disabled:text-neutral-400',
       ],
       warning: [
         'bg-red-500 text-neutral-100 outline-offset-0',

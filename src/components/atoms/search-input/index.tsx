@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { KeyboardEventHandler, useCallback, useState } from 'react';
 import {
   MagnifyingGlassIcon as SearchIcon,
   XMarkIcon as CloseIcon,
@@ -23,6 +23,7 @@ const SearchInput = ({
   onBlur: onBlurProp,
   onBackClick,
   handleOnChange,
+  handleSearchAction,
 }: SearchInputProps) => {
   const [value, setValue] = useControllableState(searchValue);
 
@@ -50,6 +51,14 @@ const SearchInput = ({
     setValue('');
   }, [handleOnChange, setValue]);
 
+  const onEnterKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.key === 'Enter') handleSearchAction?.();
+  };
+
+  const handleClick = () => {
+    if (variant === 'lg') handleSearchAction?.();
+  };
+
   return (
     <>
       {label && variant !== 'lg' && <Label required={false}>{label}</Label>}
@@ -70,18 +79,19 @@ const SearchInput = ({
             handleOnChange?.(e.target.value);
             setValue(e.target.value);
           }}
+          onKeyDown={onEnterKeyDown}
         />
         {variant === 'lg' && value && (
           <button onClick={handleClear} className="shrink-0 bg-white px-4 transition">
             <CloseIcon className="w-5 fill-gray-600 stroke-0" />
           </button>
         )}
-        {(variant === 'sm' || variant === 'xs') && value ? (
+        {variant !== 'lg' && value ? (
           <button onClick={handleClear} className={searchButtonClassNames}>
             <CloseIcon className={searchIconClassNames} />
           </button>
         ) : (
-          <button disabled={disabled} type="submit" className={searchButtonClassNames}>
+          <button disabled={disabled} type="submit" className={searchButtonClassNames} onClick={handleClick}>
             <SearchIcon className={searchIconClassNames} />
           </button>
         )}

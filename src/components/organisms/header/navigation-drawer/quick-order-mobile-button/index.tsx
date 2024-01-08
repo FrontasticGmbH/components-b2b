@@ -2,9 +2,9 @@ import React from 'react';
 import Button from '@/components/atoms/button';
 import Typography from '@/components/atoms/typography';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
-import { QuickOrderMobileProps } from '../types';
+import { QuickOrderMobileProps } from '../../types';
 
-const QuickOrderMobile = ({ showQuickOrderMenu }: QuickOrderMobileProps) => {
+const QuickOrderMobileButton = ({ showQuickOrderMenu }: QuickOrderMobileProps) => {
   const { translate } = useTranslation();
   return (
     <Button
@@ -20,4 +20,4 @@ const QuickOrderMobile = ({ showQuickOrderMenu }: QuickOrderMobileProps) => {
   );
 };
 
-export default QuickOrderMobile;
+export default QuickOrderMobileButton;

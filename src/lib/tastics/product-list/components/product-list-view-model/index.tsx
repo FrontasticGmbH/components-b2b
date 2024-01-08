@@ -1,15 +1,14 @@
 'use client';
 
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import ProductList from '@/components/organisms/product-list';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
-import useBusinessUnits from '@/lib/hooks/useBusinessUnits';
 import useCart from '@/lib/hooks/useCart';
-import useStores from '@/lib/hooks/useStores';
 import IntermediaryProductList from '@/components/organisms/product-list/components/intermediary-page';
 import { resolveReference } from '@/utils/lib/resolve-reference';
 import useCurrency from '@/hooks/useCurrency';
+import { useStoreAndBusinessUnits } from '@/providers/store-and-business-units';
 import { DataSourceProps, ViewModelProps } from '../../types';
 import useMappedProducts from '../../hooks/useMappedProducts';
 import useMappedFacets from '../../hooks/useMappedFacets';
@@ -28,26 +27,39 @@ const ProductListViewModel = ({
 
   const { slug } = useParams();
 
+  const searchParams = useSearchParams();
+
+  const searchQuery = searchParams.get('query');
+
+  const isSearchPage = !!searchQuery;
+
   const currency = useCurrency();
 
   const mappedProducts = useMappedProducts({ items });
 
   const mappedFacets = useMappedFacets({ facets, categories });
 
-  const { defaultBusinessUnit } = useBusinessUnits();
+  const { selectedBusinessUnit, selectedStore } = useStoreAndBusinessUnits();
 
-  const { defaultStore } = useStores();
-
-  const { addItem } = useCart(defaultBusinessUnit?.key, defaultStore?.key);
+  const { addItem } = useCart(selectedBusinessUnit?.key, selectedStore?.key);
 
   const { onSortValueChange, currentSortValue, limit, onLoadMore, onResetAll, onRefine } = useRefinement();
 
-  const categoriesBreadcrumb = [
-    { name: translate('common.home'), link: '/' },
-    ...slug
-      .split('/')
-      .map((chunk, index, arr) => ({ name: chunk.replace(/-/g, ' '), link: `/${arr.slice(0, index + 1).join('/')}` })),
-  ];
+  const categoriesBreadcrumb = isSearchPage
+    ? [
+        { name: translate('common.home'), link: '/' },
+        {
+          name: translate('product.search.results'),
+          link: '',
+        },
+      ]
+    : [
+        { name: translate('common.home'), link: '/' },
+        ...slug.split('/').map((chunk, index, arr) => ({
+          name: chunk.replace(/-/g, ' '),
+          link: `/${arr.slice(0, index + 1).join('/')}`,
+        })),
+      ];
 
   if (displayIntermediaryPage) {
     const categoryConfig = categoryConfiguration[category?.slug ?? ''] ?? {};
@@ -90,7 +102,7 @@ const ProductListViewModel = ({
 
   return (
     <ProductList
-      title={category?.name ?? '#'}
+      title={(isSearchPage ? `${translate('product.search.results.for')} "${searchQuery}"` : category?.name) ?? '#'}
       products={mappedProducts}
       breadcrumb={categoriesBreadcrumb}
       sortValues={[

@@ -4,6 +4,7 @@ import { Link } from '@/types/link';
 
 export type AuthFormProps = {
   includeCheckIcon?: boolean;
+  error?: string;
   title: string;
   subtitle?: string;
   subtitleLink?: string;

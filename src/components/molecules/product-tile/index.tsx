@@ -7,12 +7,25 @@ import StockIndicator from '@/components/atoms/stock-indicator';
 import { classnames } from '@/utils/classnames/classnames';
 import useDiscount from '@/hooks/useDiscount';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
+import Link from '@/components/atoms/link';
 import { ProductTileProps } from './types';
 import ShowMore from '../show-more';
 import DiscountTag from './components/discount-tag';
 
 const ProductTile = ({
-  item: { name, description, inStock, model, price, discountedPrice, currency, image, maxQuantity, restockableInDays },
+  item: {
+    name,
+    description,
+    inStock,
+    model,
+    price,
+    discountedPrice,
+    currency,
+    images,
+    maxQuantity,
+    restockableInDays,
+    url,
+  },
   onAddToCart,
   variant = 'list-item',
   className = '',
@@ -64,18 +77,22 @@ const ProductTile = ({
         <StockIndicator inStock={inStock} restockableInDays={restockableInDays} />
       </div>
 
-      <div
-        className={classnames('relative mx-auto my-3 h-[124px] w-[124px] shrink-0 md:mb-9 md:mt-6', {
-          'md:mr-8 md:h-[140px] md:w-[140px]': variant === 'list-item',
-          'md:h-[160px] md:w-[160px]': variant === 'grid-item',
-        })}
-      >
-        <Image fill src={image} alt={name} style={{ objectFit: 'contain' }} />
-      </div>
+      <Link href={url ?? '#'}>
+        <div
+          className={classnames('relative mx-auto my-3 h-[124px] w-[124px] shrink-0 md:mb-9 md:mt-6', {
+            'md:mr-8 md:h-[140px] md:w-[140px]': variant === 'list-item',
+            'md:h-[160px] md:w-[160px]': variant === 'grid-item',
+          })}
+        >
+          <Image fill src={images?.[0]} alt={name} style={{ objectFit: 'contain' }} />
+        </div>
+      </Link>
 
       <div className={classnames('overflow-hidden', { 'md:grow': variant === 'list-item' })}>
         <div>
-          <p className="max-w-full truncate text-16 font-semibold leading-loose text-gray-700">{name}</p>
+          <Link href={url ?? '#'} className="max-w-full truncate text-16 font-semibold leading-loose text-gray-700">
+            {name}
+          </Link>
           {model && (
             <p className="mt-1 text-12 uppercase leading-loose text-gray-600">
               {translate('common.model')}# {model}

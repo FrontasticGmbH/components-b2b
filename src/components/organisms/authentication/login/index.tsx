@@ -1,7 +1,6 @@
 'use client';
 
 import { ChangeEvent, FC, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
 import Input from '@/components/atoms/input';
 import PasswordInput from '@/components/atoms/password-input';
 import { Account } from '@shared/types/account/Account';
@@ -15,34 +14,30 @@ import { LoginProps } from './types';
 import AuthForm from '../layouts/auth-form';
 
 const Login: FC<LoginProps> = ({ login, requestPasswordReset, ...props }) => {
-  const searchParams = useSearchParams();
-  const lvp = searchParams.get('lvp');
-  const router = useRouter();
-
   const { translate } = useTranslation();
 
   const [data, setData] = useState<Account & { rememberMe?: boolean }>({});
   const [resetting, setResetting] = useState(false);
+  const [error, setError] = useState<string>();
 
   const goBackToLogin = () => {
     setResetting(false);
   };
 
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (error) setError(undefined);
+
     const { name, value, checked } = target;
     setData({ ...data, [name]: value == 'on' ? checked : value });
   };
 
-  const handleLoginSubmit = () => {
+  const handleLoginSubmit = async () => {
     if (data.email && data.password) {
-      login(data.email, data.password, data.rememberMe)
-        .then(() => {
-          const redirectLink = lvp ? `/${lvp}` : '/';
-          router.push(redirectLink);
-        })
-        .catch(() => {
-          toast.error(translate('error.auth.wrong'));
-        });
+      const res = await login(data.email, data.password, data.rememberMe);
+
+      if (!res.accountId) setError(translate('error.auth.wrong'));
+    } else {
+      setError(translate('error.auth.wrong'));
     }
   };
 
@@ -70,7 +65,7 @@ const Login: FC<LoginProps> = ({ login, requestPasswordReset, ...props }) => {
 
   return (
     <AuthLayout image={image} logo={logo} logoLink={logoLink}>
-      <AuthForm {...formProps}>
+      <AuthForm {...formProps} error={error}>
         <Input
           containerClassName="w-full"
           className="w-full"

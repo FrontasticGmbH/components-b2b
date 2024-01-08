@@ -6,6 +6,8 @@ import Image from '@/components/atoms/Image';
 import Costs from '@/components/molecules/costs';
 import DiscountsForm from '@/components/molecules/discounts-form';
 import Button from '@/components/atoms/button';
+import useMediaQuery from '@/hooks/useMediaQuery';
+import { desktop } from '@/constants/screensizes';
 import { CheckoutProps } from '../../types';
 import { useCheckout } from '../../provider';
 
@@ -17,6 +19,8 @@ const OrderSummary = ({
   onSubmitPurchase,
 }: Pick<CheckoutProps, 'transaction' | 'products' | 'discounts' | 'onApplyDiscount' | 'onSubmitPurchase'>) => {
   const { translate } = useTranslation();
+
+  const [isLargerThanDesktop] = useMediaQuery(desktop);
 
   const { isLastStep } = useCheckout();
 
@@ -37,7 +41,7 @@ const OrderSummary = ({
       <div className="border-b border-neutral-400 pb-4">
         <h5 className="text-gray-700 md:text-18">{translate('checkout.order.summary')}</h5>
       </div>
-      <Accordion className="border-none">
+      <Accordion className="border-none" defaultIsExpanded={isLargerThanDesktop}>
         <Accordion.Button defaultSpacing={false} className="py-4">
           <div className="flex items-center justify-between">
             <span className="text-gray-600">{translate('checkout.yourOrder')}</span>
@@ -47,10 +51,10 @@ const OrderSummary = ({
         <Accordion.Panel defaultSpacing={false}>
           <div className="lg:hidden">
             <div className="flex flex-col">
-              {products.map(({ id, name, price, currency, quantity, image }) => (
+              {products.map(({ id, name, price, currency, quantity, images }) => (
                 <div key={id} className="flex items-center gap-4 border-t border-neutral-400 py-4 md:gap-8">
                   <div className="relative h-[104px] w-[89px] shrink-0">
-                    <Image src={image} fill style={{ objectFit: 'contain' }} alt={name} />
+                    <Image src={images?.[0]} fill style={{ objectFit: 'contain' }} alt={name} />
                   </div>
                   <div className="flex grow items-center justify-between overflow-hidden">
                     <div className="max-w-full grow">
@@ -80,9 +84,9 @@ const OrderSummary = ({
           </div>
           <div className="hidden pb-6 pt-2 lg:block">
             <div className="flex items-center gap-4">
-              {products.slice(0, 3).map(({ id, image, name }) => (
+              {products.slice(0, 3).map(({ id, images, name }) => (
                 <div className="relative h-[88px] w-[88px]" key={id}>
-                  <Image src={image} fill style={{ objectFit: 'contain' }} alt={name} />
+                  <Image src={images?.[0]} fill style={{ objectFit: 'contain' }} alt={name} />
                 </div>
               ))}
               {products.length > 3 && <div className="pl-1 text-14 text-gray-600">+{products.length - 3}</div>}

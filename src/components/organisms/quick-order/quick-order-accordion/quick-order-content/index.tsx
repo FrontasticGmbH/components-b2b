@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Button from '@/components/atoms/button';
 import { PlusIcon as AddItemIcon } from '@heroicons/react/24/outline';
 import useTranslation from '@/providers/I18n/hooks/useTranslation';
-import Search from '../../search';
+import Search from '../../../search';
 import ProductItem from './product-item';
-import { Suggestion } from '../../search/types';
-import useProductSearch from '../../search/hooks/useProductSearch';
-import { QuickOrderContentProps } from '../types';
+import { ProductSuggestion } from '../../../search/types';
+import useQuickProductSearch from '../../../search/hooks/useProductSearch';
+import { QuickOrderContentProps } from '../../types';
 
-const QuickOrderContent = ({ items }: QuickOrderContentProps) => {
+const QuickOrderContent = ({ items, searchText, onSearch, addItem, closeMenu }: QuickOrderContentProps) => {
   const { translate } = useTranslation();
   const [showSearch, setShowSearch] = useState(true);
+  const [addingToCart, setAddingToCart] = useState(false);
   const [quantity, setQuantity] = useState<Record<string, number>>({});
-  const { handleOnChange, insertProduct, removeProduct, searchResult, products, searchValue } = useProductSearch(items);
+  const { insertProduct, removeProduct, searchResult, products } = useQuickProductSearch(items);
 
   const handleShowSearch = () => {
     setShowSearch(true);
   };
 
-  const handleProductSearchClick = (product: Suggestion) => {
+  const handleProductSearchClick = (product: ProductSuggestion) => {
     if (!products.find((prod) => prod.sku === product.sku)) {
       insertProduct(product);
     } else {
@@ -29,7 +30,7 @@ const QuickOrderContent = ({ items }: QuickOrderContentProps) => {
     setShowSearch(false);
   };
 
-  const handleQuantityChange = (product: Suggestion, value: number) => {
+  const handleQuantityChange = (product: ProductSuggestion, value: number) => {
     if (value < 1) removeProduct(product);
     if (products.length === 0) setShowSearch(false);
 
@@ -40,6 +41,22 @@ const QuickOrderContent = ({ items }: QuickOrderContentProps) => {
       setQuantity(newQuantity);
     }
   };
+
+  const lineItems = useMemo(
+    () =>
+      products.map(({ sku }) => {
+        return { sku: sku, count: quantity[sku] ?? 1 };
+      }),
+    [products, quantity],
+  );
+
+  const handleAddToCart = useCallback(async () => {
+    setAddingToCart(true);
+    await addItem?.(lineItems);
+    setAddingToCart(false);
+    closeMenu?.();
+  }, [addItem, closeMenu, lineItems]);
+
   return (
     <>
       {products.map((product) => (
@@ -56,11 +73,11 @@ const QuickOrderContent = ({ items }: QuickOrderContentProps) => {
           variant="sm"
           filterSearch={false}
           placeholder={translate('common.search')}
-          searchValue={searchValue}
-          handleOnChange={handleOnChange}
+          searchValue={searchText}
+          handleOnChange={onSearch}
           suggestions={items}
           searchResult={searchResult}
-          onClick={handleProductSearchClick}
+          onProductClick={handleProductSearchClick}
         />
       )}
       <div className="mt-5 flex items-center justify-start gap-x-2">
@@ -69,7 +86,14 @@ const QuickOrderContent = ({ items }: QuickOrderContentProps) => {
             <AddItemIcon className="w-5" />
           </Button>
         )}
-        <Button disabled={products.length <= 0} size="m" variant="primary" className="text-14">
+        <Button
+          loading={addingToCart}
+          onClick={handleAddToCart}
+          disabled={products.length <= 0}
+          size="m"
+          variant="primary"
+          className="text-14"
+        >
           {translate('quick-order.add.to.cart')}
         </Button>
       </div>

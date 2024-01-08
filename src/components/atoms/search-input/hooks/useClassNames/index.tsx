@@ -46,7 +46,7 @@ const useClassNames = (variant: SearchVariant, focused: boolean, disabled: boole
     resolveSearchInput(variant) as string,
   );
 
-  const searchButtonClassNames = classnames('shrink-0 transition', resolveSearchButton(variant) as string);
+  const searchButtonClassNames = classnames('z-[5] shrink-0 transition', resolveSearchButton(variant) as string);
 
   const searchIconClassNames = classnames(resolveSearchIcon(variant) as string);
 

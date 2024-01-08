@@ -63,7 +63,7 @@ const DiscountsForm = ({ className, discounts, onSubmit }: DiscountFormProps) =>
               placeholder={translate('cart.discount.enter')}
               onChange={handleChange}
               disabled={processing}
-              icon={codeIsInvalid ? <XMarkIcon className="h-1 w-1 cursor-pointer" /> : null}
+              icon={codeIsInvalid ? <XMarkIcon className="h-[20px] w-[20px] cursor-pointer" /> : null}
               error={codeIsInvalid ? translate('cart.codeNotValid') : undefined}
             />
           </form>

@@ -95,20 +95,6 @@ const useCart = (businessUnitKey?: string, storeKey?: string) => {
     [mutate, businessUnitKey, storeKey],
   );
 
-  const setShippingMethod = useCallback(
-    async (shippingMethodId: string) => {
-      const result = await sdk.composableCommerce.cart.setShippingMethod(
-        { shippingMethod: { id: shippingMethodId } },
-        { businessUnitKey: businessUnitKey as string, storeKey: storeKey as string },
-      );
-
-      mutate();
-
-      return result.isError ? ({} as Partial<Cart>) : result.data;
-    },
-    [mutate, businessUnitKey, storeKey],
-  );
-
   const redeemDiscount = useCallback(
     async (code: string) => {
       const result = await sdk.composableCommerce.cart.redeemDiscountCode(
@@ -151,8 +137,39 @@ const useCart = (businessUnitKey?: string, storeKey?: string) => {
     [mutate, businessUnitKey, storeKey],
   );
 
+  const getShippingMethods = useCallback(async () => {
+    const result = await sdk.composableCommerce.cart.getShippingMethods({
+      businessUnitKey,
+      storeKey,
+      onlyMatching: true,
+    });
+
+    return result.isError ? [] : result.data;
+  }, [businessUnitKey, storeKey]);
+
+  const { data: shippingMethods, mutate: mutateShippingMethods } = useSWR(
+    ['/action/cart/getShippingMethods', businessUnitKey, storeKey],
+    getShippingMethods,
+  );
+
+  const setShippingMethod = useCallback(
+    async (shippingMethodId: string) => {
+      const result = await sdk.composableCommerce.cart.setShippingMethod(
+        { shippingMethod: { id: shippingMethodId } },
+        { businessUnitKey: businessUnitKey as string, storeKey: storeKey as string },
+      );
+
+      mutateShippingMethods();
+      mutate();
+
+      return result.isError ? ({} as Partial<Cart>) : result.data;
+    },
+    [businessUnitKey, storeKey, mutateShippingMethods, mutate],
+  );
+
   return {
     cart: data ? { ...data, transaction: calculateTransaction(data) } : undefined,
+    shippingMethods,
     totalItems: data?.lineItems?.reduce((acc, curr) => acc + (curr.count ?? 1), 0) ?? 0,
     addItem,
     updateItem,

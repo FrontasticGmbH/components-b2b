@@ -40,6 +40,8 @@
   "password.current": "Current Password",
   "password.new": "New Password",
   "password.change": "Change your password",
+  "password.reset.success": "Password successfully reset",
+  "password.reset.success.desc": "Your password has been successfully reset. You can now securely sign in using your new password.",
   "sign.in": "Log in",
   "sign.up": "Sign up",
   "profile": "Profile",

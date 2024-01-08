@@ -3,14 +3,14 @@ import { ShippingMethod as EntityShippingMethod } from '@/types/entity/shipping-
 import { Currency } from '@/types/currency';
 
 export const mapShippingMethod = (shippingMethod: ShippingMethod): EntityShippingMethod => {
-  const estimatedDays = +(shippingMethod.description ?? 0);
+  const estimatedDays = +(shippingMethod.description ?? 3);
 
   const estimatedDeliveryDate = new Date(Date.now());
 
   estimatedDeliveryDate.setDate(estimatedDeliveryDate.getDate() + estimatedDays);
 
   const [days, months, year] = [
-    estimatedDeliveryDate.getDay(),
+    estimatedDeliveryDate.getDate(),
     estimatedDeliveryDate.getMonth() + 1,
     estimatedDeliveryDate.getFullYear(),
   ];

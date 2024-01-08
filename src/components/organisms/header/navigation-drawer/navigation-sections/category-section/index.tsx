@@ -45,7 +45,11 @@ const CategorySection = () => {
           {navigationLevel && (
             <>
               {navigationLevel[navigationLevel.length - 1].categoryId !== 'my-account' && (
-                <Link href={navigationLevel[navigationLevel.length - 1]?.path ?? '/'}>
+                <Link
+                  href={
+                    `${navigationLevel[navigationLevel.length - 1]?.path}?sortAttributes[0][price]=asc&view=1` ?? '/'
+                  }
+                >
                   <div className="flex h-[48px] items-center pb-2 lg:h-fit lg:pb-7" onClick={hideHeaderMenu}>
                     <Typography fontSize={16} className="text-gray-700">
                       {translate('common.view.all')}

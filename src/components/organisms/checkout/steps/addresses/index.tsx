@@ -37,10 +37,10 @@ const AddressesStep = ({
 
   useEffect(() => {
     setSelectedAddresses((selectedAddresses) => ({
-      shipping: initialData.shippingAddress ?? selectedAddresses.shipping,
-      billing: initialData.billingAddress ?? selectedAddresses.billing,
+      shipping: initialData.shippingAddress ?? selectedAddresses.shipping ?? addresses[0],
+      billing: initialData.billingAddress ?? selectedAddresses.billing ?? addresses[0],
     }));
-  }, [initialData.shippingAddress, initialData.billingAddress]);
+  }, [initialData.shippingAddress, initialData.billingAddress, addresses]);
 
   const keyToTitle = { shipping: 'delivery', billing: 'billing' };
 
@@ -83,13 +83,17 @@ const AddressesStep = ({
               <h5 className="text-14 font-medium uppercase text-gray-700">
                 {translate(`common.address.${keyToTitle[key as keyof typeof keyToTitle]}`)}
               </h5>
-              {formatAddress(address as Address)
-                .split('\n')
-                .map((line) => (
-                  <p key={line} className="truncate text-14 text-gray-600">
-                    {line}
-                  </p>
-                ))}
+              {address && (
+                <>
+                  {formatAddress(address as Address)
+                    .split('\n')
+                    .map((line) => (
+                      <p key={line} className="truncate text-14 text-gray-600">
+                        {line}
+                      </p>
+                    ))}
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -108,7 +112,18 @@ const AddressesStep = ({
         <AddressForm
           addresses={[]}
           countryOptions={countryOptions}
-          onAddAddress={onAddAddress}
+          onAddAddress={async (address) => {
+            const success = await onAddAddress?.(address);
+
+            if (success) {
+              await onCompleteAddresses?.(
+                addingNewAddress === 'shipping' ? address : selectedAddresses.shipping,
+                addingNewAddress === 'billing' ? address : selectedAddresses.billing,
+              );
+            }
+
+            return !!success;
+          }}
           onCancel={onAddressUnsavedModalOpen}
           onSave={() => setAddingNewAddress('')}
           showDefaultCheckBoxes={false}
@@ -250,7 +265,11 @@ const AddressesStep = ({
             <h6 className="mt-4 text-14 text-gray-700"></h6>
             <Select
               className="mt-2"
-              value={formatAddress(selectedAddresses[key as keyof typeof selectedAddresses])}
+              value={
+                selectedAddresses[key as keyof typeof selectedAddresses]
+                  ? formatAddress(selectedAddresses[key as keyof typeof selectedAddresses])
+                  : ''
+              }
               options={addresses.map((address) => ({
                 name: formatAddress(address).replace(/\n/g, ', '),
                 value: formatAddress(address),

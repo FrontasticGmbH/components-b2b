@@ -18,10 +18,10 @@ const OrderSummary = ({ lineItems, transaction }: Pick<ThankYouProps, 'lineItems
       <h5 className="hidden lg:block">{translate('thank-you.order.summary')}</h5>
 
       <div className="lg:hidden">
-        {lineItems.map(({ id, name, price, currency, quantity, image }) => (
+        {lineItems.map(({ id, name, price, currency, quantity, images }) => (
           <div key={id} className="flex items-center gap-4 border-b border-neutral-400 py-4 md:gap-8">
             <div className="relative h-[104px] w-[89px] shrink-0">
-              <Image src={image} fill style={{ objectFit: 'contain' }} alt={name} />
+              <Image src={images?.[0]} fill style={{ objectFit: 'contain' }} alt={name} />
             </div>
             <div className="flex grow items-center justify-between overflow-hidden">
               <div className="max-w-full grow">
@@ -42,9 +42,9 @@ const OrderSummary = ({ lineItems, transaction }: Pick<ThankYouProps, 'lineItems
         <Accordion.Panel defaultSpacing={false} className="pt-4">
           <div className="hidden pb-6 pt-2 lg:block">
             <div className="flex items-center gap-4">
-              {lineItems.slice(0, 3).map(({ id, image, name }) => (
+              {lineItems.slice(0, 3).map(({ id, images, name }) => (
                 <div className="relative h-[88px] w-[88px]" key={id}>
-                  <Image src={image} fill style={{ objectFit: 'contain' }} alt={name} />
+                  <Image src={images?.[0]} fill style={{ objectFit: 'contain' }} alt={name} />
                 </div>
               ))}
               {lineItems.length > 3 && <div className="pl-1 text-14 text-gray-600">+{lineItems.length - 3}</div>}

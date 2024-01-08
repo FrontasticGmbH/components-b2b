@@ -6,7 +6,7 @@ import { Address } from '@shared/types/account';
 
 const useBusinessUnits = () => {
   const { data, mutate: mutateBusinessUnits } = useSWR('/action/business-unit/getBusinessUnits', () =>
-    sdk.composableCommerce.businessUnit.getBusinessUnits(),
+    sdk.composableCommerce.businessUnit.getBusinessUnits({ expandStores: true }),
   );
 
   const addBusinessUnit = useCallback(

@@ -11,7 +11,7 @@ import { OrdersPageProps } from '../../types';
 const OrdersTable = ({
   orders,
   totalItems = 0,
-  page = 0,
+  page = 1,
   onPageChange,
   onRowsPerPageChange,
   limit = 25,
@@ -28,7 +28,7 @@ const OrdersTable = ({
           <Table.Cell>{translate('common.id')}</Table.Cell>
           <Table.Cell>{translate('common.date')}</Table.Cell>
           <Table.Cell>{translate('common.business.unit')}</Table.Cell>
-          <Table.Cell>{translate('common.total')}</Table.Cell>
+          <Table.Cell className="text-right">{translate('common.total')}</Table.Cell>
           <Table.Cell isButtonsHead />
         </Table.Head>
         <Table.Body>
@@ -44,7 +44,7 @@ const OrdersTable = ({
               </Table.Cell>
               <Table.Cell>{creationDate}</Table.Cell>
               <Table.Cell>{businessUnit}</Table.Cell>
-              <Table.Cell>{formatCurrency(total, currency)}</Table.Cell>
+              <Table.Cell className="text-right">{formatCurrency(total, currency)}</Table.Cell>
               <Table.Cell isButtonsCell>
                 <div className="flex justify-end">
                   <Link href={DashboardLinks.orderDetail(id)} underlineOnHover={false}>

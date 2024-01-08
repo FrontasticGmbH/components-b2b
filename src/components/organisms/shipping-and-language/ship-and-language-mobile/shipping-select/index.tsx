@@ -25,7 +25,7 @@ const ShippingSelect = () => {
 
   const getOptionDisplay = (location: Location) => {
     return (
-      <div className="flex items-center gap-x-2" onClick={() => onLocationSelect(location.value)}>
+      <div className="flex h-6 items-center gap-x-2" onClick={() => onLocationSelect(location.value)}>
         <FlagIcons name={location.flagName} className="h-4 w-4" />
         <Typography fontSize={14} className="text-gray-800">
           {location.name}
