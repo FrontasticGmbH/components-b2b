@@ -26,7 +26,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <div className={inter.variable}>
+      <div className={inter.variable} data-theme="default">
         <I18nProvider translations={translations}>
           <ShipAndLanguageProvider>
             <Story />
