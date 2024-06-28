@@ -1,4 +1,10 @@
 
+## Version 1.9.1 (2024-06-28)
+
+** New Features and Improvements **
+
+- User is able to set theme in studio via project configuration
+
 ## Version 1.9.0 (2024-06-28)
 
 ** New Features and Improvements **
