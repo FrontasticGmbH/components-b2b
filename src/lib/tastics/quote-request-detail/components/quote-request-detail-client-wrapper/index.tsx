@@ -32,6 +32,8 @@ const QuoteRequestDetailsClientWrapper = ({ data }: TasticProps<DataSource<DataS
 
   if (!quoteRequest) return <></>;
 
+  const mappedQuoteRequest = mapQuoteRequest(quoteRequest, { businessUnits, account });
+
   return (
     <Dashboard href={DashboardLinks.quotes} userName={account?.firstName}>
       <QuoteDetailsPage
