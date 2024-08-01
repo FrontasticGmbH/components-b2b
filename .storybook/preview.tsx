@@ -33,6 +33,8 @@ const preview: Preview = {
             <Toaster />
           </ShipAndLanguageProvider>
         </I18nProvider>
+
+        <div id="react-modal-custom-portal" />
       </div>
     ),
   ],
