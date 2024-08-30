@@ -1,4 +1,22 @@
 
+## Version 1.11.0 (2024-08-30)
+
+** New Features and Improvements **
+
+- Added unit tests for all atoms, molecules and organisms, majority of hooks
+- Hide download invoice button from mobile
+- Payment only integration handle payments failure gracefully
+- Updated ReadMe & Add intro storybook page
+- Configure Lighthouse CI in netlify.toml
+
+** Bugs fixes **
+
+- Cart item number fixed based on both products and number of items in each product
+- Update fallback Image conditions
+ 
+
+## Version 1.11.0 (2024-08-15)
+
 ## Version 1.10.0 (2024-08-01)
 
 ## Version 1.9.1 (2024-06-28)

@@ -23,9 +23,10 @@ export interface PaymentMethod {
     src: string;
   };
 }
-
+type ProductWithDeleteAttr = Product & { deleted?: boolean };
 export type CartProps = {
-  lineItems: Product[];
+  loading?: boolean;
+  lineItems: ProductWithDeleteAttr[];
   account: Pick<Account, 'email'>;
   paymentMethods: Array<PaymentMethod>;
   viewCartDisabled?: boolean;
@@ -42,7 +43,7 @@ export type CartProps = {
 
 export type CartContentProps = Pick<
   CartProps,
-  'onUpdateQuantity' | 'onRemove' | 'onAdd' | 'onAddToNewWishlist' | 'lineItems'
+  'onUpdateQuantity' | 'onRemove' | 'onAdd' | 'onAddToNewWishlist' | 'lineItems' | 'loading'
 > & {
   className?: string;
 };

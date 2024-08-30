@@ -39,14 +39,13 @@ const QuotesClientWrapper = () => {
     setCursor,
     clearRefinements,
     states,
-    addState,
-    removeState,
+    setStates,
     search,
     debouncedSearch,
     setSearch,
   } = selected === 'quotes' ? quoteRefinements : quoteRequestsRefinements;
 
-  const { quotes, quoteRequests } = useQuotes({
+  const { quotes, quotesLoading, quoteRequests, quoteRequestsLoading } = useQuotes({
     businessUnitKey: selectedBusinessUnit?.key ?? '',
     limit,
     cursor,
@@ -56,6 +55,7 @@ const QuotesClientWrapper = () => {
   });
 
   const quotesRes = selected === 'quotes' ? quotes : quoteRequests;
+  const isLoading = selected === 'quotes' ? quotesLoading : quoteRequestsLoading;
 
   const previousCursor = quotesRes.previousCursor;
   const nextCursor = quotesRes.nextCursor;
@@ -68,6 +68,7 @@ const QuotesClientWrapper = () => {
   return (
     <Dashboard href={DashboardLinks.quotes} userName={account?.firstName}>
       <QuotesPage
+        loading={isLoading}
         onSelectedChange={(newSelected) => {
           setSelected(newSelected);
           router.replace(`?selected=${newSelected}`);
@@ -76,12 +77,7 @@ const QuotesClientWrapper = () => {
         sortOptions={[]}
         statusOptions={statusOptions}
         onSearch={(val) => setSearch(val)}
-        onStatusRefine={(status) => {
-          const isRefined = states.includes(status);
-
-          if (!isRefined) addState(status);
-          else removeState(status);
-        }}
+        onStatusRefine={setStates}
         onClearRefinements={clearRefinements}
         quotes={(quotesRes?.items ?? [])
           .map((item) =>

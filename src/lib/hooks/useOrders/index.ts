@@ -48,6 +48,8 @@ const useOrders = ({
     { revalidateIfStale: true },
   );
 
+  const isLoading = !businessUnitKey || ordersResponse.isLoading;
+
   const mutateAll = useCallback(() => {
     globalMutate((key) => typeof key === 'object' && key?.[0] === '/action/cart/queryOrders');
   }, [globalMutate]);
@@ -58,10 +60,14 @@ const useOrders = ({
 
   const cancelOrder = useCallback(
     async (order: Order) => {
-      const response = await sdk.callAction({
-        actionName: 'cart/cancelOrder',
-        payload: { orderId: order.orderNumber, businessUnitKey },
-      });
+      if (!order.orderNumber || !businessUnitKey) return {} as Order;
+
+      const response = await sdk.composableCommerce.cart.cancelOrder(
+        {
+          orderId: order.orderNumber,
+        },
+        { businessUnitKey },
+      );
 
       mutateAll();
 
@@ -81,7 +87,7 @@ const useOrders = ({
     [businessUnitKey, mutateAll],
   );
 
-  return { orders, cancelOrder, replicateOrder };
+  return { orders, isLoading, cancelOrder, replicateOrder };
 };
 
 export default useOrders;

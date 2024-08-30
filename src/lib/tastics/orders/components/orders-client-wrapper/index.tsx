@@ -22,8 +22,7 @@ const OrdersClientWrapper = () => {
     setCursor,
     clearRefinements,
     states,
-    addState,
-    removeState,
+    setStates,
     search,
     debouncedSearch,
     setSearch,
@@ -36,7 +35,7 @@ const OrdersClientWrapper = () => {
 
   const { selectedBusinessUnit } = useStoreAndBusinessUnits();
 
-  const { orders } = useOrders({
+  const { orders, isLoading } = useOrders({
     limit,
     cursor,
     ...(states.length ? { states } : {}),
@@ -59,16 +58,12 @@ const OrdersClientWrapper = () => {
     <Dashboard href={DashboardLinks.orders} userName={account?.firstName}>
       <OrdersPage
         orders={mappedOrders ?? []}
+        loading={isLoading}
         filters={{ search, status: states, createdFrom: date.from?.toString(), createdTo: date.to?.toString() }}
         sortOptions={[]}
         statusOptions={orderStatusOptions}
         onSearch={(val) => setSearch(val)}
-        onStatusRefine={(status) => {
-          const isRefined = states.includes(status);
-
-          if (!isRefined) addState(status);
-          else removeState(status);
-        }}
+        onStatusRefine={setStates}
         onClearRefinements={clearRefinements}
         onCreationDateRefine={onCreationDateRefine}
         page={page}

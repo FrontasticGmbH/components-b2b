@@ -1,13 +1,15 @@
 import { useCallback } from 'react';
 import { Cart } from '@shared/types/cart/Cart';
 import { sdk } from '@/sdk';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import { Address } from '@shared/types/account/Address';
 import { Order } from '@shared/types/cart';
 import { calculateTransaction } from '@/lib/utils/calculate-transaction';
 import { CheckoutPayload, QuoteRequestPayload } from './types';
 
 const useCart = (businessUnitKey?: string, storeKey?: string) => {
+  const { mutate: mutateGlobal } = useSWRConfig();
+
   const getCart = useCallback(async () => {
     const result = await sdk.composableCommerce.cart.getCart({
       businessUnitKey: businessUnitKey as string,
@@ -17,10 +19,15 @@ const useCart = (businessUnitKey?: string, storeKey?: string) => {
     return result.isError ? ({} as Cart) : result.data;
   }, [businessUnitKey, storeKey]);
 
-  const { data, mutate } = useSWR(
+  const { data, mutate, ...response } = useSWR(
     !(businessUnitKey && storeKey) ? null : ['/action/cart/getCart', businessUnitKey, storeKey],
     getCart,
   );
+
+  const mutateAll = useCallback(() => {
+    mutateGlobal((key: string[]) => key?.[0].startsWith('/action/cart/getCart'), undefined, { revalidate: true });
+  }, [mutateGlobal]);
+  const isLoading = !(businessUnitKey && storeKey) || response.isLoading;
 
   const isQuotationCart = data?.origin === 'Quote';
 
@@ -179,6 +186,8 @@ const useCart = (businessUnitKey?: string, storeKey?: string) => {
 
   return {
     cart: data ? { ...data, transaction: calculateTransaction(data) } : undefined,
+    mutateAll,
+    isLoading,
     isQuotationCart,
     shippingMethods,
     totalItems: data?.lineItems?.reduce((acc, curr) => acc + (curr.count ?? 1), 0) ?? 0,

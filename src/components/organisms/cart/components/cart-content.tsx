@@ -5,6 +5,7 @@ import EmptyCart from './empty-cart';
 import { CartContentProps } from '../types';
 
 const CartContent = ({
+  loading,
   className,
   lineItems,
   onUpdateQuantity,
@@ -24,9 +25,12 @@ const CartContent = ({
             <Typography fontSize={16} className="text-gray-700 md:text-18 lg:text-20">
               {translate('cart.cart')}
             </Typography>
-            <Typography fontSize={16} className="text-neutral-900 md:text-18 lg:text-20">{`(${
-              lineItems?.length
-            } ${translate('cart.items')})`}</Typography>
+            <Typography fontSize={16} className="text-neutral-900 md:text-18 lg:text-20">{`(${lineItems
+              ?.filter((item) => !item.deleted)
+              .reduce(
+                (sum, item) => sum + (item && item.quantity ? item.quantity : 0),
+                0,
+              )} ${translate('cart.items')})`}</Typography>
           </div>
           <CartItemsList
             lineItems={lineItems}
@@ -37,7 +41,7 @@ const CartContent = ({
           />
         </>
       ) : (
-        <EmptyCart />
+        <EmptyCart loading={loading} />
       )}
     </div>
   );

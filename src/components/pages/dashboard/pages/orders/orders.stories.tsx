@@ -15,6 +15,8 @@ const Template: StoryFn<typeof OrdersPage> = ({ orders, statusOptions, ...args }
 
   const [date, setDate] = useState({ from: '', to: '' });
 
+  const [limit, setLimit] = useState<number>(25);
+
   const onStatusRefine = (status: string) => {
     if (statuses.includes(status)) setStatuses(statuses.filter((s) => s !== status));
     else setStatuses([...statuses, status]);
@@ -46,9 +48,12 @@ const Template: StoryFn<typeof OrdersPage> = ({ orders, statusOptions, ...args }
       filters={{ search, status: statuses, createdFrom: date.from, createdTo: date.to }}
       orders={filteredOrders}
       statusOptions={statusOptions}
-      onStatusRefine={onStatusRefine}
+      onStatusRefine={setStatuses}
       onSearch={setSearch}
       onCreationDateRefine={onCreationDateRefine}
+      limit={limit}
+      onRowsPerPageChange={(newLimit) => setLimit(+newLimit)}
+      sortOptions={[]}
     />
   );
 };
