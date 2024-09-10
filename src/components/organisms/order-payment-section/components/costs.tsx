@@ -32,7 +32,7 @@ const Costs = ({
           value?.centAmount && value.centAmount > 0 ? (
             <div key={key} className={subCostsClassNames}>
               <Typography asSkeleton={loading}>{label}</Typography>
-              <Typography asSkeleton={loading}>{CurrencyHelpers.formatForCurrency(value, locale)}</Typography>
+              <Typography asSkeleton={loading}>{CurrencyHelpers.formatForCurrency(value, locale as string)}</Typography>
             </div>
           ) : (
             <></>
@@ -42,7 +42,7 @@ const Costs = ({
 
       <div className={totalAmountClassNames}>
         <Typography asSkeleton={loading}>{total.label}</Typography>
-        <Typography asSkeleton={loading}>{CurrencyHelpers.formatForCurrency(total.value, locale)}</Typography>
+        <Typography asSkeleton={loading}>{CurrencyHelpers.formatForCurrency(value, locale as string)}</Typography>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ const useTranslation = () => {
 
       const [namespace, key] = [token.substring(0, firstDotIndex), token.substring(firstDotIndex + 1)];
 
-      let message = translations[locale]?.[namespace]?.[key] ?? fallbackMessage;
+      let message = translations[locale as string]?.[namespace]?.[key] ?? fallbackMessage;
 
       for (const placeholder of Object.keys(values)) {
         message = message.replace(new RegExp(`\{${placeholder}\}`, 'g'), values[placeholder]);

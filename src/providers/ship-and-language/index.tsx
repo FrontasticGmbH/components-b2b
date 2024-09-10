@@ -110,7 +110,7 @@ const ShipAndLanguageProvider = ({ children }: React.PropsWithChildren) => {
     mutateAllCarts();
   }, [locale, mutateAllCarts]);
 
-  const [selectedLocationValue, setSelectedLocationValue] = useState(locale.split('-')[1]);
+  const [selectedLocationValue, setSelectedLocationValue] = useState((locale as string).split('-')[1]);
 
   const selectedLocation = locations.find((location) => location.value === selectedLocationValue);
   const selectedLanguage = selectedLocation?.languages.find((language) => language.value === locale);
