@@ -32,7 +32,7 @@ const CommercetoolsPayment = ({
 
   const { session, isExpired } = useSession();
 
-  const { locale } = useParams();
+  const { locale: useParamsLocale } = useParams();
 
   const { projectSettings } = useProjectSettings();
 
@@ -64,7 +64,7 @@ const CommercetoolsPayment = ({
         projectKey,
         region,
         sessionId: session.token,
-        locale,
+        locale: useParamsLocale as string,
         onError(message) {
           switch (message.code) {
             case 'payment_failed':
@@ -104,7 +104,7 @@ const CommercetoolsPayment = ({
     projectKey,
     region,
     session?.token,
-    locale,
+    useParamsLocale,
     handleStepCompletion,
     isActive,
     router,
