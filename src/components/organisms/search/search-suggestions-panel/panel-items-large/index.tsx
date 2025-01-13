@@ -6,7 +6,7 @@ import { ProductSuggestion } from '../../types';
 
 const SearchPanelItemsLarge = ({ sku, url, image, name }: ProductSuggestion) => {
   return (
-    <div className="px-4 pb-2 md:px-6">
+    <div data-testid="search-panel-item" className="px-4 pb-2 md:px-6">
       <Link href={url ?? sku}>
         <div className="flex items-center justify-start gap-x-5">
           {image && (

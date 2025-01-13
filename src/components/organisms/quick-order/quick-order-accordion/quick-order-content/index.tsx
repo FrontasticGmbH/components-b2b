@@ -90,7 +90,13 @@ const QuickOrderContent = ({
       )}
       <div className="mt-5 flex items-center justify-start gap-x-2">
         {!showSearch && (
-          <Button onClick={handleShowSearch} variant="secondary" size="icon" disabled={addItemDisabled}>
+          <Button
+            data-testid="quick-order-add-item-button"
+            onClick={handleShowSearch}
+            variant="secondary"
+            size="icon"
+            disabled={addItemDisabled}
+          >
             <AddItemIcon className="w-5" />
           </Button>
         )}

@@ -76,8 +76,10 @@ const QuantityWidget = ({
           }}
         >
           <Input
+            data-testid="quantity-widget-input"
             unStyled
             className="text-center text-14"
+            aria-label={translate('common.quantity')}
             value={rawValue}
             onChange={handleRawValueChange}
             onBlur={handleRawValueSubmit}

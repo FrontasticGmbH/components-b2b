@@ -15,7 +15,7 @@ const PlaceholderRule = ({ rule, singleMode, translations, criteria, onUpdate, o
   const addIsDisabled = (!singleMode && (!rule.key || !rule.operator || !rule.value)) || (singleMode && !rule.key);
 
   return (
-    <div className="grid grid-cols-12 gap-3">
+    <div className="grid grid-cols-12 gap-3" data-testid="placeholder-rule">
       <Select
         options={criteria.map(({ key, name }) => ({ name, value: key }))}
         value={rule.key}

@@ -12,7 +12,7 @@ const DropdownButton = ({ children, className }: Props) => {
   const { buttonClassName } = useClassNames({ disabled, size });
 
   return (
-    <Listbox.Button className={classnames(className, buttonClassName)} onClick={onToggle}>
+    <Listbox.Button data-testid="dropdown-button" className={classnames(className, buttonClassName)} onClick={onToggle}>
       <div className="block truncate">
         {typeof children === 'function'
           ? children({ selected: { value: value ?? defaultValue }, isExpanded })

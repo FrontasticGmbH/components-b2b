@@ -19,6 +19,7 @@ const SearchPanel = ({ className, variant, panelItems, onClick }: SearchPanelPro
           />
         ) : (
           <div
+            data-testid="search-panel-item"
             key={item.sku}
             className="flex h-12 cursor-pointer items-center hover:bg-neutral-200"
             onClick={() => onClick?.(item)}
