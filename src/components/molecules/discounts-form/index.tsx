@@ -57,7 +57,7 @@ const DiscountsForm = ({ className, discounts, onSubmit, customError }: Discount
   return (
     <div className={containerClassName}>
       <Accordion className="border-0">
-        <Accordion.Button defaultSpacing={false} className="text-neutral-900">
+        <Accordion.Button defaultSpacing={false} className="text-gray-600">
           {translate('cart.discount.apply')}
         </Accordion.Button>
         <Accordion.Panel defaultSpacing={false}>

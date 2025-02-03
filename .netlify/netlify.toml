@@ -1,0 +1,35 @@
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[[plugins]]
+origin = "config"
+package = "@netlify/plugin-nextjs"
+pinned_version = "4"
+
+[plugins.inputs]
+
+[build]
+publish = "/Users/khizar/dev/frontastic/saas/project-libraries/b2b/packages/poc/frontend/.next"
+publishOrigin = "ui"
+commandOrigin = "ui"
+base = "/Users/khizar/dev/frontastic/saas/project-libraries/b2b/packages/poc/frontend"
+command = "yarn run build"
+ignore = "$CACHED_COMMIT_REF == $COMMIT_REF"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]

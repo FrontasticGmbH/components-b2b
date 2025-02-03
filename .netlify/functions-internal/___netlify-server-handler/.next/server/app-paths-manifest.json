@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/[locale]/sitemap-categories.xml/route": "app/[locale]/sitemap-categories.xml/route.js",
+  "/[locale]/sitemap-products.xml/route": "app/[locale]/sitemap-products.xml/route.js",
+  "/[locale]/sitemap-static.xml/route": "app/[locale]/sitemap-static.xml/route.js",
+  "/[locale]/[[...slug]]/page": "app/[locale]/[[...slug]]/page.js",
+  "/[locale]/preview/[previewId]/page": "app/[locale]/preview/[previewId]/page.js"
+}
