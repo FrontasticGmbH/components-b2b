@@ -1,1 +1,0 @@
-"use strict";exports.id=7769,exports.ids=[7769],exports.modules={87769:e=>{e.exports=JSON.parse('{"account.created":"Un e-mail de v\xe9rification a \xe9t\xe9 envoy\xe9 \xe0 {email} ✓"}')}};

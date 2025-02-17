@@ -1,1 +1,0 @@
-"use strict";exports.id=4636,exports.ids=[4636],exports.modules={24636:e=>{e.exports=JSON.parse('{"customer.support":"Suporte ao cliente","help.question":"Como podemos te ajudar hoje?","contact.us":"Contate-nos","phone":"Telefone","email":"E-mail","address":"Endere\xe7o","weekdays":"2a. a 6a:","weekends":"Aldeia- Ligue:","faq":"Perguntas frequentes"}')}};

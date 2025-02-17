@@ -1,4 +1,34 @@
 
+## Version 3.1.0 (2025-02-17)
+
+
+** New Features & Improvements **
+
+* Updated translations
+* PDP shipping methods section redesign
+* Fixed skipped header level
+* Added links to product in quote and checkout order summaries
+* Add desktop-only message
+* Improve accessibility for clickable elements
+* Change to Typography
+* Improve accessibility for clickable elements
+* Add desktop-only message
+* Change name to HeaderCell
+* Remove isButtonsHead reference
+* Remove isButtonsHead references
+* Remove isHeadCell references
+* Move sorting to button
+* Create TableHeadCell component
+* Modify table responsiveness
+* Imported discont changes from B2C to B2B
+
+
+** Bug Fixes **
+
+* Fixes shipping method entity type
+* Fixes shipping method types and display structure
+* Improve TablePagination accessibility and styling
+
 ## Version 3.0.0 (2025-02-03)
 
 ** New Features & Improvements **
