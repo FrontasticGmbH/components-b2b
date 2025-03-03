@@ -1,33 +1,21 @@
 
-## Version 3.1.0 (2025-02-17)
-
+## Version 3.2.0 (2025-03-03)
 
 ** New Features & Improvements **
 
-* Updated translations
-* PDP shipping methods section redesign
-* Fixed skipped header level
-* Added links to product in quote and checkout order summaries
-* Add desktop-only message
-* Improve accessibility for clickable elements
-* Change to Typography
-* Improve accessibility for clickable elements
-* Add desktop-only message
-* Change name to HeaderCell
-* Remove isButtonsHead reference
-* Remove isButtonsHead references
-* Remove isHeadCell references
-* Move sorting to button
-* Create TableHeadCell component
-* Modify table responsiveness
-* Imported discont changes from B2C to B2B
+* Fix accessibility issues
+* Upgrade to headless ui V2
+* List keyboard navigation EAA
+* Fix b2b translations
+* Reload page when locale changes
+* Unify env usage
+* Update ref usage
+* Avoid duplicate get cart request
 
 
 ** Bug Fixes **
 
-* Fixes shipping method entity type
-* Fixes shipping method types and display structure
-* Improve TablePagination accessibility and styling
+* Fix B2B categories response cache
 
 ## Version 3.0.0 (2025-02-03)
 
