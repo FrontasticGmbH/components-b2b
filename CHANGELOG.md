@@ -1,4 +1,16 @@
 
+## Version 4.2.0 (2025-04-15)
+
+
+** New Features & Improvements **
+
+* Adjust a11y user facing documentation
+
+
+** Bug Fixes **
+
+* Fix alt text set in studio not taking effect
+
 ## Version 4.1.0 (2025-04-07)
 
 ** New Features & Improvements **
