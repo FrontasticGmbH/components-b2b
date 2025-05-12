@@ -1,134 +1,172 @@
 
-## Version 4.2.0 (2025-04-15)
-
+## Version 4.3.0 (2025-05-12)
 
 ** New Features & Improvements **
 
-* Adjust a11y user facing documentation
+- Have approval rules split into tabs
+- Updating address tests
+- Migration to react hooks form
+- Add category banner component to B2B
+- Iimplemented dynamic filter support for products
+- Implemented dynamic filters for category
+- Using react hooks form for delete account form
 
 
 ** Bug Fixes **
 
-* Fix alt text set in studio not taking effect
+- Fix approval rules tabs bug
+- Fix border radius for banner component
+
+
+** New Features & Improvements **
+
+- Adjust a11y user facing documentation
+
+** Bug Fixes **
+
+- Fix alt text set in studio not taking effect
 
 ## Version 4.1.0 (2025-04-07)
 
 ** New Features & Improvements **
 
-* Accessible date picker input component
-* Add support for embedding iframes in markdown
-* Fix navigation alignment issues
-* Simplifies datepicker and fixes type issues
-* Dependency upgrade
-* Rule builder adjustments for tier hierarchy
-* Updated cart and shipping info structures to use taxRate instead of taxIncludedInPrice, and enhance shipping method handling
-* B2B end to end tests update
-* Upgrade nextjs to 15.2.3
-* Add image priority settings
-* Enhancements on rule builder & tier hirerarchy rule builder case
-* Remove the Typography component
-
+- Accessible date picker input component
+- Add support for embedding iframes in markdown
+- Fix navigation alignment issues
+- Simplifies datepicker and fixes type issues
+- Dependency upgrade
+- Rule builder adjustments for tier hierarchy
+- Updated cart and shipping info structures to use taxRate instead of taxIncludedInPrice, and enhance shipping method handling
+- B2B end to end tests update
+- Upgrade nextjs to 15.2.3
+- Add image priority settings
+- Enhancements on rule builder & tier hirerarchy rule builder case
+- Remove the Typography component
 
 ** Bug Fixes **
 
-* Set fixed height for vertical slider container
-* Add Meta import to accessibility docs in Storybook
-* Replace divs to buttons for better semantics and accessibility.
-* Update gh workflows
-* Approval rules issues with tier hierarchy
-* Adapt search placeholder text for mobile
-* B2C, B2B screen reader fixes
-* Remove duplicate slashes in URL when switching locale
-* Fix drawer a11y issues B2C
-* Filter out non matching variants on PDP
-* Filter out non matching variants on PLP
+- Set fixed height for vertical slider container
+- Add Meta import to accessibility docs in Storybook
+- Replace divs to buttons for better semantics and accessibility.
+- Update gh workflows
+- Approval rules issues with tier hierarchy
+- Adapt search placeholder text for mobile
+- B2C, B2B screen reader fixes
+- Remove duplicate slashes in URL when switching locale
+- Fix drawer a11y issues B2C
+- Filter out non matching variants on PDP
+- Filter out non matching variants on PLP
 
 ## Version 4.0.0 (2025-03-17)
 
-
 ** New Features & Improvements **
 
-* update translations and fixtures
-* Add e2e tests for country & locale selection
-* merge master & resolve conflicts
-* Use next-cloudinary for cloudinary images
-* use next-intl - migration
-* catch exceptions when updating session
-
+- update translations and fixtures
+- Add e2e tests for country & locale selection
+- merge master & resolve conflicts
+- Use next-cloudinary for cloudinary images
+- use next-intl - migration
+- catch exceptions when updating session
 
 ** Bug Fixes **
 
-* set the order Id instead of order when or order cancellation
-* adapted according to PR feedback
-* Session update bug fix
+- set the order Id instead of order when or order cancellation
+- adapted according to PR feedback
+- Session update bug fix
 
 ## Version 3.2.1 (2025-03-04)
 
 ** New Features & Improvements **
 
-* Refactor localiation issue in map category
+- Refactor localiation issue in map category
 
 ## Version 3.2.0 (2025-03-03)
 
 ** New Features & Improvements **
 
-* Fix accessibility issues
-* Upgrade to headless ui V2
-* List keyboard navigation EAA
-* Fix b2b translations
-* Reload page when locale changes
-* Unify env usage
-* Update ref usage
-* Avoid duplicate get cart request
-
+- Fix accessibility issues
+- Upgrade to headless ui V2
+- List keyboard navigation EAA
+- Fix b2b translations
+- Reload page when locale changes
+- Unify env usage
+- Update ref usage
+- Avoid duplicate get cart request
 
 ** Bug Fixes **
 
-* Fix B2B categories response cache
+- Fix B2B categories response cache
+
+## Version 3.1.0 (2025-02-17)
+
+** New Features & Improvements **
+
+- Updated translations
+- PDP shipping methods section redesign
+- Fixed skipped header level
+- Added links to product in quote and checkout order summaries
+- Add desktop-only message
+- Improve accessibility for clickable elements
+- Change to Typography
+- Improve accessibility for clickable elements
+- Add desktop-only message
+- Change name to HeaderCell
+- Remove isButtonsHead reference
+- Remove isButtonsHead references
+- Remove isHeadCell references
+- Move sorting to button
+- Create TableHeadCell component
+- Modify table responsiveness
+- Imported discont changes from B2C to B2B
+
+** Bug Fixes **
+
+- Fixes shipping method entity type
+- Fixes shipping method types and display structure
+- Improve TablePagination accessibility and styling
 
 ## Version 3.0.0 (2025-02-03)
 
 ** New Features & Improvements **
 
-* Add "Clear" translation and fix search button labels
-* Modify responsiveness implementation
-* Add responsiveness to pagination
-* Add responsiveness to tables with mobile view
-* Make approval flows table responsive
-* Make quotes table responsive
-* Upgrade Node JS version
-* Fix table header error
-* Button component updates
-* Simplify color configuration for dropdown focus
-* Add gray-400 color to Tailwind and default theme
-* Update CSS classes to replace 'color-' with 'text-'
-* Update styles to use standardized color palette
-* Refactor color system to use semantic class names
-* Add Storybook accessibility addon and update dependencies
-* Add 404 to authentication whitelist
-
+- Add "Clear" translation and fix search button labels
+- Modify responsiveness implementation
+- Add responsiveness to pagination
+- Add responsiveness to tables with mobile view
+- Make approval flows table responsive
+- Make quotes table responsive
+- Upgrade Node JS version
+- Fix table header error
+- Button component updates
+- Simplify color configuration for dropdown focus
+- Add gray-400 color to Tailwind and default theme
+- Update CSS classes to replace 'color-' with 'text-'
+- Update styles to use standardized color palette
+- Refactor color system to use semantic class names
+- Add Storybook accessibility addon and update dependencies
+- Add 404 to authentication whitelist
 
 ** Bug Fixes **
 
-* Fix broken preview
-* Nextjs15 upgrade done
-* Fix keyboard navigation issues for a11y
-* Dashboard background change for sidebar
+- Fix broken preview
+- Nextjs15 upgrade done
+- Fix keyboard navigation issues for a11y
+- Dashboard background change for sidebar
 
 ## Version 2.2.0 (2025-01-13)
 
 ** New Features & Improvements **
 
-* Improve unit test coverage.
-* Enable keyboard navigation for sidebar keyboard navigation
-* Use translation for aria labels
-* Handle locale changes when on PLP
+- Improve unit test coverage.
+- Enable keyboard navigation for sidebar keyboard navigation
+- Use translation for aria labels
+- Handle locale changes when on PLP
 
 ** Bug Fixes **
 
-* Handle email not found errors in password reset flow.
-* Fetch categories correctly on server
-* Fixed heading alerts
+- Handle email not found errors in password reset flow.
+- Fetch categories correctly on server
+- Fixed heading alerts
 
 ## Version 2.1.0 (2024-12-16)
 
@@ -138,7 +176,6 @@
 - Added domain types to composable commerce events
 - Size images properly
 
-
 ** Bug Fixes **
 
 - Added toast message to create new wishlist
@@ -146,7 +183,6 @@
 - Consider max quantity to be added to cart
 
 ## Version 2.0.0 (2024-11-20)
-
 
 ** New Features & Improvements **
 
@@ -171,7 +207,6 @@ Added additional event logging to CommercetoolsSDK template
 Fixed merge conflicts
 feat: Updated to latest alpha version of the coFE SDK v2
 feat: updated to use alpha v2 of the coFE SDK
-
 
 ** Bug Fixes **
 
@@ -201,7 +236,7 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 
 ** New Features and Improvements **
 
-- Enhance error messages for account verification 
+- Enhance error messages for account verification
 - Make password reset fields required
 - Added password pattern validation
 - Handled multi level category and included categoryId and categoryRef fields
@@ -217,10 +252,11 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 ** New Features and Improvements **
 
 - Upgrades to support version Next.js version 14.2.9, React v18.3.1, Yarn4 .4.1 and Typescript version 5.5.4
-- Updates to approval flows UI to support multiple rules on an order 
+- Updates to approval flows UI to support multiple rules on an order
 - Modify conditions for showing logout button
 
 ** Bug fixes **
+
 - Modify conditions for showing logout button
 - Fix toaster empty box rendering bug
 
@@ -238,7 +274,6 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 
 - Cart item number fixed based on both products and number of items in each product
 - Update fallback Image conditions
- 
 
 ## Version 1.11.0 (2024-08-15)
 
@@ -313,7 +348,6 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 
 ## Version 1.7.2 (2024-04-18)
 
-
 ** New Features and Improvements **
 
 - Rebranded B2B storybook
@@ -321,6 +355,7 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 ## Version 1.7.1 (2024-04-04)
 
 ** Bug fixes **
+
 - Fixed category types
 
 ## Version 1.7 (2024-04-03)
@@ -340,7 +375,7 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 - Adjust formatting for quote IDs
 - Add env config to nextjs config
 - Remove seller comment from quote
-- Remove netlify plugin from b2b/b2c 
+- Remove netlify plugin from b2b/b2c
 
 ## Version 1.5.3 (2024-02-09)
 
@@ -351,7 +386,6 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 - Buyers can decline, renegotiate or accept revised quotes
 - User can review order details page
 - User can filter orders in order summary list page
-
 
 ** Bug fixes **
 
@@ -364,15 +398,17 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 
 ** Bug fixes **
 
- - User is able to change/update product quantity in purchase list
- - User is able to add item to cart from wishlist
+- User is able to change/update product quantity in purchase list
+- User is able to add item to cart from wishlist
 
 ## Version 1.5.1 (2024-01-26)
 
 ** New Features and Improvemnets **
+
 - Implemented order summary
 
 ** Bug fixes **
+
 - Fixed wishlist bugs
 
 ## Version 1.5 (2024-01-24)
@@ -386,22 +422,20 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 
 - Fixed all images
 - Missing component tastics added to fixture, header links are fixed
-
+  
 
 ## Version 1.4.0 (2024-01-08)
 
-* backporting latest b2b changes
-* feat: added missing fields on query order type for SDK
-* [B2B] Correct cart layout
+- backporting latest b2b changes
+- feat: added missing fields on query order type for SDK
+- [B2B] Correct cart layout
 
 ## Version 1.3.0 (2023-12-07)
-
 
 ** Features and Improvements **
 
 - Checkout improvements
 - Added thank you component (storybook)
-
 
 ** Bug fixes **
 
@@ -420,7 +454,6 @@ fix: regenerated yarn.lock for v4 wth new sdk version
 
 - Fixed type error
 - Modified removeAddress action payload
-
 
 ** New Features and Improvements **
 
