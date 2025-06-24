@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /__preview/
+
+Sitemap: https://poc-b2bdev.frontend.site/sitemap.xml

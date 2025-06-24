@@ -1,0 +1,12 @@
+"use strict";(()=>{var e={};e.id=6945,e.ids=[6945],e.modules={10846:e=>{e.exports=require("next/dist/compiled/next-server/app-page.runtime.prod.js")},44870:e=>{e.exports=require("next/dist/compiled/next-server/app-route.runtime.prod.js")},29294:e=>{e.exports=require("next/dist/server/app-render/work-async-storage.external.js")},63033:e=>{e.exports=require("next/dist/server/app-render/work-unit-async-storage.external.js")},28354:e=>{e.exports=require("util")},47031:(e,r,t)=>{t.r(r),t.d(r,{patchFetch:()=>h,routeModule:()=>d,serverHooks:()=>x,workAsyncStorage:()=>c,workUnitAsyncStorage:()=>m});var a={};t.r(a),t.d(a,{GET:()=>u});var o=t(42706),s=t(28203),i=t(45994),l=t(39880),p=t(37459),n=t(59652);async function u(e,r){let t;let a=(await r.params).locale??p.X.defaultLocale,o=process.env.SITE_URL;n.x.defaultConfigure(a);let s=[];do{let e=n.x.composableCommerce,r=await e.product.query({cursor:t,limit:500}),i=[];r.isError||null==r.data.items||i.push(...r.data.items),s.push(...i?.map(e=>({loc:`${o}/${a}${e._url}`,lastmod:new Date().toISOString(),changefreq:"daily"}))),t=r.isError?void 0:r.data.nextCursor}while(t);return new Response((0,l.D)(s),{headers:{"Cache-Control":"public, s-maxage=86400, stale-while-revalidate","Content-Type":"application/xml"}})}let d=new o.AppRouteRouteModule({definition:{kind:s.RouteKind.APP_ROUTE,page:"/[locale]/sitemap-products.xml/route",pathname:"/[locale]/sitemap-products.xml",filename:"route",bundlePath:"app/[locale]/sitemap-products.xml/route"},resolvedPagePath:"/Users/khizar/dev/frontastic/saas/project-libraries/b2b/packages/poc/frontend/src/app/[locale]/sitemap-products.xml/route.ts",nextConfigOutput:"standalone",userland:a}),{workAsyncStorage:c,workUnitAsyncStorage:m,serverHooks:x}=d;function h(){return(0,i.patchFetch)({workAsyncStorage:c,workUnitAsyncStorage:m})}},42706:(e,r,t)=>{e.exports=t(44870)},39880:(e,r,t)=>{t.d(r,{D:()=>a});let a=e=>`
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${e.filter(({loc:e,lastmod:r,changefreq:t,priority:a})=>!!e||!!r||!!t||!a).map(({loc:e,lastmod:r,changefreq:t,priority:a})=>`
+                <url>
+                    ${e?`<loc>${e}</loc>`:""}
+                    ${r?`<lastmod>${r}</lastmod>`:""}
+                    ${t?`<changefreq>${t}</changefreq>`:""}
+                    ${a?`<priority>${a}</priority>`:""}
+                </url>
+            `).join("\n")}
+    </urlset>
+    `}};var r=require("../../../webpack-runtime.js");r.C(e);var t=e=>r(r.s=e),a=r.X(0,[5994,9909,9652],()=>t(47031));module.exports=a})();
